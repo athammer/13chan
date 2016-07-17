@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <% include ../../partials/scripts %>
+    <% include ../../partials/style %>
+    <title>13chan | User Register</title>
+    <style>
+
+    </style>
+</head>
+
+
+<body id="main">
+    <% include ../../partials/header %>
+    <br>
+    <br>
+    <h2 class="center-text">Register</h2>
+    <form class="center-text" method="post">
+        <br>
+        <h4><p>Do not use a username with personal information.</p></h4>
+        <input type="text" id="usernameRegister" name="usernameRegister" placeholder="Username"> 
+        <br>
+        <h4><p>Minimal of eight characters.</p></h4>
+        <input type="password" id="passwordRegister" name="passwordRegister" placeholder="Password"> 
+        <br>
+        <br>
+        <h3><p>Everything below is optional and is used for account recovery.</p> </h3>
+        <h3><p>You may use both methods or just one.</p></h3>
+        <br>
+        <h4><p>We do not spam and will never sell your email.</p></h4>
+        <input type="text" id="emailRegister" name="emailRegister" placeholder="Email"> 
+        <br>
+        <h4><p>Costum question, do not use personal information.</p></h4>
+        <input type="text" id="emailRegister" name="questionRegister" placeholder="Question">
+        <br>
+        <h4><p>Answer for costum question.</p></h4>
+        <input type="text" id="emailRegister" name="answerRegister" placeholder="Answer"><br>
+        <button type="Submit" id="registerButton" class="btn btn-primary">Submit</button>
+    </form>
+    <% include ../../partials/footer %>
+
+</body>
+
+</html>
+
+

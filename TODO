@@ -1,0 +1,65 @@
+need to make usernames unique to you cant register two of the same
+create boards
+why so many sessions? //fixed july 15th
+let users change email
+make user page an acutal user page
+create front page
+clean up scss
+
+https://devcenter.heroku.com/articles/ssl-beta
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+idea bucket-------------------------------------
+threads are 'maxed' by taking the average activity on a post and divideit by the average activity on all posts on that forum and multiple the denomiter by .05 then the numerator by 2
+then add 950(kinda of a loose post limit), for every post subtract one, every image post 1.3.
+
+activity is caculated by, posts(not including op's) divided by time thread is alive in minutes
+
+(((non op posts/time thread is alive)*2)/(acitivity on all posts in forum * .05)) + 950 - 1(# of posts) - 1.3(# of image posts)
+once this hits zero the thread is 404ed
+
+
+when posts are sorted by 'popular' it sorts by activity
+sorting by replies sorts by how many replies there are
+new by new
+old by thread age
+
+
+
+
+search bar on home page to search thread titles in all public(non private) forums
+
+locked forums that are locked by password 
+nsf boards cant be found by using search unless specifically asked by a button or something
+
+
+make an account to keep track of forums you are subsribed to and get a 'hot catagory' from all the forums you are subsribed too 
+
+homepage lists admin created forums and most popular user forums
+users can create their own forum and edit it's css
+each forum has tags so people can search for forums that fit their needs
+forums can be locked with a password or private(no one without a direct link can enter, so it cant be found on search)
+forum admins can choose to be completely anon, ids for ips and shit, or have registerable ids or a combination of the 3
+registerable ids will expire if not logged in for 6 months
+have users favourite forums in the top header so they can switch easily 
+
+
+create an account to manage and create boards
+change settings like header and subbed forums in profile and on a board clicking the top right
+let forum admins make money buy selling stars that goes next to people's names
+let them sponor their forum and put it in the sponor box
+will fit as many subscriptions on the top header as possible before running out of room
+everything needs to work without js

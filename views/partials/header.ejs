@@ -1,0 +1,43 @@
+<div id="header">
+    <a href="/donate"><p class="left">&nbsp;&nbsp;&nbsp;Support Us</p></a>
+    <% if(typeof userName != 'undefined' && userName != null){ %>
+        <a href="/user"><p class="right"><a href="/logout"><p class="right">Log out&nbsp;&nbsp;&nbsp;</p></a></p></a>
+    <% }else{ %>
+        <% var Register = 'Register'; %>
+        <a href="/register"><p class="right"><%= Register %></p></a>
+    <% } %>
+    <p class="right">&nbsp;|&nbsp;</p>
+    <% if(typeof userName != 'undefined' && userName != null){ %>
+        <div class="right">
+            <a href="/user/<%= userName %>"><%= userName %></a>
+            <a href="/user"><i class="fa fa-sort-desc" style="font-size: 85%" aria-hidden="true"></i>&nbsp;[0]</a>
+        </div>
+    <% }else{ %>
+        <% var LogIn = 'Log in'; %>
+        <a href="/login"><p class="right"><%= LogIn %></p></a>
+    <% } %>
+    
+    
+    <br>
+    <p class="center-text">subbed boards</p>
+</div>
+<br>
+<br>
+<br>
+<br>
+<div id="title">
+    <a href="/"><p class="right"><h1>13chan</h1></a>
+</div>
+<div id="subtitle">
+    <h2>lucky 13chan</h2>
+</div>
+<br>
+
+<% if(typeof flashObject != 'undefined' && flashObject != null){ %>
+    <div class="error_message"><p class="center-text"><%= flashObject %></div></p>
+<% } %>
+<!--
+
+
+https://gist.github.com/brianmacarthur/a4e3e0093d368aa8e423-->
+
