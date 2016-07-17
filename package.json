@@ -33,7 +33,8 @@
     "url": "https://github.com/athammer/dynite.git"
   },
   "keywords": [
-    "13chan"
+    "13chan",
+    "image board"
   ],
   "devDependencies": {
     "gulp": "^3.9.1",
