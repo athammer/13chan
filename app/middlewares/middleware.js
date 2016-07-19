@@ -28,28 +28,15 @@ module.exports = {
                 return console.error(err);
             }else{
                 console.log("user exists");
-                res.render('./pages/user/user.ejs', { userName: req.flash('user') });
+                console.log(req.session.userName + " " + queredUser);
+                if(req.session.userName == queredUser.username){
+                    res.render('./pages/user/user.ejs', { userName: req.flash('user') });
+                }else{
+                    res.render('./pages/user/publicUser.ejs', { userName: req.flash('user') });
+                }
             }
         });
-    },
-    
-    verifyRecaptcha: function(key, callback) { //https://jaxbot.me/articles/new-nocaptcha-recaptcha-with-node-js-express-12-9-2014 tytyty
-        https.get("https://www.google.com/recaptcha/api/siteverify?secret=" + '6LfSMiUTAAAAACcrOsOUnyCJGfPlxvQSeI3jK80m' + "&response=" + key, function(res) {
-            var data = ""; //will change 6LfSMiUTAAAAACcrOsOUnyCJGfPlxvQSeI3jK80m for production as it's a secret key
-            res.on('data', function (chunk) {
-                            data += chunk.toString();
-            });
-            res.on('end', function() {
-                try {
-                    var parsedData = JSON.parse(data);
-                    console.log(parsedData);
-                    callback(parsedData.success);
-                } catch (e) {
-                    callback(false);
-                }
-            });
-        });
-    } //not implemtned yet
+    }
 }
 
 //req.headers['host'] for domain with www.

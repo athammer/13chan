@@ -119,8 +119,7 @@ a:hover{
 @import url('//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css');
  
 .info_message, .success_message, .warning_message, .error_message {
-margin: 10px 0px;
-padding:12px;
+  padding: 12px;
 }
 .info_message {
     color: #00529B;
@@ -139,6 +138,18 @@ padding:12px;
     background-color: #FFBABA;
 }
 .info_message, .success_message, .warning_message, .error_message {
-    margin: 0 auto;
     vertical-align:middle;
+}
+.closebtn {
+    margin-left: 0px;
+    padding: 0px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.closebtn:hover {
+    color: black;
 }

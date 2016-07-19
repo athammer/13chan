@@ -60,7 +60,37 @@ module.exports = function(app){
     
     
     app.get('/user/:name/settings', controllerLogic.restrict, function(req, res) {
-        res.render('./pages/user/settings.ejs', { userName: req.flash('user') });
+        res.render('./pages/user/account/settings.ejs', { userName: req.flash('user') });
+        req.flash('message', null);
+    });
+    
+    
+    app.get('/user/:name/composeMessage', controllerLogic.restrict, function(req, res) {
+        res.render('./pages/user/account/composeMessage.ejs', { userName: req.flash('user') });
+        req.flash('message', null);
+    });
+    
+    
+    app.get('/user/:name/inbox', controllerLogic.restrict, function(req, res) {
+        res.render('./pages/user/account/inbox.ejs', { userName: req.flash('user') });
+        req.flash('message', null);
+    });
+    
+    
+    app.get('/user/:name/emailChange', controllerLogic.restrict, function(req, res) {
+        res.render('./pages/user/account/emailChange.ejs', { userName: req.flash('user') });
+        req.flash('message', null);
+    });
+    
+    
+    app.get('/user/:name/passwordChange', controllerLogic.restrict, function(req, res) {
+        res.render('./pages/user/account/passwordChange.ejs', { userName: req.flash('user') });
+        req.flash('message', null);
+    });
+    
+    
+    app.get('/user/:name/questionChange', controllerLogic.restrict, function(req, res) {
+        res.render('./pages/user/account/questionChange.ejs', { userName: req.flash('user') });
         req.flash('message', null);
     });
 }

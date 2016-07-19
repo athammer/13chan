@@ -24,7 +24,7 @@ module.exports = function(body, app, res, req){ //need to export for app.js to f
         });
         user.save(function (err, user) {
             if (err){
-                console.log("Error when saving to databse, shit.");
+                console.log("Error when saving to databse, sheeeeeeit.");
                 return console.error(err);
             }else{
                 console.log("user saved to database.");

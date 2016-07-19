@@ -34,8 +34,12 @@
 <br>
 
 <% if(typeof flashObject != 'undefined' && flashObject != null){ %>
-    <div class="error_message"><p class="center-text"><%= flashObject %></div></p>
+    <div class="error_message col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
+        <p class="center-text"><%= flashObject %><span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span></p>
+    </div>
 <% } %>
+<br>
+<br>
 <!--
 
 
