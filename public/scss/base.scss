@@ -104,6 +104,7 @@ a:hover{
 }
 .center{
   margin: 0 auto;
+  text-align: center;
 }
 .center-text{
   text-align: center;
@@ -152,4 +153,13 @@ a:hover{
 }
 .closebtn:hover {
     color: black;
+}
+textarea {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.center1{
+  display: flex;
+  justify-content: center;
 }
