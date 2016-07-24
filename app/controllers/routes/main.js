@@ -12,11 +12,6 @@ module.exports = function(app){ //need to export for app.js to find it
     });
     
     
-    app.get('/news', function(req, res) {
-        res.render('./pages/main/news.ejs', { userName: req.flash('user') });
-    });
-    
-    
     app.get('/social', function(req, res) {
         res.render('./pages/main/social.ejs', { userName: req.flash('user') });
     });
