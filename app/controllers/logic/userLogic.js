@@ -1,3 +1,6 @@
+var userModel = require('../../models/user.js');
+var bcrypt = require('bcrypt');
+
 module.exports = {   
     
     restrict: function(req, res, next) {

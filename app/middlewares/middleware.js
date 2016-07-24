@@ -1,5 +1,6 @@
 var https = require('https');
 var userModel = require('../../app/models/user.js');
+var bcrypt = require('bcrypt');
 
 module.exports = {
     
@@ -36,7 +37,45 @@ module.exports = {
                 }
             }
         });
+    },
+    
+    changeEmail: function(req, res, body){
+        userModel.findOne({ 'username': req.session.user }, 'password',  function (err, queredUser) {
+            if (err){
+                console.log(err);
+                req.flash('message', 'Error has occured trying to change your email, run for the hills or try again.');
+                res.redirect('/user/' + req.session.user + '/emailChange');
+            }
+            bcrypt.compare(body.password, queredUser.password, function(err, bool) {
+                if (err){ //i should make this less copypasta
+                    console.log(err);
+                    req.flash('message', 'Error has occured trying to change your email, run for the hills or try again.');
+                    res.redirect('/user/' + req.session.user + '/emailChange');
+                }
+                if(bool){
+                    console.log('good password');
+                    userModel.findOneAndUpdate({'username': req.session.user}, { email: body.newEmail }, {upsert:false}, function(err, doc){
+                        if (err){
+                            console.log(err);
+                            req.flash('message', 'Error has occured trying to change your email, run for the hills or try again.');
+                            res.redirect('/user/' + req.session.user + '/emailChange');
+                        }else{
+                            req.flash('message', 'Email successfully changed to ' + body.newEmail + '.');
+                            res.redirect('/user');
+                            return true;
+                        }
+                        });
+
+                }else{
+                    req.flash('message', 'Password is incorrect please try again!');
+                    res.redirect('/user/' + req.session.user + '/emailChange');
+                    return false;
+                }
+            });
+        });
     }
+    
+
 }
 
 //req.headers['host'] for domain with www.

@@ -81,6 +81,9 @@ module.exports = function(app){
         res.render('./pages/user/account/emailChange.ejs', { userName: req.flash('user') });
         req.flash('message', null);
     });
+    app.post('/user/:name/emailChange', jsonParser, function(req, res) {
+        middleware.changeEmail(res, req, req.body);
+    });
     
     
     app.get('/user/:name/passwordChange', controllerLogic.restrict, function(req, res) {
