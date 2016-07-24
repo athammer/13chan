@@ -11,7 +11,10 @@ var userSchema = new Schema({
     answer: String,
     date: { type: Date, default: Date.now },
     forumposts: Number,
-    timespent:  Number  //will be in hours then converted to monhts/minutes blah blah
+    timespent:  Number,  //will be in hours then converted to monhts/minutes blah blah
+    createdboards: [String],
+    subbedboards: [String],
+    
 });
 
 var users = mongoose.model('user', userSchema);
