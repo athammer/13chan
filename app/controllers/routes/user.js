@@ -82,7 +82,7 @@ module.exports = function(app){
         req.flash('message', null);
     });
     app.post('/user/:name/emailChange', jsonParser, function(req, res) {
-        middleware.changeEmail(res, req, req.body);
+        middleware.changeEmail(req, res, req.body);
     });
     
     

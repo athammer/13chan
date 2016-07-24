@@ -40,35 +40,35 @@ module.exports = {
     },
     
     changeEmail: function(req, res, body){
-        userModel.findOne({ 'username': req.session.user }, 'password',  function (err, queredUser) {
+        userModel.findOne({ 'username': req.session.userName }, 'password',  function (err, queredUser) {
             if (err){
                 console.log(err);
                 req.flash('message', 'Error has occured trying to change your email, run for the hills or try again.');
-                res.redirect('/user/' + req.session.user + '/emailChange');
+                res.redirect('/user/' + req.session.userName + '/emailChange');
             }
             bcrypt.compare(body.password, queredUser.password, function(err, bool) {
                 if (err){ //i should make this less copypasta
                     console.log(err);
                     req.flash('message', 'Error has occured trying to change your email, run for the hills or try again.');
-                    res.redirect('/user/' + req.session.user + '/emailChange');
+                    res.redirect('/user/' + req.session.userName + '/emailChange');
                 }
                 if(bool){
                     console.log('good password');
-                    userModel.findOneAndUpdate({'username': req.session.user}, { email: body.newEmail }, {upsert:false}, function(err, doc){
+                    userModel.findOneAndUpdate({'username': req.session.userName}, { email: body.newEmail }, {upsert:false}, function(err, doc){
                         if (err){
                             console.log(err);
                             req.flash('message', 'Error has occured trying to change your email, run for the hills or try again.');
-                            res.redirect('/user/' + req.session.user + '/emailChange');
+                            res.redirect('/user/' + req.session.userName + '/emailChange');
                         }else{
                             req.flash('message', 'Email successfully changed to ' + body.newEmail + '.');
-                            res.redirect('/user');
+                            res.redirect('/user/' + req.session.userName);
                             return true;
                         }
                         });
 
                 }else{
                     req.flash('message', 'Password is incorrect please try again!');
-                    res.redirect('/user/' + req.session.user + '/emailChange');
+                    res.redirect('/user/' + req.session.userName + '/emailChange');
                     return false;
                 }
             });
