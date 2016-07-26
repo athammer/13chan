@@ -16,7 +16,7 @@ module.exports = function(app){
     
     
     app.get('/register', userLogic.loginCheck, function(req, res) {
-        res.render('./pages/user/register.ejs', { userName: req.flash('user') });
+        res.render('./pages/user/register.ejs', { flashObject: req.flash('message'), userName: req.flash('user') });
     });
     app.post('/register', jsonParser, function(req, res) {
         console.log("Post from register");
