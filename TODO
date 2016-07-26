@@ -1,24 +1,38 @@
+=================DONE=========================
 need to make usernames/emails unique to you cant register two of the same --done june 24th 2016
+why so many sessions? ---- //fixed july 15th
+make user page an acutal user page --done
+blog --- //done 7/17/2016
+get Regex to check if password and email and stuff is valid on server sidejust incase the dummy disables javascript --done 7/26/2016
+encrypt question and answer --done 7/25/16
+create frontend js to stop them registering an incomplete form //7/26/2016
+
+
+
+
+
+
+
+=============WHEN I GET TO IT=======================
 repopulated forms after failed login/register/ or anything like that
 create boards like 13chan.co/b/[name]
-why so many sessions? ---- //fixed july 15th
 let users change email
-make user page an acutal user page --done
 create front page
 clean up scss
-blog --- //done 7/17/2016
 think of a good system of password recovery and changing passwords/email/secret question so its not fucking dumb
 make the worst website in the world that loses a lot of money
 finish the website and start a new more cancerous one
 make a user+ cookie that expires when they run out of user+ membership its like 3.999999 a month
 send a email to the user when password/email/registered and stuff
-get Regex to check if password and email is valid on server sidejust incase the dummy disables javascript --done 7/26/2016
 get regex to check on front end and stop them from putting it in
-create frontend and backend js to stop them registering an incomplete form
+create backend js to stop them registering an incomplete form
 verifaction email  
 create a lost password system
-encrypt question and answer --done 7/25/16
 figure out if i should encrypt emails? prob tbh
+
+
+
+
 
 
 https://devcenter.heroku.com/articles/ssl-beta

@@ -8,12 +8,31 @@ module.exports = function(body, app, res, req){ //need to export for app.js to f
     var password = body.passwordRegister;
     var regex = {
         email: /^[A-Z0-9._-]+@[A-Z0-9.-]+\.[A-Z0-9.-]+$/i, //http://regexlib.com/REDetails.aspx?regexp_id=5011
-        name: /^[A-Za-z0-9_]{3,20}$/ //http://www.9lessons.info/2009/03/perfect-javascript-form-validation.html
+        name: /^[A-Za-z0-9_]{3,20}$/, //http://www.9lessons.info/2009/03/perfect-javascript-form-validation.html
+        password: /.{8,}/
     };
     var emailReg = regex.email.test(body.emailRegister);
     var userReg = regex.name.test(body.usernameRegister);
+    var password = regex.password.test(body.password);
+    
+    //here we go....
+    if(!emailReg && !userReg && !password){
+        req.flash('message', "Error: Email, username and password is in wrong format, please correct this.");
+        res.redirect("/register");
+        return false;
+    }
     if(!emailReg && !userReg){
         req.flash('message', "Error: Email and username is in wrong format, please correct this.");
+        res.redirect("/register");
+        return false;
+    }
+    if(!emailReg && !password){
+        req.flash('message', "Error: Email and password is in wrong format, please correct this.");
+        res.redirect("/register");
+        return false;
+    }
+    if(!userReg && !password){
+        req.flash('message', "Error: Username and password is in wrong format, please correct this.");
         res.redirect("/register");
         return false;
     }
@@ -27,6 +46,12 @@ module.exports = function(body, app, res, req){ //need to export for app.js to f
         res.redirect("/register");
         return false;
     }
+    if(!password){
+        req.flash('message', "Error: Passowrd is in wrong format, please correct this.");
+        res.redirect("/register");
+        return false;
+    }
+    //asdfasdfsdafadsfds case switch better? fuck it for now
     bcrypt.hash(password, saltRounds, function(err, hash) {
         if (err){
             return console.error(err);
