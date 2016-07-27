@@ -29,6 +29,7 @@ create backend js to stop them registering an incomplete form
 verifaction email  
 create a lost password system
 figure out if i should encrypt emails? prob tbh
+create a last logged in thingy
 
 
 
