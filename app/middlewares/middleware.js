@@ -14,7 +14,7 @@ module.exports = {
         //     res.end();  
         // } i want to do this but then i get no email it hurts every time :(
         if(!req.secure){
-            var secureURL = "https://" + req.hostname + req.url;
+            var secureURL = "https://www." + req.hostname + req.url;
             res.writeHead(301, { "Location":  secureURL });
             res.end();  
         } 
