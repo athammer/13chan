@@ -16,8 +16,7 @@ module.exports = {
         if (req.headers.host.match(/^www/) == null ){
             res.redirect('https://www.' + req.headers.host + req.url, 301); // 8) non www to www
             res.end();
-        } 
-        else next();
+        }
         if(!req.secure){
             var secureURL = "https://www." + req.hostname + req.url;
             res.writeHead(301, { "Location":  secureURL });
