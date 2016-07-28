@@ -13,6 +13,10 @@ module.exports = {
         //     res.writeHead(301, { "Location":  secureUrlNoWWW });
         //     res.end();  
         // } i want to do this but then i get no email it hurts every time :(
+        if (req.headers.host.match(/^www/) == null ){
+            res.redirect('https://www.' + req.headers.host + req.url, 301); // 8) non www to www
+        } 
+        else next();
         if(!req.secure){
             var secureURL = "https://www." + req.hostname + req.url;
             res.writeHead(301, { "Location":  secureURL });
