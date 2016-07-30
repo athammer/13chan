@@ -8,14 +8,18 @@ module.exports = function(body, app, res, req){ //need to export for app.js to f
     userModel.findOne({ 'username': body.usernameLogin }, 'password username',  function (err, queredUser) {
         if (err || queredUser == null){
             console.log("Eror loggin in ");
+            req.flash('message', "Error: An error has occured, please try again.");
             res.redirect("/login");
             return console.error(err);
         }else{
             console.log("loggin in" + queredUser.username);
         }
         bcrypt.compare(body.passwordLogin, queredUser.password, function(err, bool) {
-            if (err)
+            if (err){
+                req.flash('message', "Error: An error has occured while trying to log you in, please try again later.");
+                res.redirect("/login");
                 throw (err);
+            }
             if(bool){
                 req.session.regenerate(function(){
                     console.log("password is correct, user has right information");
@@ -34,7 +38,8 @@ module.exports = function(body, app, res, req){ //need to export for app.js to f
                     res.redirect("/user/" + req.session.user);
                 });
             }else{
-                console.log("password is incorrect: " + queredUser.password);
+                req.flash('message', "Error: Password is incorrect, please try again.");
+                res.redirect("/login");
             }
         });
     });

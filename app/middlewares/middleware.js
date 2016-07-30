@@ -1,6 +1,7 @@
 var https = require('https');
 var userModel = require('../../app/models/user.js');
 var bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 module.exports = {
     
@@ -74,10 +75,56 @@ module.exports = {
                 }
             });
         });
+    },
+    
+    changePassword: function(req, res, body){
+        if(!(body.newPassword == body.newPassword1)){
+                req.flash('message', 'Error: Your two new passwords did not match.');
+                res.redirect('/user/' + req.session.userName + '/passwordChange');
+                return 0;
+        }
+        userModel.findOne({ 'username': req.session.userName }, 'password',  function (err, queredUser) {
+            if (err){ //i should make this less copypasta
+                req.flash('message', 'Error: Cannot validate user, please try again later.');
+                res.redirect('/user/' + req.session.userName + '/passwordChange');
+                throw(err);
+            }
+            bcrypt.compare(body.password, queredUser.password, function(err, bool) {
+                if (err){ //i should make this less copypasta
+                    req.flash('message', 'Error: Cannot change password please try again later.');
+                    res.redirect('/user/' + req.session.userName + '/passwordChange');
+                    throw(err);
+                }
+                if(bool){ //password is good
+                    bcrypt.hash(body.newPassword, saltRounds, function(err, hash) {
+                        userModel.findOneAndUpdate({'username': req.session.userName}, { password: hash }, {upsert:false}, function(err, doc){
+                            if (err){ //i should make this less copypasta
+                                req.flash('message', 'Error: Cannot update user, please try again later.');
+                                res.redirect('/user/' + req.session.userName + '/passwordChange');
+                                throw(err);
+                            }else{
+                                req.flash('message', 'Success: Password changed successfully.');
+                                res.redirect('/user/' + req.session.userName);
+                                return 1;
+                            }
+                        });
+                        if (err){ //i should make this less copypasta
+                            req.flash('message', 'Error: Cannot encrypt password, please try again later.');
+                            res.redirect('/user/' + req.session.userName + '/passwordChange');
+                            throw(err);
+                        }
+                    });
+                }else{
+                    req.flash('message', 'Error: Password was incorrect try again.');
+                    res.redirect('/user/' + req.session.userName + '/passwordChange');
+                    return 0;
+                }
+            });
+        });
     }
     
 
-}
+};
 
 //req.headers['host'] for domain with www.
 //req.hostname without www

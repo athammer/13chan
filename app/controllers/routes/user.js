@@ -90,6 +90,9 @@ module.exports = function(app){
         res.render('./pages/user/account/passwordChange.ejs', { userName: req.flash('user') });
         req.flash('message', null);
     });
+    app.post('/user/:name/passwordChange', jsonParser, function(req, res) {
+        middleware.changePassword(req, res, req.body);
+    });
     
     
     app.get('/user/:name/questionChange', controllerLogic.restrict, function(req, res) {
