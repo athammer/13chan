@@ -11,7 +11,8 @@ module.exports = {
             var secureUrlNoWWW = "https://" + newHost + req.url;
             //console.log(secureUrlNoWWW);
             res.writeHead(301, { "Location":  secureUrlNoWWW });
-            res.end();  
+            res.end();
+            next();
         }
         if(!req.secure){
             var secureURL = "https://www." + req.hostname + req.url;
