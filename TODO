@@ -35,7 +35,7 @@ make users verfiy email when creating boards? make a bool key in user model? //h
 make passwordchange.ejs check if the two passwords are the same in backend
 make passwordchange.ejs check if the two passwords are the same in frontend
 figure out what password reqs i want then add it to change pw, and register
-
+learn socket.io
 
 
 

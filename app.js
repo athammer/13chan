@@ -7,17 +7,26 @@ If you have your node.js behind a proxy and are using secure: true, you need to 
 
 var express = require('express');
 var app = express();
+var server = require('http').Server(app);
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
-var helmet = require('helmet')
+var helmet = require('helmet');
 var flash = require('req-flash');
 var session = require('express-session');
 var favicon = require('serve-favicon');
 var MongoStore = require('connect-mongo')(session);
 
+
+
 var middlewares = require("./app/middlewares/middleware.js");
 var controllerLogic = require('./app/controllers/logic/controllerLogic.js');
 
+//http://socket.io/docs/
+var io = require('socket.io')(server);
+server.listen(process.env.PORT || 8080, process.env.IP);
+io.on('connection', function (socket) {
+    console.log('connected');
+});
 
 
 
@@ -29,13 +38,15 @@ db.once('open', function() {
 });
 
 
+
+
+
 app.set('view engine', 'ejs');
 app.set('trust proxy', 1);
 
 
 
 app.use(helmet());
-
 app.use(favicon('./public/img/favicon.png'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -67,6 +78,6 @@ require('./app/controllers/routes/user.js')(app);
 require('./app/controllers/routes/main.js')(app); //must run last as 404 page is there
 
 
-app.listen(process.env.PORT || 8080, process.env.IP);
+
 
 
