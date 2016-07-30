@@ -5,17 +5,13 @@ var bcrypt = require('bcrypt');
 module.exports = {
     
     prettifyDomain: function(req, res, next) {
-        // if(req.headers && req.get('Host').slice(0, 4) === 'www.'){
-        //     var newHost = req.get('Host').slice(4);
-        //     //console.log("new host" + newHost);
-        //     var secureUrlNoWWW = "https://" + newHost + req.url;
-        //     //console.log(secureUrlNoWWW);
-        //     res.writeHead(301, { "Location":  secureUrlNoWWW });
-        //     res.end();  
-        // } i want to do this but then i get no email it hurts every time :(
-        if (req.headers.host.match(/^www/) == null ){
-            res.redirect('https://www.' + req.headers.host + req.url, 301); // 8) non www to www
-            res.end();
+        if(req.headers && req.get('Host').slice(0, 4) === 'www.'){
+            var newHost = req.get('Host').slice(4);
+            //console.log("new host" + newHost);
+            var secureUrlNoWWW = "https://" + newHost + req.url;
+            //console.log(secureUrlNoWWW);
+            res.writeHead(301, { "Location":  secureUrlNoWWW });
+            res.end();  
         }
         if(!req.secure){
             var secureURL = "https://www." + req.hostname + req.url;
