@@ -8,7 +8,7 @@
     <% include ../../partials/style %>
     <title>13chan | 13chan Home an Anonymous Image Board</title>
     <script>
-      var socket = io.connect('https://localhost');
+      var socket = io.connect()
       socket.on('news', function (data) {
         console.log(data);
         socket.emit('my other event', { my: 'data' });
