@@ -15,7 +15,8 @@ var boardSchema = new Schema({
     owner:  String,
     mod:  String,
     janitor:  String,
-    inactive:  Boolean
+    inactive:  Boolean,
+    postcontent: [Array]
 });
 
 var board = mongoose.model('board', boardSchema);

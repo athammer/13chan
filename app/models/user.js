@@ -15,7 +15,8 @@ var userSchema = new Schema({
     createdboards: [String],
     subbedboards: [String],
     permission: String,
-    lastloggedin: { type: Date, default: Date.now }
+    lastloggedin: { type: Date, default: Date.now },
+    emailverified: Boolean
 });
 
 var users = mongoose.model('user', userSchema);

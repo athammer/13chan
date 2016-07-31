@@ -1,7 +1,7 @@
 var userModel = require('../../app/models/user.js');
-//var session = require('express-session');
 var bcrypt = require('bcrypt');
 const saltRounds = 10;
+var nodemailer = require('nodemailer');
 
 module.exports = function(body, app, res, req){ //need to export for app.js to find it
     console.log("Registering in user.");
@@ -120,3 +120,5 @@ module.exports = function(body, app, res, req){ //need to export for app.js to f
         });        
     });
 };
+
+
