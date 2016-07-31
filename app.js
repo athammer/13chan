@@ -3,7 +3,7 @@
 
 var express = require('express');
 var app = express();
-var server = require('http').Server(app);
+var server = app.listen(process.env.PORT || 8080, process.env.IP);
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var helmet = require('helmet');
@@ -11,6 +11,7 @@ var flash = require('req-flash');
 var session = require('express-session');
 var favicon = require('serve-favicon');
 var MongoStore = require('connect-mongo')(session);
+var io = require('socket.io').listen(server);
 
 
 
@@ -18,12 +19,24 @@ var middlewares = require("./app/middlewares/middleware.js");
 var controllerLogic = require('./app/controllers/logic/controllerLogic.js');
 
 //http://socket.io/docs/
-var io = require('socket.io')(server);
-server.listen(process.env.PORT || 8080, process.env.IP);
-io.on('connection', function (socket) {
-    console.log('connected');
-});
 
+
+
+
+
+
+app.set('view engine', 'ejs');
+app.set('trust proxy', 1);
+
+
+
+
+io.on('connection', function (socket) {
+  socket.emit('news', { hello: 'world' });
+  socket.on('my other event', function (data) {
+    console.log(data);
+  });
+});
 
 
 mongoose.connect('mongodb://admin:notasecret@ds023593.mlab.com:23593/heroku_1v04kswb');
@@ -33,12 +46,6 @@ db.once('open', function() {
     //
 });
 
-
-
-
-
-app.set('view engine', 'ejs');
-app.set('trust proxy', 1);
 
 
 
