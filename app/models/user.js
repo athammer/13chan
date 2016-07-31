@@ -14,7 +14,8 @@ var userSchema = new Schema({
     timespent:  Number,  //will be in hours then converted to monhts/minutes blah blah
     createdboards: [String],
     subbedboards: [String],
-    permission: String
+    permission: String,
+    lastloggedin: { type: Date, default: Date.now }
 });
 
 var users = mongoose.model('user', userSchema);

@@ -1,8 +1,4 @@
-/*
-Please note that secure: true is a recommended option. However, it requires an https-enabled website, i.e., HTTPS is necessary for secure cookies. 
-If secure is set, and you access your site over HTTP, the cookie will not be set.
-If you have your node.js behind a proxy and are using secure: true, you need to set "trust proxy" in express:
-*/
+
 //https://blog.risingstack.com/node-js-security-checklist/
 
 var express = require('express');

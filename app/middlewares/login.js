@@ -35,7 +35,11 @@ module.exports = function(body, app, res, req){ //need to export for app.js to f
                     req.session.user = queredUser.username;
                     req.session.userName = queredUser.username;
                     app.locals.userName;
+                    userModel.findOneAndUpdate({'username': req.session.userName}, { lastloggedin: Date.now }, {upsert:true}, function(err, doc){
+                        if(err) console.log(err);
+                    });
                     res.redirect("/user/" + req.session.user);
+                    return 1;
                 });
             }else{
                 req.flash('message', "Error: Password is incorrect, please try again.");

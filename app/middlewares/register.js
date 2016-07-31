@@ -75,7 +75,8 @@ module.exports = function(body, app, res, req){ //need to export for app.js to f
                     answer: answerRegister,
                     date: Date.now(),
                     forumposts: 0,
-                    timespent: 0
+                    timespent: 0,
+                    lastloggedin: Date.now()
                 });
                 userModel.findOne({ 'username': body.usernameRegister }, 'username email',  function (err, queredUser) {
                     if(err){
