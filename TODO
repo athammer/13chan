@@ -7,10 +7,9 @@ get Regex to check if password and email and stuff is valid on server sidejust i
 encrypt question and answer --done 7/25/16
 create frontend js to stop them registering an incomplete form //7/26/2016
 let users change email --done
-
 create backend js to stop them registering an incomplete form for all parts on the website --done
 make passwordchange.ejs check if the two passwords are the same in backend --done
-
+learn socket.io --done
 
 
 
@@ -34,13 +33,12 @@ use websocket for livetime responce for registration and pretty much everything 
 make users verfiy email when creating boards? make a bool key in user model? //https://www.npmjs.com/package/email-templates
 make passwordchange.ejs check if the two passwords are the same in frontend
 figure out what password reqs i want then add it to change pw, and register
-learn socket.io
+
 when logged out dont let users change pass/email and stuff if they have another tab open on that page
 
 dont do the frontend regex and checks yet, learn websockets first dummy
 
 
-=============DONE BUT WILL PROB NEED TO DO AGAIN=======================
 
 
 https://devcenter.heroku.com/articles/ssl-beta
