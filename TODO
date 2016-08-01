@@ -12,6 +12,7 @@ make passwordchange.ejs check if the two passwords are the same in backend --don
 learn socket.io --done
 create a last logged in thingy --done
 dont let users complete unfilled form backend --done
+when logged out dont let users change pass/email and stuff if they have another tab open on that page --done
 
 
 =============WHEN I GET TO IT=======================
@@ -35,7 +36,7 @@ make users verfiy email when creating boards? make a bool key in user model? //h
 make passwordchange.ejs check if the two passwords are the same in frontend
 figure out what password reqs i want then add it to change pw, and register
 learn nodemailer //https://www.npmjs.com/package/nodemailer
-when logged out dont let users change pass/email and stuff if they have another tab open on that page
+
 dont do the frontend regex and checks yet, learn websockets first dummy
 let boards be created but not ones that are already in use such as /user/ and /login/ 
 create a medium page instead of a blog?

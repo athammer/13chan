@@ -42,6 +42,11 @@ module.exports = {
     },
     
     changeEmail: function(req, res, body){
+        if(!(req.session.user)){
+            req.flash('message', 'Error: Not logged in, please login and try again.');
+            res.redirect('/');
+            return 0;    
+        }
         if(!(body.newEmail && body.password)){
             req.flash('message', 'Error: All fields were not filled please try again.');
             res.redirect('/user/' + req.session.userName + '/emailChange');
@@ -83,6 +88,11 @@ module.exports = {
     },
     
     changePassword: function(req, res, body){
+        if(!(req.session.user)){
+            req.flash('message', 'Error: Not logged in, please login and try again.');
+            res.redirect('/');
+            return 0;    
+        }
         if(!(body.newPassword && body.newPassword1 && body.password)){
             req.flash('message', 'Error: All fields were not filled please try again.');
             res.redirect('/user/' + req.session.userName + '/passwordChange');

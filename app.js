@@ -11,7 +11,7 @@ var flash = require('req-flash');
 var session = require('express-session');
 var favicon = require('serve-favicon');
 var MongoStore = require('connect-mongo')(session);
-var io = require('socket.io').listen(server);
+
 
 
 
@@ -29,14 +29,7 @@ app.set('view engine', 'ejs');
 app.set('trust proxy', 1);
 
 
-
-
-io.on('connection', function (socket) {
-  socket.emit('news', { hello: 'world' });
-  socket.on('my other event', function (data) {
-    console.log(data);
-  });
-});
+require('./app/controllers/socket.io/socket.js')(server);
 
 
 mongoose.connect('mongodb://admin:notasecret@ds023593.mlab.com:23593/heroku_1v04kswb');
