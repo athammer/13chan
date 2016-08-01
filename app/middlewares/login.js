@@ -4,7 +4,11 @@ var bcrypt = require('bcrypt');
 
 module.exports = function(body, app, res, req){ //need to export for app.js to find it
     console.log("Logging in user.");
-
+    if(!(body.usernameLogin && body.passwordLogin)){
+        req.flash('message', "Error: Form was not fully filled out please fill out form completely.");
+        res.redirect("/login");
+        return 0;
+    }
     userModel.findOne({ 'username': body.usernameLogin }, 'password username',  function (err, queredUser) {
         if (err || queredUser == null){
             console.log("Eror loggin in ");

@@ -10,7 +10,8 @@ let users change email --done
 create backend js to stop them registering an incomplete form for all parts on the website --done
 make passwordchange.ejs check if the two passwords are the same in backend --done
 learn socket.io --done
-
+create a last logged in thingy --done
+dont let users complete unfilled form backend --done
 
 
 =============WHEN I GET TO IT=======================
@@ -28,7 +29,7 @@ make a page where they can resend the verifcation email
 verifaction email  
 create a lost password system
 figure out if i should encrypt emails? prob tbh
-create a last logged in thingy
+
 use websocket for livetime responce for registration and pretty much everything as we go and learn it
 make users verfiy email when creating boards? make a bool key in user model? //https://www.npmjs.com/package/email-templates
 make passwordchange.ejs check if the two passwords are the same in frontend
@@ -38,6 +39,7 @@ when logged out dont let users change pass/email and stuff if they have another 
 dont do the frontend regex and checks yet, learn websockets first dummy
 let boards be created but not ones that are already in use such as /user/ and /login/ 
 create a medium page instead of a blog?
+before password change can take affect make users confirm it in email?
 
 
 

@@ -6,6 +6,11 @@ var nodemailer = require('nodemailer');
 module.exports = function(body, app, res, req){ //need to export for app.js to find it
     console.log("Registering in user.");
     var password = body.passwordRegister;
+    if(!(body.usernameRegister && body.passwordRegister && body.emailRegister && body.questionRegister && body.answerRegister)){
+        req.flash('message', "Error: One of the inputs was not filled please retry and fill in all fields.");
+        res.redirect("/register");
+        return false;
+    }
     var regex = {
         email: /^[A-Z0-9._-]+@[A-Z0-9.-]+\.[A-Z0-9.-]+$/i, //http://regexlib.com/REDetails.aspx?regexp_id=5011
         name: /^[A-Za-z0-9_]{3,20}$/, //http://www.9lessons.info/2009/03/perfect-javascript-form-validation.html

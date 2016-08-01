@@ -42,6 +42,11 @@ module.exports = {
     },
     
     changeEmail: function(req, res, body){
+        if(!(body.newEmail && body.password)){
+            req.flash('message', 'Error: All fields were not filled please try again.');
+            res.redirect('/user/' + req.session.userName + '/emailChange');
+            return false;
+        }
         userModel.findOne({ 'username': req.session.userName }, 'password',  function (err, queredUser) {
             if (err){
                 console.log(err);
@@ -78,6 +83,11 @@ module.exports = {
     },
     
     changePassword: function(req, res, body){
+        if(!(body.newPassword && body.newPassword1 && body.password)){
+            req.flash('message', 'Error: All fields were not filled please try again.');
+            res.redirect('/user/' + req.session.userName + '/passwordChange');
+            return 0;   
+        }
         if(!(body.newPassword == body.newPassword1)){
                 req.flash('message', 'Error: Your two new passwords did not match.');
                 res.redirect('/user/' + req.session.userName + '/passwordChange');
