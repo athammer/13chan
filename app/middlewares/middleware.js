@@ -23,6 +23,18 @@ module.exports = {
         next();
     },
     
+    boardSubDomain: function(req, res, next) {
+        if(req.subdomains != 'b'){
+            var secureURL = "https://b." + req.hostname + req.url;
+            res.writeHead(301, { "Location":  secureURL });
+            res.end();  
+        }else{
+            //good
+            return 1;
+        }
+        next();
+    },
+    
     userNameCheck: function(req, res, possibleUser) { 
         userModel.findOne({ 'username': possibleUser }, 'username',  function (err, queredUser) {
             if (err || queredUser == null){

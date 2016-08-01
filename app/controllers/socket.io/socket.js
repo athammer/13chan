@@ -1,4 +1,4 @@
-var socketio = require('socket.io');
+
 
 module.exports = function(server){
     var io = require('socket.io').listen(server);
@@ -7,5 +7,14 @@ module.exports = function(server){
         socket.on('my other event', function (data) {
             console.log(data);
         });
+        
+        
+        socket.emit('boardCheck', { hello: 'world' });
+        socket.on('boardCheck', function (data) {
+            if(data){
+                console.log("Page is a board.");
+                require('./../../middleware/middleware.js').boardSubDomain;
+            }
+        });
     });
-}
+};
