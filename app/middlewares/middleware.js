@@ -16,7 +16,7 @@ module.exports = {
             return 1;
         }
         if(!req.secure){
-            var secureURL = "https://www." + req.hostname + req.url;
+            var secureURL = "https://" + req.hostname + req.url;
             res.writeHead(301, { "Location":  secureURL });
             res.end();  
         } 
@@ -24,15 +24,19 @@ module.exports = {
     },
     
     boardSubDomain: function(req, res, next) {
+        console.log("test");
+        var killSubdomain = /(?:[^.]*)(.*)/i;
         if(req.subdomains != 'b'){
-            var secureURL = "https://b." + req.hostname + req.url;
+            console.log(req.hostname);
+            var goodHost = killSubdomain.exec(req.hostname);
+            console.log(goodHost[1]);
+            var secureURL = "https://b" + goodHost[1] + req.url;
+            console.log(secureURL);
             res.writeHead(301, { "Location":  secureURL });
-            res.end();  
-        }else{
-            //good
+            res.end();
             return 1;
         }
-        next();
+        return 1;
     },
     
     userNameCheck: function(req, res, possibleUser) { 

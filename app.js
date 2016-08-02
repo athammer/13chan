@@ -29,7 +29,7 @@ app.set('view engine', 'ejs');
 app.set('trust proxy', 1);
 
 
-require('./app/controllers/socket.io/socket.js')(server);
+require('./app/controllers/socket.io/socket.js')(server, app);
 
 
 mongoose.connect('mongodb://admin:notasecret@ds023593.mlab.com:23593/heroku_1v04kswb');
@@ -65,10 +65,9 @@ app.use(session({
     store: new MongoStore({ mongooseConnection: mongoose.connection })
 }));
 app.use(middlewares.prettifyDomain);
-//app.use(middlewares.notABoardDummy);
 app.use(flash());
 app.use(controllerLogic.flashUsername);
-//app.use(controllerLogic.clearFlash);
+
 
 require('./app/controllers/routes/boards.js')(app);
 require('./app/controllers/routes/user.js')(app);
