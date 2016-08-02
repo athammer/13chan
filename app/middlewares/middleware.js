@@ -24,6 +24,7 @@ module.exports = {
     },
     
     boardSubDomain: function(req, res, next) {
+        console.log(req.subdomains)
         if(req.subdomains != 'b'){
             var secureURL = "https://b." + '13chan.co' + req.url;
             console.log(secureURL);
