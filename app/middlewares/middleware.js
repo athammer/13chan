@@ -24,13 +24,8 @@ module.exports = {
     },
     
     boardSubDomain: function(req, res, next) {
-        console.log("test");
-        var killSubdomain = /13chan.co/i; //regex doesnt work if its https://13chan.co
         if(req.subdomains != 'b'){
-            console.log(req.hostname);
-            var goodHost = killSubdomain.exec(req.hostname);
-            console.log(goodHost[1]);
-            var secureURL = "https://b" + goodHost[1] + req.url;
+            var secureURL = "https://b." + '13chan.co' + req.url;
             console.log(secureURL);
             res.writeHead(301, { "Location":  secureURL });
             res.end();
