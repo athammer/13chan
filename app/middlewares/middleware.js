@@ -25,7 +25,7 @@ module.exports = {
     
     boardSubDomain: function(req, res, next) {
         console.log("test");
-        var killSubdomain = /(?:[^.]*)(.*)/i;
+        var killSubdomain = /13chan.co/i; //regex doesnt work if its https://13chan.co
         if(req.subdomains != 'b'){
             console.log(req.hostname);
             var goodHost = killSubdomain.exec(req.hostname);
