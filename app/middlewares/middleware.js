@@ -7,6 +7,7 @@ module.exports = {
     
     prettifyDomain: function(req, res, next) {
         if(req.headers && req.get('Host').slice(0, 4) === 'www.'){
+            console.log("bad www.")
             var newHost = req.get('Host').slice(4);
             //console.log("new host" + newHost);
             var secureUrlNoWWW = "https://" + newHost + req.url;
@@ -16,6 +17,7 @@ module.exports = {
             return 1;
         }
         if(!req.secure){
+            console.log("to ssl");
             var secureURL = "https://" + req.hostname + req.url;
             res.writeHead(301, { "Location":  secureURL });
             res.end();  
@@ -24,15 +26,17 @@ module.exports = {
     },
     
     boardSubDomain: function(req, res, next) {
-        console.log(req.subdomains)
-        if(req.subdomains != 'b'){
+        console.log("tes")
+        console.log(req.subdomains[0])
+        if(req.subdomains[0] != 'b'){
             var secureURL = "https://b." + '13chan.co' + req.url;
-            console.log(secureURL);
-            res.writeHead(301, { "Location":  secureURL });
+            console.log(secureURL)
+            res.redirect('/test');
+            res.setHeader("Location", "secureURL");
             res.end();
-            return 1;
         }
-        return 1;
+        next();
+        
     },
     
     userNameCheck: function(req, res, possibleUser) { 

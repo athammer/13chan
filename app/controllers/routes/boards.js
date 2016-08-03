@@ -11,7 +11,7 @@ module.exports = function(app){ //need to export for app.js to find it
         res.render('./pages/boards/create.ejs', { userName: req.flash('user') });
     });
     app.post('/create', jsonParser, function(req, res) {
-        boardsLogic.createboard(req, res, req.body)
+        boardsLogic.createboard(req, res, req.body);
     });
 
 
@@ -23,6 +23,8 @@ module.exports = function(app){ //need to export for app.js to find it
     app.get('/test', middlewares.boardSubDomain, function(req, res) {
         res.render('./pages/boards/legoBoard.ejs', { userName: req.flash('user') });
         
-        
     });
-}
+};
+
+
+

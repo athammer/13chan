@@ -10,14 +10,6 @@ module.exports = function(server, app){
             console.log(data);
         });
         
-        
-        socket.on('boardCheck', function (data) {
-            if(data){
-                console.log("Page is a board.");
-                app.locals.boardCheck = true;
-            }else{
-                app.locals.boardCheck = false;
-            }
-        });
+    
     });
 };

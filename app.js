@@ -42,6 +42,7 @@ db.once('open', function() {
 
 
 
+
 app.use(helmet());
 app.use(favicon('./public/img/favicon.png'));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -67,6 +68,7 @@ app.use(session({
 app.use(middlewares.prettifyDomain);
 app.use(flash());
 app.use(controllerLogic.flashUsername);
+//app.use(middlewares.boardSubDomain);
 
 
 require('./app/controllers/routes/boards.js')(app);
