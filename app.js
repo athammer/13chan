@@ -3,7 +3,6 @@
 
 var express = require('express');
 var app = express();
-var server = app.listen(process.env.PORT || 8080, process.env.IP);
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var helmet = require('helmet');
@@ -29,7 +28,7 @@ app.set('view engine', 'ejs');
 app.set('trust proxy', 1);
 
 
-require('./app/controllers/socket.io/socket.js')(server, app);
+
 
 
 mongoose.connect('mongodb://admin:notasecret@ds023593.mlab.com:23593/heroku_1v04kswb');
@@ -79,3 +78,4 @@ require('./app/controllers/routes/main.js')(app); //must run last as 404 page is
 
 
 
+app.listen(process.env.PORT || 8080, process.env.IP);

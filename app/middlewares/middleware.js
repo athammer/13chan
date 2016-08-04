@@ -21,22 +21,8 @@ module.exports = {
             var secureURL = "https://" + req.hostname + req.url;
             res.writeHead(301, { "Location":  secureURL });
             res.end();  
-        } 
-        next();
-    },
-    
-    boardSubDomain: function(req, res, next) {
-        console.log("tes")
-        console.log(req.subdomains[0])
-        if(req.subdomains[0] != 'b'){
-            var secureURL = "https://b." + '13chan.co' + req.url;
-            console.log(secureURL)
-            res.redirect('/test');
-            res.setHeader("Location", "secureURL");
-            res.end();
         }
         next();
-        
     },
     
     userNameCheck: function(req, res, possibleUser) { 

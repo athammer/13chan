@@ -16,6 +16,15 @@ when logged out dont let users change pass/email and stuff if they have another 
 
 
 =============WHEN I GET TO IT=======================
+
+
+
+/https://www.npmjs.com/package/ws
+two node apps that communicate to one another?
+one is b.13chan.co the other is 13chan.co????
+
+
+
 repopulated forms after failed login/register/ or anything like that
 create boards like b.13chan.co/[name]
 create front page
