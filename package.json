@@ -2,9 +2,9 @@
   "name": "13chan",
   "version": "0.0.0",
   "description": "lucky 13chan",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "node server.js"
   },
   "dependencies": {
     "bcrypt": "^0.8.6",

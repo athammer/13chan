@@ -14,6 +14,7 @@ var MongoStore = require('connect-mongo')(session);
 
 
 
+
 var middlewares = require("./app/middlewares/middleware.js");
 var controllerLogic = require('./app/controllers/logic/controllerLogic.js');
 
@@ -26,9 +27,6 @@ var controllerLogic = require('./app/controllers/logic/controllerLogic.js');
 
 app.set('view engine', 'ejs');
 app.set('trust proxy', 1);
-
-
-
 
 
 mongoose.connect('mongodb://admin:notasecret@ds023593.mlab.com:23593/heroku_1v04kswb');
@@ -67,7 +65,6 @@ app.use(session({
 app.use(middlewares.prettifyDomain);
 app.use(flash());
 app.use(controllerLogic.flashUsername);
-//app.use(middlewares.boardSubDomain);
 
 
 require('./app/controllers/routes/boards.js')(app);
@@ -78,4 +75,4 @@ require('./app/controllers/routes/main.js')(app); //must run last as 404 page is
 
 
 
-app.listen(process.env.PORT || 8080, process.env.IP);
+app.listen(80);
