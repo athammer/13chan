@@ -26,7 +26,7 @@ var controllerLogic = require('./app/controllers/logic/controllerLogic.js');
 
 
 app.set('view engine', 'ejs');
-//app.set('trust proxy', 1);
+app.set('trust proxy', 1);
 
 
 mongoose.connect('mongodb://admin:notasecret@ds023593.mlab.com:23593/heroku_1v04kswb');
@@ -62,7 +62,7 @@ app.use(session({
     },
     store: new MongoStore({ mongooseConnection: mongoose.connection })
 }));
-// app.use(middlewares.prettifyDomain);
+app.use(middlewares.prettifyDomain);
 app.use(flash());
 app.use(controllerLogic.flashUsername);
 
@@ -75,6 +75,4 @@ require('./app/controllers/routes/main.js')(app); //must run last as 404 page is
 
 
 
-var server = app.listen(process.env.PORT || 80, function() {
-    console.log('Listening on %s', process.env.PORT);
-});
+app.listen(process.env.PORT || 80);

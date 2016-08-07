@@ -6,21 +6,28 @@ const saltRounds = 10;
 module.exports = {
     
     prettifyDomain: function(req, res, next) {
-        if(req.headers && req.get('Host').slice(0, 4) === 'www.'){
-            console.log("bad www.")
+        console.log(req.get('host') + ' host');
+        console.log(req.hostname + ' host');
+        //console.log(req.protocol);  cant use this on amazon use req.get('x-forwarded-proto') stead
+        if(req.headers && (req.get('Host').slice(0, 4) === 'www.') && req.get('x-forwarded-proto') != null){   //must have elastic ip for this to workin aws and have to do last part bc health check pings it and doesnt use sslor anything
+            console.log("bad www.");
             var newHost = req.get('Host').slice(4);
-            //console.log("new host" + newHost);
+            console.log("new host" + newHost);
             var secureUrlNoWWW = "https://" + newHost + req.url;
-            //console.log(secureUrlNoWWW);
+            console.log(secureUrlNoWWW);
             res.writeHead(301, { "Location":  secureUrlNoWWW });
             res.end();
             return 1;
         }
-        if(!req.secure){
+        console.log(req.get('x-forwarded-proto'));
+        console.log(req.headers['x-forwarded-for']);
+        if((req.get('x-forwarded-proto') != 'https') && (req.get('x-forwarded-proto') != null)){
             console.log("to ssl");
-            var secureURL = "https://" + req.hostname + req.url;
+            var secureURL = "https://" + '13chan.co' + req.url;
+            console.log(secureURL);
             res.writeHead(301, { "Location":  secureURL });
-            res.end();  
+            res.end();
+            return 1;
         }
         next();
     },
