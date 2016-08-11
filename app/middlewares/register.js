@@ -57,7 +57,7 @@ module.exports = function(body, app, res, req){ //need to export for app.js to f
         return false;
     }
     //asdfasdfsdafadsfds case switch better? fuck it for now
-    bcrypt.hash(password, saltRounds, function(err, hash) {
+    bcrypt.hash(body.passwordRegister, saltRounds, function(err, hash) {
         if (err){
             return console.error(err);
         }
