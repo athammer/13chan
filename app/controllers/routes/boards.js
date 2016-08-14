@@ -22,7 +22,7 @@ module.exports = function(app){ //need to export for app.js to find it
     
     app.get('/test', function(req, res) {
         res.render('./pages/boards/legoBoard.ejs', { userName: req.flash('user') });
-        
+        middlewares.boardSubDom(req, res);
     });
 };
 

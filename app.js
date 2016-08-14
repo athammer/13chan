@@ -3,7 +3,9 @@
 
 var express = require('express');
 var app = express();
+var router = express.Router();
 var mongoose = require('mongoose');
+var subdomain = require('express-subdomain');
 var bodyParser = require('body-parser');
 var helmet = require('helmet');
 var flash = require('req-flash');
@@ -17,11 +19,6 @@ var MongoStore = require('connect-mongo')(session);
 
 var middlewares = require("./app/middlewares/middleware.js");
 var controllerLogic = require('./app/controllers/logic/controllerLogic.js');
-
-//http://socket.io/docs/
-
-
-
 
 
 
@@ -38,8 +35,6 @@ db.once('open', function() {
 
 
 
-
-
 app.use(helmet());
 app.use(favicon('./public/img/favicon.png'));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -49,7 +44,6 @@ app.use(express.static(__dirname + '/public'));
 app.get('/ping', function (req, res) {
   res.send('successfuly pinged');
 });
-
 app.use(session({
     name: '13chanAuth',
     genid: function(req) {
@@ -62,7 +56,7 @@ app.use(session({
     cookie: { 
         secure: true,
         maxAge: 0,
-        httpOnly: true, //http://expressjs.com/en/advanced/best-practice-security.html
+        httpOnly: true //http://expressjs.com/en/advanced/best-practice-security.html
     },
     store: new MongoStore({ mongooseConnection: mongoose.connection })
 }));
@@ -70,7 +64,10 @@ app.use(middlewares.prettifyDomain);
 app.use(flash());
 app.use(controllerLogic.flashUsername);
 
-
+ 
+require('./app/controllers/router/routes.js')(router);
+app.use(subdomain('b', router));
+app.use(middlewares.notABoard);
 require('./app/controllers/routes/boards.js')(app);
 require('./app/controllers/routes/user.js')(app);
 require('./app/controllers/routes/main.js')(app); //must run last as 404 page is there

@@ -13,12 +13,12 @@
     "ejs": "^2.4.1",
     "express": "*",
     "express-session": "^1.0.5",
+    "express-subdomain": "^1.0.5",
     "helmet": "^2.1.1",
     "mongoose": "^4.4.14",
     "nodemailer": "^2.5.0",
     "req-flash": "0.0.3",
-    "serve-favicon": "^2.3.0",
-    "ws": "^1.1.1"
+    "serve-favicon": "^2.3.0"
   },
   "repository": {
     "type": "git",

@@ -6,26 +6,41 @@ const saltRounds = 10;
 module.exports = {
     
     prettifyDomain: function(req, res, next) {
-        console.log(req.get('host') + ' host');
-        console.log(req.hostname + ' host');
+        //console.log(req.get('host') + ' host');
+        //console.log(req.hostname + ' host');
         //console.log(req.protocol);  cant use this on amazon use req.get('x-forwarded-proto') stead
         if(req.headers && (req.get('Host').slice(0, 4) === 'www.') && req.get('x-forwarded-proto') != null){   //must have elastic ip for this to workin aws and have to do last part bc health check pings it and doesnt use sslor anything
-            console.log("bad www.");
+            //console.log("bad www.");
             var newHost = req.get('Host').slice(4);
-            console.log("new host" + newHost);
+            //console.log("new host" + newHost);
             var secureUrlNoWWW = "https://" + newHost + req.url;
-            console.log(secureUrlNoWWW);
+            //console.log(secureUrlNoWWW);
             res.writeHead(301, { "Location":  secureUrlNoWWW });
             res.end();
             return 1;
         }
-        console.log(req.get('x-forwarded-proto'));
-        console.log(req.headers['x-forwarded-for']);
+        //console.log(req.get('x-forwarded-proto'));
+        //console.log(req.headers['x-forwarded-for']);
         if((req.get('x-forwarded-proto') != 'https') && (req.get('x-forwarded-proto') != null)){
-            console.log("to ssl");
-            var secureURL = "https://" + '13chan.co' + req.url;
-            console.log(secureURL);
+            //console.log("to ssl");
+            var secureURL = "https://" + req.headers.host + req.url;
+            //console.log(secureURL);
             res.writeHead(301, { "Location":  secureURL });
+            res.end();
+            return 1;
+        }
+        next();
+    },
+    
+    notABoard: function(req, res, next) {
+        var domain = req.headers.host;
+        var subDomain = domain.split('.');
+        console.log(subDomain);
+        console.log('host: 1' + subDomain[0]);
+        console.log('host: 1' + subDomain);
+        if(subDomain[0] == 'b'){
+            var URL = "https://" + '13chan.co' + req.url;
+            res.writeHead(301, { "Location":  URL });
             res.end();
             return 1;
         }
