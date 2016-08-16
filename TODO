@@ -13,15 +13,15 @@ learn socket.io --done
 create a last logged in thingy --done
 dont let users complete unfilled form backend --done
 when logged out dont let users change pass/email and stuff if they have another tab open on that page --done
+create a medium page instead of a blog? --done
+figure out how to make a subdomain for forums --done
 
 
 =============WHEN I GET TO IT=======================
 
 
 
-/https://www.npmjs.com/package/ws
-two node apps that communicate to one another?
-one is b.13chan.co the other is 13chan.co????
+
 
 
 
@@ -48,7 +48,7 @@ learn nodemailer //https://www.npmjs.com/package/nodemailer
 
 dont do the frontend regex and checks yet, learn websockets first dummy
 let boards be created but not ones that are already in use such as /user/ and /login/ 
-create a medium page instead of a blog?
+
 before password change can take affect make users confirm it in email?
 
 

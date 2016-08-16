@@ -14,9 +14,6 @@ var favicon = require('serve-favicon');
 var MongoStore = require('connect-mongo')(session);
 
 
-
-
-
 var middlewares = require("./app/middlewares/middleware.js");
 var controllerLogic = require('./app/controllers/logic/controllerLogic.js');
 
@@ -64,14 +61,13 @@ app.use(middlewares.prettifyDomain);
 app.use(flash());
 app.use(controllerLogic.flashUsername);
 
- 
 require('./app/controllers/router/routes.js')(router);
 app.use(subdomain('b', router));
-app.use(middlewares.notABoard);
+router.use(middlewares.notABoard);
+ 
 require('./app/controllers/routes/boards.js')(app);
 require('./app/controllers/routes/user.js')(app);
 require('./app/controllers/routes/main.js')(app); //must run last as 404 page is there
-
 
 
 

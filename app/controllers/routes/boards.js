@@ -2,7 +2,7 @@ var bodyParser = require('body-parser');
 var jsonParser = bodyParser.json();
 var boardsLogic = require('./../logic/boardsLogic.js');
 var controllerLogic = require('./../logic/controllerLogic.js');
-var middlewares = require("./../../middlewares/middleware.js");
+var middleware = require("./../../middlewares/middleware.js");
 
 module.exports = function(app){ //need to export for app.js to find it
     
@@ -22,7 +22,7 @@ module.exports = function(app){ //need to export for app.js to find it
     
     app.get('/test', function(req, res) {
         res.render('./pages/boards/legoBoard.ejs', { userName: req.flash('user') });
-        middlewares.boardSubDom(req, res);
+        middleware.boardSubDom(req, res);
     });
 };
 

@@ -1,5 +1,6 @@
 var https = require('https');
 var userModel = require('../../app/models/user.js');
+var boardModel = require('../../app/models/board.js');
 var bcrypt = require('bcrypt');
 const saltRounds = 10;
 
@@ -30,6 +31,22 @@ module.exports = {
             return 1;
         }
         next();
+    },
+    
+    boardNameCheck: function(req, res, boardName){
+        boardModel.findOne({ 'name': boardName }, 'name',  function (err, queredBoard) {
+            if (err || queredBoard == null){
+                req.flash('message', 'No such user board, try again.');
+                res.status('404').render('./pages/main/404.ejs', { flashObject: req.flash('message'), userName: req.flash('user') });
+                return console.error(err);
+            }else{
+                console.log("board exists");
+                console.log("Board name: " + queredBoard); 
+                //render board here
+                return 1;
+            }
+        });
+        return 1;
     },
     
     notABoard: function(req, res, next) {
