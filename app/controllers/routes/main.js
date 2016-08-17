@@ -8,27 +8,27 @@ var controllerLogic = require('./../logic/controllerLogic.js');
 module.exports = function(app){ //need to export for app.js to find it
     
     app.get('/', function(req, res) {
-        res.render('./pages/main/main.ejs', { userName: req.flash('user') });
+        res.render('./pages/main/main.ejs', { flashObject: req.flash('message'), userName: req.flash('user') });
     });
     
     
     app.get('/social', function(req, res) {
-        res.render('./pages/main/social.ejs', { userName: req.flash('user') });
+        res.render('./pages/main/social.ejs', { flashObject: req.flash('message'), userName: req.flash('user') });
     });
     
     
     app.get('/about', function(req, res) {
-        res.render('./pages/main/about.ejs', { userName: req.flash('user') });
+        res.render('./pages/main/about.ejs', { flashObject: req.flash('message'), userName: req.flash('user') });
     });
     
     
     app.get('/shop', function(req, res) {
-        res.render('./pages/main/about.ejs', { userName: req.flash('user') });
+        res.render('./pages/main/about.ejs', { flashObject: req.flash('message'), userName: req.flash('user') });
     });
     
     
     app.get('/donate', function(req, res) {
-        res.render('./pages/main/about.ejs', { userName: req.flash('user') });
+        res.render('./pages/main/about.ejs', { flashObject: req.flash('message'), userName: req.flash('user') });
     });
     
 
@@ -42,6 +42,9 @@ module.exports = function(app){ //need to export for app.js to find it
     });
     
     app.get('*', function(req, res){
+        // if (req.method === 'GET') { 
+        //     req.flash('user', null);
+        // }
         res.status('404').render('./pages/main/404.ejs', { userName: req.flash('user') });
     });
     

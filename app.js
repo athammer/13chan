@@ -50,6 +50,7 @@ app.use(session({
     secret: process.env.COOKIE_SESS_SECRET,
     resave: false,
     saveUninitialized: false,
+    domain: '.13chan.co',
     cookie: { 
         secure: true,
         maxAge: 0,
@@ -59,9 +60,15 @@ app.use(session({
 }));
 app.use(middlewares.prettifyDomain);
 app.use(flash());
-app.use(controllerLogic.flashUsername);
+app.use(controllerLogic.flashAll);
 
- 
+
+require('./app/controllers/router/routes.js')(router);
+app.use(subdomain('b', router));
+router.use(middlewares.notABoard);
+
+//flash is not working past below, no clue why...
+
 require('./app/controllers/routes/boards.js')(app);
 require('./app/controllers/routes/user.js')(app);
 require('./app/controllers/routes/main.js')(app); //must run last as 404 page is there

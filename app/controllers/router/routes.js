@@ -9,7 +9,7 @@ module.exports = function(router){ //need to export for app.js to find it
     
     
     router.get('/', function(req, res) {
-        res.render('./pages/boards/create.ejs', { userName: req.flash('user') });
+        res.render('./pages/boards/create.ejs', { flashObject: req.flash('message'), userName: req.flash('user') });
     });
 
     router.get('/test', function(req, res) {
@@ -29,6 +29,10 @@ module.exports = function(router){ //need to export for app.js to find it
         res.send('Welcome to test');
     });
 
-    
+    router.get('*', function(req, res) {
+        if (req.method === 'GET') { 
+            req.flash('message', null);
+        }
+    });
 };
 

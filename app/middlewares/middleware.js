@@ -74,9 +74,9 @@ module.exports = {
                 console.log("user exists");
                 console.log(req.session.userName + " " + queredUser);
                 if(req.session.userName == queredUser.username){
-                    res.render('./pages/user/user.ejs', { userName: req.flash('user') });
+                    res.render('./pages/user/user.ejs', { flashObject: req.flash('message'), userName: req.flash('user') });
                 }else{
-                    res.render('./pages/user/publicUser.ejs', { userName: req.flash('user') });
+                    res.render('./pages/user/publicUser.ejs', { flashObject: req.flash('message'), userName: req.flash('user') });
                 }
             }
         });

@@ -1,11 +1,12 @@
 
 module.exports = {
     
-    flashUsername: function(req, res, next) {
+    flashAll: function(req, res, next) {
         if (req.method === 'GET') { 
             if(typeof req.session.userName != 'undefined'){
                 req.flash('user', req.session.userName);
             }
+            //req.flash('message', 'test');
         }
         next();
     },

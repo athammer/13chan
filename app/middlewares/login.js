@@ -11,7 +11,7 @@ module.exports = function(body, app, res, req){ //need to export for app.js to f
     }
     userModel.findOne({ 'username': body.usernameLogin }, 'password username',  function (err, queredUser) {
         if (err || queredUser == null){
-            console.log("Eror loggin in ");
+            console.log("Error loggin in ");
             req.flash('message', "Error: An error has occured, please try again.");
             res.redirect("/login");
             return console.error(err);

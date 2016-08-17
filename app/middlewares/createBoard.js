@@ -14,7 +14,7 @@ module.exports = function(body, app, res, req){  //need to export for app.js to 
         abbreviation: body.boardAbb,
         anonymity: body.anonymity,
         nsfw: body.nsfw,
-        date: Date.now,
+        date: Date.now(),
         threads: 0,
         posts:  0,
         owner:  req.session.userName,
@@ -41,9 +41,9 @@ module.exports = function(body, app, res, req){  //need to export for app.js to 
                     res.end();
                 return 1;
                 }
-                
             });
         }else{  
+            console.log('board exists');
             req.flash('message', "Error: Board name already exists");
             res.redirect("/create");
         }

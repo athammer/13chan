@@ -42,44 +42,34 @@ module.exports = function(app){
             res.redirect("/");
             //will delete cookie but then once redirected will create a new one.
         });
-        req.flash('message', null);
         req.flash('user', null);
     });
     
     
-    // app.get('/user', controllerLogic.restrict, function(req, res) {
-    //     res.render('./pages/user/user.ejs', { userName: req.flash('user') });
-    //     req.flash('message', null);
-    // });
+
     app.get('/user/:name', function(req , res){
-//        res.render('./pages/user/user.ejs', { userName: req.flash('user') }); //cant do this yet need logic first
         var userName = req.params.name;
-        middleware.userNameCheck(req, res, userName);
-        req.flash('message', null);
+        middleware.userNameCheck(req, res, userName);  //
     });
     
     
     app.get('/user/:name/settings', controllerLogic.restrict, function(req, res) {
-        res.render('./pages/user/account/settings.ejs', { userName: req.flash('user') });
-        req.flash('message', null);
+        res.render('./pages/user/account/settings.ejs', { flashObject: req.flash('message'), userName: req.flash('user') });
     });
     
     
     app.get('/user/:name/composeMessage', controllerLogic.restrict, function(req, res) {
-        res.render('./pages/user/account/composeMessage.ejs', { userName: req.flash('user') });
-        req.flash('message', null);
+        res.render('./pages/user/account/composeMessage.ejs', { flashObject: req.flash('message'), userName: req.flash('user') });
     });
     
     
     app.get('/user/:name/inbox', controllerLogic.restrict, function(req, res) {
-        res.render('./pages/user/account/inbox.ejs', { userName: req.flash('user') });
-        req.flash('message', null);
+        res.render('./pages/user/account/inbox.ejs', { flashObject: req.flash('message'), userName: req.flash('user') });
     });
     
     
     app.get('/user/:name/emailChange', controllerLogic.restrict, function(req, res) {
-        res.render('./pages/user/account/emailChange.ejs', { userName: req.flash('user') });
-        req.flash('message', null);
+        res.render('./pages/user/account/emailChange.ejs', { flashObject: req.flash('message'), userName: req.flash('user') });
     });
     app.post('/user/:name/emailChange', jsonParser, function(req, res) {
         middleware.changeEmail(req, res, req.body);
@@ -87,8 +77,7 @@ module.exports = function(app){
     
     
     app.get('/user/:name/passwordChange', controllerLogic.restrict, function(req, res) {
-        res.render('./pages/user/account/passwordChange.ejs', { userName: req.flash('user') });
-        req.flash('message', null);
+        res.render('./pages/user/account/passwordChange.ejs', { flashObject: req.flash('message'), userName: req.flash('user') });
     });
     app.post('/user/:name/passwordChange', jsonParser, function(req, res) {
         middleware.changePassword(req, res, req.body);
@@ -96,7 +85,6 @@ module.exports = function(app){
     
     
     app.get('/user/:name/questionChange', controllerLogic.restrict, function(req, res) {
-        res.render('./pages/user/account/questionChange.ejs', { userName: req.flash('user') });
-        req.flash('message', null);
+        res.render('./pages/user/account/questionChange.ejs', { flashObject: req.flash('message'), userName: req.flash('user') });
     });
 }

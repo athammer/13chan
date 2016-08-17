@@ -110,7 +110,7 @@ module.exports = function(body, app, res, req){ //need to export for app.js to f
                         if (queredUser.username != null){
                             if(queredUser.email != null){
                                 req.flash('message', "Error: Email and username already exists please use another email and username.");
-                                res.redirect("/register");
+                                res.redirect("/register"); 
                                 return true;
                             }
                             req.flash('message', "Error: User already exists please use another name.");
