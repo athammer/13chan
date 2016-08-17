@@ -11,7 +11,7 @@ module.exports = function(app){ //need to export for app.js to find it
         res.render('./pages/boards/create.ejs', { userName: req.flash('user') });
     });
     app.post('/create', jsonParser, function(req, res) {
-        boardsLogic.createboard(req, res, req.body);
+        require('./../../middlewares/createBoard.js')(req.body, app, res, req);
     });
 
 

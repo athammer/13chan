@@ -92,9 +92,12 @@ module.exports = function(body, app, res, req){ //need to export for app.js to f
                         user.save(function (err, user) {
                             if (err){
                                 console.log("Error when saving to databse, sheeeeeeit.");
+                                req.flash('message', "Error: Cannot save user");
+                                res.redirect("/register");
                                 return console.error(err);
                             }else{
                                 console.log("user saved to database.");
+                                req.flash('message', "Success! User created.");
                                 req.session.user = body.usernameRegister;
                                 req.session.userName = body.usernameRegister;
                                 req.session.cookie.maxAge = 360000*2;

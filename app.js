@@ -61,9 +61,6 @@ app.use(middlewares.prettifyDomain);
 app.use(flash());
 app.use(controllerLogic.flashUsername);
 
-require('./app/controllers/router/routes.js')(router);
-app.use(subdomain('b', router));
-router.use(middlewares.notABoard);
  
 require('./app/controllers/routes/boards.js')(app);
 require('./app/controllers/routes/user.js')(app);
