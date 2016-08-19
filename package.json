@@ -10,6 +10,7 @@
     "bcrypt": "^0.8.6",
     "body-parser": "^1.15.0",
     "connect-mongo": "^1.2.0",
+    "cors": "^2.7.1",
     "ejs": "^2.4.1",
     "express": "*",
     "express-session": "^1.0.5",
@@ -18,7 +19,8 @@
     "mongoose": "^4.4.14",
     "nodemailer": "^2.5.0",
     "req-flash": "0.0.3",
-    "serve-favicon": "^2.3.0"
+    "serve-favicon": "^2.3.0",
+    "vhost": "^3.0.2"
   },
   "repository": {
     "type": "git",

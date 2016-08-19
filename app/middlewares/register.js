@@ -100,6 +100,7 @@ module.exports = function(body, app, res, req){ //need to export for app.js to f
                                 req.flash('message', "Success! User created.");
                                 req.session.user = body.usernameRegister;
                                 req.session.userName = body.usernameRegister;
+                                req.session.cookie.name = body.usernameRegister;
                                 req.session.cookie.maxAge = 360000*2;
                                 req.session.expires = null;
                                 req.session.cookie.rolling = true;

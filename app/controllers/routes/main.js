@@ -42,9 +42,6 @@ module.exports = function(app){ //need to export for app.js to find it
     });
     
     app.get('*', function(req, res){
-        // if (req.method === 'GET') { 
-        //     req.flash('user', null);
-        // }
         res.status('404').render('./pages/main/404.ejs', { userName: req.flash('user') });
     });
     

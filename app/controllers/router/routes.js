@@ -11,6 +11,10 @@ module.exports = function(router){ //need to export for app.js to find it
     router.get('/', function(req, res) {
         res.render('./pages/boards/create.ejs', { flashObject: req.flash('message'), userName: req.flash('user') });
     });
+    
+    router.get('/cancer', function(req, res) {
+        res.render('./pages/boards/create.ejs', { flashObject: req.flash('message'), userName: req.flash('user') });
+    });
 
     router.get('/test', function(req, res) {
         res.send('Welcome to test');
@@ -28,11 +32,8 @@ module.exports = function(router){ //need to export for app.js to find it
     router.get('/:board/admin', function(req, res) {
         res.send('Welcome to test');
     });
-
-    router.get('*', function(req, res) {
-        if (req.method === 'GET') { 
-            req.flash('message', null);
-        }
+    router.get('*', function(req, res){
+        res.status('404').render('./pages/main/404.ejs', { userName: req.flash('user') });
     });
 };
 

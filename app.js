@@ -1,14 +1,13 @@
-
 //https://blog.risingstack.com/node-js-security-checklist/
-
 var express = require('express');
 var app = express();
-var router = express.Router();
+var vhost = require('vhost');
 var mongoose = require('mongoose');
 var subdomain = require('express-subdomain');
 var bodyParser = require('body-parser');
 var helmet = require('helmet');
 var flash = require('req-flash');
+var cors = require('cors');
 var session = require('express-session');
 var favicon = require('serve-favicon');
 var MongoStore = require('connect-mongo')(session);
@@ -17,8 +16,7 @@ var MongoStore = require('connect-mongo')(session);
 var middlewares = require("./app/middlewares/middleware.js");
 var controllerLogic = require('./app/controllers/logic/controllerLogic.js');
 
-
-
+//app.set('views', express.static(__dirname + '/views'));
 app.set('view engine', 'ejs');
 app.set('trust proxy', 1);
 
@@ -37,10 +35,6 @@ app.use(favicon('./public/img/favicon.png'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/public'));
-
-app.get('/ping', function (req, res) {
-  res.send('successfuly pinged');
-});
 app.use(session({
     name: '13chanAuth',
     genid: function(req) {
@@ -50,10 +44,10 @@ app.use(session({
     secret: process.env.COOKIE_SESS_SECRET,
     resave: false,
     saveUninitialized: false,
-    domain: '.13chan.co',
+    domain: '13chan.co',
     cookie: { 
         secure: true,
-        maxAge: 0,
+        maxAge: null,
         httpOnly: true //http://expressjs.com/en/advanced/best-practice-security.html
     },
     store: new MongoStore({ mongooseConnection: mongoose.connection })
@@ -61,18 +55,14 @@ app.use(session({
 app.use(middlewares.prettifyDomain);
 app.use(flash());
 app.use(controllerLogic.flashAll);
-
-
-require('./app/controllers/router/routes.js')(router);
-app.use(subdomain('b', router));
-router.use(middlewares.notABoard);
-
-//flash is not working past below, no clue why...
-
+app.use(vhost('b.13chan.co', require('./libs/vhost/b.app.js').app));
+app.use(middlewares.notABoard); //do i need?
+app.get('/ping', function (req, res) {
+  res.send('successfuly pinged');
+});
 require('./app/controllers/routes/boards.js')(app);
 require('./app/controllers/routes/user.js')(app);
-require('./app/controllers/routes/main.js')(app); //must run last as 404 page is there
-
+require('./app/controllers/routes/main.js')(app);
 
 
 
