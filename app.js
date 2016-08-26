@@ -3,14 +3,15 @@ var express = require('express');
 var app = express();
 var vhost = require('vhost');
 var mongoose = require('mongoose');
-var subdomain = require('express-subdomain');
 var bodyParser = require('body-parser');
+var subdomain = require('express-subdomain');
 var helmet = require('helmet');
 var flash = require('req-flash');
 var cors = require('cors');
 var session = require('express-session');
 var favicon = require('serve-favicon');
 var MongoStore = require('connect-mongo')(session);
+var router = express.Router();
 
 
 var middlewares = require("./app/middlewares/middleware.js");
@@ -29,12 +30,14 @@ db.once('open', function() {
 });
 
 
-
 app.use(helmet());
 app.use(favicon('./public/img/favicon.png'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/public'));
+app.get('/test/ping', function (req, res) {
+  res.send('successfuly pinged(kinda)!');
+});
 app.use(session({
     name: '13chanAuth',
     genid: function(req) {
@@ -46,20 +49,20 @@ app.use(session({
     saveUninitialized: false,
     domain: '13chan.co',
     cookie: { 
+        test: 'help',
         secure: true,
-        maxAge: null,
+        maxAge: 2700000,
         httpOnly: true //http://expressjs.com/en/advanced/best-practice-security.html
     },
     store: new MongoStore({ mongooseConnection: mongoose.connection })
 }));
+app.use(cors({credentials: true, origin: true}));
 app.use(middlewares.prettifyDomain);
 app.use(flash());
 app.use(controllerLogic.flashAll);
-app.use(vhost('b.13chan.co', require('./libs/vhost/b.app.js').app));
-app.use(middlewares.notABoard); //do i need?
-app.get('/ping', function (req, res) {
-  res.send('successfuly pinged');
-});
+app.use(subdomain('b', router));
+require('./libs/vhost/b.app.js').app;
+//app.use(vhost('b.13chan.co', require('./libs/vhost/b.app.js').app));
 require('./app/controllers/routes/boards.js')(app);
 require('./app/controllers/routes/user.js')(app);
 require('./app/controllers/routes/main.js')(app);

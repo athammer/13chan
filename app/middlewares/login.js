@@ -40,7 +40,7 @@ module.exports = function(body, app, res, req){ //need to export for app.js to f
                     req.session.userName = queredUser.username;
                     req.session.cookie.name = queredUser.username;
                     app.locals.userName;
-                    userModel.findOneAndUpdate({'username': req.session.userName}, { lastloggedin: Date.now }, {upsert:true}, function(err, doc){
+                    userModel.findOneAndUpdate({'username': req.session.userName}, { lastloggedin: Date.now() }, {upsert:true}, function(err, doc){
                         if(err) console.log(err);
                     });
                     res.redirect("/user/" + req.session.user);
