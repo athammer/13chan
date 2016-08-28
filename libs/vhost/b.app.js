@@ -1,9 +1,6 @@
 var express = require('express');
 var app = express();
 var router = express.Router();
-var mongoose = require('mongoose');
-var session = require('express-session');
-var MongoStore = require('connect-mongo')(session);
 
 var middlewares = require("./../../app/middlewares/middleware.js");
 

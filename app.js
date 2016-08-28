@@ -61,8 +61,12 @@ app.use(middlewares.prettifyDomain);
 app.use(flash());
 app.use(controllerLogic.flashAll);
 app.use(subdomain('b', router));
-require('./libs/vhost/b.app.js').app;
+require('./app/controllers/router/routes.js')(router);
+
+//require('./libs/vhost/b.app.js').app;
 //app.use(vhost('b.13chan.co', require('./libs/vhost/b.app.js').app));
+
+
 require('./app/controllers/routes/boards.js')(app);
 require('./app/controllers/routes/user.js')(app);
 require('./app/controllers/routes/main.js')(app);
