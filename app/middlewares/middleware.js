@@ -34,14 +34,37 @@ module.exports = {
     },
     
     boardNameCheck: function(req, res, boardName){
-        boardModel.findOne({ 'name': boardName }, 'name',  function (err, queredBoard) {
+        boardModel.findOne({ 'name': boardName }, 'name abbreviation nsfw',  function (err, queredBoard) {
             if (err || queredBoard == null){
                 req.flash('message', 'No such user board, try again.');
                 res.status('404').render('./pages/main/404.ejs', { flashObject: req.flash('message'), userName: req.flash('user') });
+                //res.status('404').render('./pages/main/404.ejs', { flashObject: req.flash('message'), userName: req.flash('user') });
                 return console.error(err);
             }else{
                 console.log("board exists");
-                console.log("Board name: " + queredBoard); 
+                console.log("Board name: " + queredBoard);
+                req.flash('boardNameF', queredBoard.name);
+                req.flash('abbreviationF', queredBoard.abbreviation);
+                console.log(queredBoard.nsfw);
+                if(queredBoard.nsfw == 'nsfw'){
+                    res.render('./pages/boards/nsfwLegoBoard.ejs', { flashObject: req.flash('message'), userName: req.flash('user'), boardName: req.flash('boardNameF'), abbreviation: req.flash('abbreviationF') });
+                    return 1;
+                }
+                if(queredBoard.nsfw == 'swf'){
+                    res.render('./pages/boards/legoBoard.ejs', { flashObject: req.flash('message'), userName: req.flash('user'), boardName: req.flash('boardNameF'), abbreviation: req.flash('abbreviationF') });
+                    return 1;
+                }
+                if(queredBoard.nsfw == 'adult'){ //unique one for adult?
+                    res.render('./pages/boards/nsfwLegoBoard.ejs', { flashObject: req.flash('message'), userName: req.flash('user'), boardName: req.flash('boardNameF'), abbreviation: req.flash('abbreviationF') });
+                    return 1;
+                }else{
+                    console.log("error has occured on selecting nsfw board")
+                    req.flash('message', 'Error has occured on board settings.');
+                    res.redirect('/');
+                    return 1;
+                }
+                // if swf then load normal theme, if nsfw then load red, if adult then load something
+                
                 //render board here
                 return 1;
             }

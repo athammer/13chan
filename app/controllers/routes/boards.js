@@ -8,7 +8,7 @@ module.exports = function(app){ //need to export for app.js to find it
     
     
     app.get('/create', controllerLogic.restrict, function(req, res) {
-        res.render('./pages/boards/create.ejs', { userName: req.flash('user') });
+        res.render('./pages/boards/create.ejs', { flashObject: req.flash('message'), userName: req.flash('user') });
     });
     app.post('/create', jsonParser, function(req, res) {
         require('./../../middlewares/createBoard.js')(req.body, app, res, req);
@@ -25,6 +25,3 @@ module.exports = function(app){ //need to export for app.js to find it
         middleware.boardSubDom(req, res);
     });
 };
-
-
-

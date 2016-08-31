@@ -9,11 +9,11 @@ module.exports = function(router){ //need to export for app.js to find it
     
     
     router.get('/', function(req, res) {
-        res.render('./pages/boards/create.ejs', { flashObject: req.flash('message'), userName: req.flash('user') });
+        res.render('./pages/boards/mainB.ejs', { flashObject: req.flash('message'), userName: req.flash('user') });
     });
     
     router.get('/cancer', function(req, res) {
-        res.render('./pages/boards/create.ejs', { flashObject: req.flash('message'), userName: req.flash('user') });
+        res.render('./pages/boards/legoBoard.ejs', { flashObject: req.flash('message'), userName: req.flash('user') });
     });
 
     router.get('/test', function(req, res) {
