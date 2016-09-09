@@ -6,14 +6,6 @@ var middleware = require('./../../middlewares/middleware.js');
 
 module.exports = function(app){
     
-    app.get('/create', userLogic.restrict, function(req, res) {
-        res.render('./pages/user/create.ejs', { userName: req.flash('user') });
-    });
-    app.post('/create', jsonParser, function(req, res) {
-        
-    });
-
-    
     
     app.get('/register', userLogic.loginCheck, function(req, res) {
         res.render('./pages/user/register.ejs', { flashObject: req.flash('message'), userName: req.flash('user') });

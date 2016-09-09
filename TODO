@@ -15,7 +15,7 @@ dont let users complete unfilled form backend --done
 when logged out dont let users change pass/email and stuff if they have another tab open on that page --done
 create a medium page instead of a blog? --done
 figure out how to make a subdomain for forums --done
-
+create boards like b.13chan.co/[name] --done
 
 =============WHEN I GET TO IT=======================
 
@@ -26,7 +26,7 @@ figure out how to make a subdomain for forums --done
 
 if you log in old cookies with the same username deleted(?) -- or maybe delete them if they change pass?
 repopulated forms after failed login/register/ or anything like that
-create boards like b.13chan.co/[name]
+
 create front page
 clean up scss
 think of a good system of password recovery and changing passwords/email/secret question so its not fucking dumb
@@ -40,7 +40,6 @@ verifaction email
 create a lost password system
 figure out if i should encrypt emails? prob tbh
 
-use websocket for livetime responce for registration and pretty much everything as we go and learn it
 make users verfiy email when creating boards? make a bool key in user model? //https://www.npmjs.com/package/email-templates
 make passwordchange.ejs check if the two passwords are the same in frontend
 figure out what password reqs i want then add it to change pw, and register
