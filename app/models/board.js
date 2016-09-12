@@ -16,7 +16,7 @@ var boardSchema = new Schema({
     mod:  String,
     janitor:  String,
     inactive:  Boolean,
-    postcontent: [Array]
+    postcontent: Schema.ObjectId //http://stackoverflow.com/questions/8737082/mongoose-schema-within-schema
 });
 
 var board = mongoose.model('board', boardSchema);
