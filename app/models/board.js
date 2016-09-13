@@ -6,6 +6,7 @@ var Schema = mongoose.Schema;
 var boardSchema = new Schema({
     name: String,
     abbreviation: String,
+    slogan: String,
     anonymity: String,
     nsfw: String,
     tags: String,

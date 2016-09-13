@@ -38,6 +38,7 @@ module.exports = function(body, app, res, req){  //need to export for app.js to 
     var board = new boardModel({
         name: body.boardName,
         abbreviation: body.boardAbb,
+        slogan: body.boardSlogan,
         anonymity: body.anonymity,
         nsfw: body.nsfw,
         date: Date.now(),

@@ -6,7 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <% include ../../partials/scripts %>
     <% include ../../partials/style %>
-    <title>13chan | Defualt Forum Title</title>
+    
+    <% if(typeof boardName != 'undefined' && boardName != null){ %>
+        <title>13chan | <%= boardName %> </title>
+    <% }else{ %>
+        <title>13chan | Defualt Forum Title</title>
+    <% } %>
 </head>
 
 <body id="main">
@@ -14,13 +19,20 @@
     <br>
     <br>
     <% if(typeof boardName != 'undefined' && boardName != null){ %>
-        <h1 class="center-text"> <%= boardName %> </h1>
+        <h1 class="center-text"> </h1>
         <h2 class="center-text"> <%= abbreviation %> </h2>
     <% }else{ %>
         <h1 class="center-text"> dork </h1>
         <h2 class="center-text"> something went wrong :( </h2>
     <% } %>
-    
+    Create Post | Sort by 
+    <select>
+        <option value="Bumped">Bumped</option>
+        <option value="Date">Date</option>
+        <option value="Posts">Posts</option>
+        <option value="Activity">Activity</option>
+    </select>
+    <hr class="belowName">
     
 
 

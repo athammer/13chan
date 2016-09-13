@@ -11,7 +11,6 @@ var postSchema = new Schema({
     boardName: String,
     totalPostID: String,
     posterCountry: String,
-    
 });
 
 var post = mongoose.model('post', postSchema);
