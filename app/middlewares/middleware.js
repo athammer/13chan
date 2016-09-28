@@ -109,7 +109,9 @@ module.exports = {
                 
                 //below make it so you can update that the user was verfied
                 userModel.findOne({ 'username': queredUser.userName }, 'username',  function (err, queredUser) {
-                
+                    if(err){
+                        throw err;
+                    }
                 
                 });
                 
