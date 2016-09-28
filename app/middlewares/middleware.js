@@ -87,9 +87,9 @@ module.exports = {
         next();
     },
     
-    boardPost: function(req, res, next) {
+    boardPost: function(req, res, req.body) {
         //do stuff here dummy
-        next();
+        return 1;
     },
     
     userNameCheck: function(req, res, possibleUser) { 

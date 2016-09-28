@@ -51,7 +51,7 @@ module.exports = function(router){ //need to export for app.js to find it
     router.post('/:board', jsonParser, function(req, res) {
         //could they post from a non created board???
         middleware.boardNameCheck(req, res, req.body);
-        middleware.boardPost(req, res, req.body)
+        middleware.boardPost(req, res, req.body);
     });
     
     router.get('/:board/admin', function(req, res) {
