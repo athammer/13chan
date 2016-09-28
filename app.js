@@ -51,7 +51,7 @@ app.use(session({
     cookie: { 
         test: 'help',
         secure: true,
-        maxAge: 2700000,
+        maxAge: null,
         httpOnly: true //http://expressjs.com/en/advanced/best-practice-security.html
     },
     store: new MongoStore({ mongooseConnection: mongoose.connection })

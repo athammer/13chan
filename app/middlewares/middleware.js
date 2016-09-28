@@ -67,7 +67,6 @@ module.exports = {
                 // if swf then load normal theme, if nsfw then load red, if adult then load something
                 
                 //render board here
-                return 1;
             }
         });
         return 1;
@@ -85,6 +84,11 @@ module.exports = {
             res.end();
             return 1;
         }
+        next();
+    },
+    
+    boardPost: function(req, res, next) {
+        //do stuff here dummy
         next();
     },
     

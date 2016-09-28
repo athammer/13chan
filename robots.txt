@@ -1,8 +1,5 @@
 User-agent: * 
 
-Disallow: /user/
-Disallow: /public/
-Disallow: /app/
-Disallow: /node_modules/
+Disallow: /test
 
 Sitemap: http://www.13chan.co/sitemap.xml
