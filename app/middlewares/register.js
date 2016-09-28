@@ -1,7 +1,9 @@
 var userModel = require('../../app/models/user.js');
+var emailModel = require('../../app/models/emailTokens.js');
 var bcrypt = require('bcrypt');
 const saltRounds = 10;
 var nodemailer = require('nodemailer');
+var crypto = require('crypto');
 
 module.exports = function(body, app, res, req){ //need to export for app.js to find it
     console.log("Registering in user.");
@@ -105,6 +107,40 @@ module.exports = function(body, app, res, req){ //need to export for app.js to f
                                 req.session.expires = null;
                                 req.session.cookie.rolling = true;
                                 res.redirect("/user/" + req.session.userName);
+                                var transporter = nodemailer.createTransport('smtps://user%40gmail.com:pass@smtp.gmail.com');
+                                // setup e-mail data with unicode symbols 
+                                require('crypto').randomBytes(48, function(err, buffer) {
+                                    var token = buffer.toString('hex');
+                                    if(err){
+                                        throw err;
+                                    }
+                                    
+                                    var email = new emailModel({
+                                        tokenID: token,
+                                        dateCreated: Date.now(),
+                                        userName: req.session.user
+                                    });
+                                    email.save(function (err, user) {
+                                        if(err){
+                                            throw(err);
+                                        }
+                                        var mailOptions = {
+                                            from: '"13chan- Do not respond" <DoNotRespond@13chan.co>', // sender address 
+                                            to: body.emailRegister, // list of receivers 
+                                            subject: '13chan- Email Verification ', // Subject line 
+                                            text: 'visit this url to verifiy your account. ' + 'https://www.13chan.co/' + token, // plaintext body 
+                                            html: '<b>Hello world 🐴</b>' // html body 
+                                        };
+                                         
+                                        // send mail with defined transport object 
+                                        transporter.sendMail(mailOptions, function(error, info){
+                                            if(error){
+                                                return console.log(error);
+                                            }
+                                            console.log('Message sent: ' + info.response);
+                                        });
+                                    });
+                                });
                             }
                         });
                     }else{
@@ -112,16 +148,16 @@ module.exports = function(body, app, res, req){ //need to export for app.js to f
                             if(queredUser.email != null){
                                 req.flash('message', "Error: Email and username already exists please use another email and username.");
                                 res.redirect("/register"); 
-                                return true;
+                                return false;
                             }
                             req.flash('message', "Error: User already exists please use another name.");
                             res.redirect("/register");
-                            return true;
+                            return false;
                         }
                         if (err || queredUser.email != null){
                             req.flash('message', "Error: Email already exists please use another email.");
                             res.redirect("/register");
-                            return true;
+                            return false;
                         }
                     }
                 });

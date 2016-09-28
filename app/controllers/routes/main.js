@@ -2,6 +2,7 @@ var bodyParser = require('body-parser');
 var jsonParser = bodyParser.json();
 var mainLogic = require('./../logic/mainLogic.js');
 var controllerLogic = require('./../logic/controllerLogic.js');
+var middleware = require("./../../middlewares/middleware.js");
 
 //https://www.npmjs.com/package/req-flash
 // respond with "hello world" when a GET request is made to the homepage
@@ -31,6 +32,11 @@ module.exports = function(app){ //need to export for app.js to find it
         res.render('./pages/main/about.ejs', { flashObject: req.flash('message'), userName: req.flash('user') });
     });
     
+    app.get('/emailVerification/:token', function(req, res) {
+        var token = req.params.token;
+        middleware.checkEmailToken(req, res, token);
+        res.render('./pages/main/about.ejs');
+    });
 
     app.get('/robots.txt', function(req, res) {
         res.sendFile('/robots.txt', {'root': './'});

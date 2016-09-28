@@ -39,6 +39,7 @@ make a page where they can resend the verifcation email
 verifaction email  
 create a lost password system
 figure out if i should encrypt emails? prob tbh
+when you change email make them re confirm that email
 
 make users verfiy email when creating boards? make a bool key in user model? //https://www.npmjs.com/package/email-templates
 make passwordchange.ejs check if the two passwords are the same in frontend
@@ -49,6 +50,12 @@ dont do the frontend regex and checks yet, learn websockets first dummy
 let boards be created but not ones that are already in use such as /user/ and /login/ 
 
 before password change can take affect make users confirm it in email?
+
+
+
+when you register make redirec them to a new page saying go to their email and confirm the account
+let them resend verification email
+
 
 
 

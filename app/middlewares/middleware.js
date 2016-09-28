@@ -1,5 +1,6 @@
 var https = require('https');
 var userModel = require('../../app/models/user.js');
+var emailTokens = require('../../app/models/emailTokens.js');
 var boardModel = require('../../app/models/board.js');
 var bcrypt = require('bcrypt');
 const saltRounds = 10;
@@ -87,7 +88,36 @@ module.exports = {
         next();
     },
     
-    boardPost: function(req, res, req.body) {
+    boardPost: function(req, res, body) {
+        //do stuff here dummy
+        return 1;
+    },
+    
+    checkEmailToken: function(req, res, token) {
+        emailTokens.findOne({ 'tokenID': token }, 'tokenID dateCreated userName',  function (err, queredUser) {
+            if (err || queredUser == null){
+                req.flash('message', 'No such token exists please resend verification email.');
+                res.status('404').render('./pages/main/404.ejs', { flashObject: req.flash('message'), userName: req.flash('user') });
+                throw err;
+            }
+            //put in a if token it older then 30 days delete it and tell them to hurry their ass up when verifiying....
+            emailTokens.remove({ tokenID: token }, function (err) {
+                if(err){
+                    throw err;
+                }
+                //finaly not putting it in else statements for no reason :D
+                
+                //below make it so you can update that the user was verfied
+                userModel.findOne({ 'username': queredUser.userName }, 'username',  function (err, queredUser) {
+                
+                
+                });
+                
+                
+                
+            });
+            
+        });
         //do stuff here dummy
         return 1;
     },
