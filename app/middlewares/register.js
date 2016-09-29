@@ -99,7 +99,7 @@ module.exports = function(body, app, res, req){ //need to export for app.js to f
                                 return console.error(err);
                             }else{
                                 console.log("user saved to database.");
-                                req.flash('message', "Success! User created.");
+                                req.flash('message', "Success! User created. Check your email for a verifcation email.");
                                 req.session.user = body.usernameRegister;
                                 req.session.userName = body.usernameRegister;
                                 req.session.cookie.name = body.usernameRegister;
@@ -128,8 +128,8 @@ module.exports = function(body, app, res, req){ //need to export for app.js to f
                                             from: '"13chan- Do not respond" <DoNotRespond@13chan.co>', // sender address 
                                             to: body.emailRegister, // list of receivers 
                                             subject: '13chan- Email Verification ', // Subject line 
-                                            text: 'visit this url to verifiy your account. ' + 'https://www.13chan.co/' + token, // plaintext body 
-                                            html: '<b>Hello world 🐴</b>' // html body 
+                                            //text: 'visit this url to verifiy your account. ' + 'https://13chan.co/emailVerification/' + token, // plaintext body 
+                                            html: 'visit this url to verifiy your account. 🐴' + 'https://13chan.co/emailVerification/' + token
                                         };
                                          
                                         // send mail with defined transport object 
