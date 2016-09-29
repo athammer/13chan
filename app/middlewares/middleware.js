@@ -97,7 +97,7 @@ module.exports = {
         emailTokens.findOne({ 'tokenID': token }, 'tokenID dateCreated userName',  function (err, queredUser) {
             if (err || queredUser == null){
                 req.flash('message', 'No such token exists please resend verification email.');
-                res.status('404').render('./pages/main/404.ejs', { flashObject: req.flash('message'), userName: req.flash('user') });
+                res.redirect('/');
                 throw err;
             }
             //put in a if token it older then 30 days delete it and tell them to hurry their ass up when verifiying....
@@ -109,15 +109,15 @@ module.exports = {
                     res.redirect('/');
                     throw err;
                 }
-                emailTokens.remove({ 'userName': queredUser.userName }, function(err) {
-                    if (!err) {
-                        req.flash('message', 'Error finding quered User for emailTokens');
-                        res.redirect('/');
-                        throw err;
-                    }
-                    req.flash('message', 'Email has been verified, (hopefully)');
+            });
+            emailTokens.remove({ 'userName': queredUser.userName }, function(err) {
+                if (!err) {
+                    req.flash('message', 'Error finding quered User for emailTokens');
                     res.redirect('/');
-                });
+                    console.log(err);
+                }
+                req.flash('message', 'Email has been verified, (hopefully)');
+                res.redirect('/');
             });
         });
         return 1;
