@@ -83,7 +83,8 @@ module.exports = function(body, app, res, req){ //need to export for app.js to f
                     date: Date.now(),
                     forumposts: 0,
                     timespent: 0,
-                    lastloggedin: Date.now()
+                    lastloggedin: Date.now(),
+                    emailverified: false
                 });
                 userModel.findOne({ 'username': body.usernameRegister }, 'username email',  function (err, queredUser) {
                     if(err){
@@ -107,7 +108,6 @@ module.exports = function(body, app, res, req){ //need to export for app.js to f
                                 req.session.expires = null;
                                 req.session.cookie.rolling = true;
                                 res.redirect("/user/" + req.session.userName);
-                                var transporter = nodemailer.createTransport('smtps://user%40gmail.com:pass@smtp.gmail.com');
                                 // setup e-mail data with unicode symbols 
                                 require('crypto').randomBytes(48, function(err, buffer) {
                                     var token = buffer.toString('hex');
@@ -149,6 +149,8 @@ module.exports = function(body, app, res, req){ //need to export for app.js to f
                                                 throw error;
                                             }
                                             console.log('Message sent: ' + info.response);
+                                            return true;
+                                            //we did it :DD
                                         });
                                     });
                                 });

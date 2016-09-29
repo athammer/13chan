@@ -103,14 +103,20 @@ module.exports = {
             //put in a if token it older then 30 days delete it and tell them to hurry their ass up when verifiying....
 
             //finaly not putting it in else statements for no reason :D
-            userModel.findOneAndUpdate({'username': req.session.userName}, { emailverified: true }, {upsert:true}, function(err, doc){
+            userModel.findOneAndUpdate({'username': queredUser.userName}, { emailverified: true }, {upsert:true}, function(err, doc){
                 if(err){
+                    req.flash('message', 'Error finding username for userModel');
+                    res.redirect('/');
                     throw err;
                 }
-                emailTokens.findOneAndUpdate({'userName': req.session.userName}, { dateCreated: null, tokenID: null }, {upsert:true}, function(err, doc){
-                    if(err){
+                emailTokens.remove({ 'userName': queredUser.userName }, function(err) {
+                    if (!err) {
+                        req.flash('message', 'Error finding quered User for emailTokens');
+                        res.redirect('/');
                         throw err;
                     }
+                    req.flash('message', 'Email has been verified, (hopefully)');
+                    res.redirect('/');
                 });
             });
         });
