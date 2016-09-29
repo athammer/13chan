@@ -35,7 +35,6 @@ module.exports = function(app){ //need to export for app.js to find it
     app.get('/emailVerification/:token', function(req, res) {
         var token = req.params.token;
         middleware.checkEmailToken(req, res, token);
-        res.render('./pages/main/about.ejs');
     });
 
     app.get('/robots.txt', function(req, res) {

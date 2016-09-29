@@ -12,6 +12,7 @@ var session = require('express-session');
 var favicon = require('serve-favicon');
 var MongoStore = require('connect-mongo')(session);
 var router = express.Router();
+var vhost = require('vhost');
 
 
 var middlewares = require("./app/middlewares/middleware.js");
@@ -29,7 +30,7 @@ db.once('open', function() {
     console.log("MONGODB connected");
 });
 
-
+app.use(cors({credentials: true, origin: true}));
 app.use(helmet());
 app.use(favicon('./public/img/favicon.png'));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -47,7 +48,7 @@ app.use(session({
     secret: process.env.COOKIE_SESS_SECRET,
     resave: false,
     saveUninitialized: false,
-    domain: '13chan.co',
+    //domain: '13chan.co',
     cookie: { 
         test: 'help',
         secure: true,
@@ -60,6 +61,11 @@ app.use(cors({credentials: true, origin: true}));
 app.use(middlewares.prettifyDomain);
 app.use(flash());
 app.use(controllerLogic.flashAll);
+app.use(vhost('mail.example.com', function (req, res) {
+  // handle req + res belonging to mail.example.com
+  res.setHeader('Content-Type', 'text/plain')
+  res.end('hello from mail!')
+}))
 app.use(subdomain('b', router));
 require('./app/controllers/router/routes.js')(router);
 

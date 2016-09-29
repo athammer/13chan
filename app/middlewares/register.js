@@ -133,9 +133,20 @@ module.exports = function(body, app, res, req){ //need to export for app.js to f
                                         };
                                          
                                         // send mail with defined transport object 
+                                        
+                                        var smtpConfig = {
+                                            host: 'smtp.zoho.com',
+                                            port: 465,
+                                            secure: true, // use SSL 
+                                            auth: {
+                                                user: 'DoNotRespond@13chan.co',
+                                                pass: process.env.DONOTRESPOND_EMAIL_PASS
+                                            }
+                                        };
+                                        var transporter = nodemailer.createTransport(smtpConfig);
                                         transporter.sendMail(mailOptions, function(error, info){
                                             if(error){
-                                                return console.log(error);
+                                                throw error;
                                             }
                                             console.log('Message sent: ' + info.response);
                                         });
@@ -167,3 +178,6 @@ module.exports = function(body, app, res, req){ //need to export for app.js to f
 };
 
 
+
+
+ 

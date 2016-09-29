@@ -2,7 +2,7 @@
 module.exports = {
     
     flashAll: function(req, res, next) {
-        console.log('flash ' + req.headers.host + '  ' + req.session.userName + '   ' + req.method  + ' vs ' + req.session.user + '   ' + req.sessionID + '   ');
+        console.log('flash ' + req.headers.host + '  ' + req.session.userName + '   ' + req.method  + ' vs ' + req.session.user + '   ' + req.sessionID + '   ' + req.session.cookie.test);
         if (req.method === 'GET') { 
             if(typeof req.session.userName != 'undefined'){
                 req.flash('user', req.session.userName);

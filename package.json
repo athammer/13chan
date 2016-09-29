@@ -10,7 +10,7 @@
     "bcrypt": "^0.8.6",
     "body-parser": "^1.15.0",
     "connect-mongo": "^1.2.0",
-    "cors": "^2.7.1",
+    "cors": "^2.8.1",
     "ejs": "^2.4.1",
     "express": "*",
     "express-session": "^1.0.5",
