@@ -118,7 +118,7 @@ module.exports = function(body, app, res, req){ //need to export for app.js to f
                                     var email = new emailModel({
                                         tokenID: token,
                                         dateCreated: Date.now(),
-                                        userName: req.session.user
+                                        userName: body.usernameRegister
                                     });
                                     email.save(function (err, user) {
                                         if(err){

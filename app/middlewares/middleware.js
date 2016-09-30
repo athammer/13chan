@@ -95,31 +95,34 @@ module.exports = {
     
     checkEmailToken: function(req, res, token) {
         emailTokens.findOne({ 'tokenID': token }, 'tokenID dateCreated userName',  function (err, queredUser) {
+            var userNameTest = queredUser.userName;
+            console.log(queredUser.userName + ' username!!');
             if (err || queredUser == null){
                 req.flash('message', 'No such token exists please resend verification email.');
-                res.redirect('/');
+                res.status('404');
                 throw err;
             }
             //put in a if token it older then 30 days delete it and tell them to hurry their ass up when verifiying....
 
             //finaly not putting it in else statements for no reason :D
-            userModel.findOneAndUpdate({'username': queredUser.userName}, { emailverified: true }, {upsert:true}, function(err, doc){
+            console.log()
+            userModel.findOneAndUpdate({'username': userNameTest}, { emailverified: true }, {upsert:true}, function(err, doc){
                 if(err){
                     req.flash('message', 'Error finding username for userModel');
-                    res.redirect('/');
+                    res.status('404');
                     throw err;
                 }
-            });
-            emailTokens.remove({ 'userName': queredUser.userName }, function(err) {
-                if (!err) {
-                    req.flash('message', 'Error finding quered User for emailTokens');
-                    res.redirect('/');
-                    console.log(err);
-                }
-                req.flash('message', 'Email has been verified, (hopefully)');
-                res.redirect('/');
+                emailTokens.remove({ 'tokenID': token }, function (err) {
+                    if(err){
+                        req.flash('message', 'Error finding username for userModel');
+                        res.status('404');
+                        throw err;
+                    }
+                });
             });
         });
+        req.flash('message', 'Email has been verified, (hopefully)');
+        res.redirect('/');
         return 1;
     },
     
