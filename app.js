@@ -30,7 +30,7 @@ db.once('open', function() {
     console.log("MONGODB connected");
 });
 
-app.use(cors({credentials: true, origin: true}));
+
 app.use(helmet());
 app.use(favicon('./public/img/favicon.png'));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -48,8 +48,9 @@ app.use(session({
     secret: process.env.COOKIE_SESS_SECRET,
     resave: false,
     saveUninitialized: false,
-    //domain: '13chan.co',
     cookie: { 
+        domain: '13chan.co',
+        path: '/',
         test: 'help',
         secure: true,
         maxAge: null,
@@ -57,7 +58,14 @@ app.use(session({
     },
     store: new MongoStore({ mongooseConnection: mongoose.connection })
 }));
-app.use(cors({credentials: true, origin: true}));
+// app.use(cors({credentials: true, origin: true}));
+// app.use(function(req, res, next) {
+//     res.header('Access-Control-Allow-Credentials', true);
+//     res.header('Access-Control-Allow-Origin', req.headers.origin);
+//     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+//     res.header('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept');
+//     next();
+// });
 app.use(middlewares.prettifyDomain);
 app.use(flash());
 app.use(controllerLogic.flashAll);
