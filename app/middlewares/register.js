@@ -118,7 +118,7 @@ module.exports = function(body, app, res, req){ //need to export for app.js to f
                                     var email = new emailModel({
                                         tokenID: token,
                                         dateCreated: Date.now(),
-                                        userName: body.usernameRegister
+                                        userName: body.usernameRegister,
                                     });
                                     email.save(function (err, user) {
                                         if(err){
@@ -129,7 +129,7 @@ module.exports = function(body, app, res, req){ //need to export for app.js to f
                                             to: body.emailRegister, // list of receivers 
                                             subject: '13chan- Email Verification ', // Subject line 
                                             //text: 'visit this url to verifiy your account. ' + 'https://13chan.co/emailVerification/' + token, // plaintext body 
-                                            html: 'visit this url to verifiy your account. 🐴' + 'https://13chan.co/emailVerification/' + token
+                                            html: 'visit this url to verifiy your account. you have 30 days till it expires. 🐴' + 'https://13chan.co/emailVerification/' + token
                                         };
                                          
                                         // send mail with defined transport object 

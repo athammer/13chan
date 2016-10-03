@@ -6,10 +6,9 @@ var Schema = mongoose.Schema;
 var emailTokensSchema = new Schema({
     tokenID: String,
     dateCreated: { type: Date, default: Date.now },
-    userName: String
+    userName: String,
+    createdAt: { type: Date, expires: 2592000, default: Date.now }
 });
 
 var emailToken = mongoose.model('emailToken', emailTokensSchema);
 module.exports = emailToken;
-
-

@@ -52,6 +52,7 @@ app.use(session({
         domain: '13chan.co',
         path: '/',
         test: 'help',
+        emailVerified: null,
         secure: true,
         maxAge: null,
         httpOnly: true //http://expressjs.com/en/advanced/best-practice-security.html

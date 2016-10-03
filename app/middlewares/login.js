@@ -9,7 +9,7 @@ module.exports = function(body, app, res, req){ //need to export for app.js to f
         res.redirect("/login");
         return 0;
     }
-    userModel.findOne({ 'username': body.usernameLogin }, 'password username',  function (err, queredUser) {
+    userModel.findOne({ 'username': body.usernameLogin }, 'password username emailverified',  function (err, queredUser) {
         if (err || queredUser == null){
             console.log("Error loggin in ");
             req.flash('message', "Error: An error has occured, please try again.");
@@ -17,6 +17,11 @@ module.exports = function(body, app, res, req){ //need to export for app.js to f
             return console.error(err);
         }else{
             console.log("loggin in" + queredUser.username);
+        }
+        if(!queredUser.emailverified){
+            req.session.cookie.emailVerified == false;
+        }else{
+            req.session.cookie.emailVerified == true;
         }
         bcrypt.compare(body.passwordLogin, queredUser.password, function(err, bool) {
             if (err){

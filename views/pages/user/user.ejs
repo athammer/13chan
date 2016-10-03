@@ -21,6 +21,11 @@
     <h3 class="center-text"><a href="/dunnoYet">Board Settings</a></h3>
     <h3 class="center-text"><a href="/user/<%= userName %>/settings">User Settings</a></h3>
     <h3 class="center-text"><a href="/user/<%= userName %>/inbox">Inbox</a></h3>
+    <% if(typeof emailVerified != 'undefined' && emailVerified != null){ %>
+        <h3 class="center-text">You have not verified your email. Please do this or <a href="/resendverificationemail">click here to resend the email.</a></h3>
+    <% }else{ %>
+        <h3 class="center-text">Email is verified! good jab</h3>
+    <% } %>
 
     <% include ../../partials/footer %>
 

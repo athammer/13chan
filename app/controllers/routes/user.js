@@ -37,11 +37,16 @@ module.exports = function(app){
         req.flash('user', null);
     });
     
-    
+    app.get('/resendverificationemail', jsonParser, function(req, res) {
+        middleware.sendEmailVerification(req, res);
+        
+        
+    });
 
     app.get('/user/:name', function(req , res){
         var userName = req.params.name;
-        middleware.userNameCheck(req, res, userName);  //
+        middleware.userNameCheck(req, res, userName);
+        
     });
     
     
