@@ -53,9 +53,7 @@ before password change can take affect make users confirm it in email?
 
 
 
-when you register make redirec them to a new page saying go to their email and confirm the account
-let them resend verification email
-
+make middleware to check if i deleted their account and if so log them out?
 
 
 
