@@ -11,6 +11,8 @@ var postSchema = new Schema({
     boardName: String,
     totalPostID: String,
     posterCountry: String,
+    subject: String, //only difference from post.js for now
+    postcontent: Schema.ObjectId
 });
 
 var post = mongoose.model('post', postSchema);
