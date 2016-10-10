@@ -45,7 +45,7 @@ app.use(session({
     return require('crypto').randomBytes(48).toString('hex');
     },
     rolling: true,
-    secret: process.env.COOKIE_SESS_SECRET,
+    secret: 'process.env.COOKIE_SESS_SECRET',
     resave: false,
     saveUninitialized: false,
     cookie: { 

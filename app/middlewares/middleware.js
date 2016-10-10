@@ -157,6 +157,22 @@ module.exports = {
     
     boardPost: function(req, res, body) {
         //do stuff here dummy
+        //this is going to be a long one welp.
+        //could they post from a non created board???
+        //a new thread post should have an extra value so you know it's not just a someone posting inside a thread
+        //will also have to handle if it is anonymous how things will look vs if it's not anonymous and all the special board settings
+        //for the images/wembs/gifs we should only allow some size and some formats? until i know what the fuck im doing?
+        //should check in here if board exists first before saving it dummy
+        //i'll need to do some ejs trickery to get everything working.
+        //http://stackoverflow.com/questions/34437531/passing-data-from-mongo-to-ejs
+        
+        
+        
+        if(body.textThread){ //your a thread harry!
+            
+        }
+        //you are a post :(
+        
         return 1;
     },
     

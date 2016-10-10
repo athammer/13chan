@@ -50,8 +50,14 @@ module.exports = function(router){ //need to export for app.js to find it
     });
     router.post('/:board', jsonParser, function(req, res) {
         //could they post from a non created board???
-        middleware.boardNameCheck(req, res, req.body);
-        middleware.boardPost(req, res, req.body);
+        //a new thread post should have an extra value so you know it's not just a someone posting inside a thread
+        //will also have to handle if it is anonymous how things will look vs if it's not anonymous and all the special board settings
+        //for the images/wembs/gifs we should only allow some size and some formats? until i know what the fuck im doing?
+                //should check in here if board exists first before saving it dummy
+        var board = req.params.board;
+        middleware.boardNameCheck(req, res, board);
+        middleware.boardPost(req, res, req.body); 
+
     });
     
     router.get('/:board/admin', function(req, res) {

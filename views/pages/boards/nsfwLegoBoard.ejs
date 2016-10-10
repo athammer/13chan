@@ -41,7 +41,25 @@
         <option value="Activity">Activity</option>
     </select>
     
-    
+    <form class="center-text" method="post">
+        <h2>Create thread</h2>
+        <br>
+        <h4><p>Options: doesn't do shit right now</p></h4>
+        <input type="text" name="option" placeholder="costum options(no worky)"> 
+        <h4><p>Name: (if boards are anon use flash to remove name.)</p></h4>
+        <input type="text" name="name" placeholder="if board is anon, not used."> 
+        <br>
+        <h4><p>Subject: </p></h4>
+        <input type="text" name="subject" placeholder="Subject of Post"> 
+        <br>
+        <h4><p>Image file</p></h4>
+        <input type="file" name="file" size="chars"> 
+        <br>
+        <h4><p>Text</p></h4>
+        <input type="text" name="textThread" placeholder="Comment on post">
+        <br>
+        <button type="Submit" id="Submit">Submit</button>
+    </form>
 
 
     <% include ../../partials/footer %>
