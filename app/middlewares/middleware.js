@@ -5,6 +5,7 @@ var boardModel = require('../../app/models/board.js');
 var bcrypt = require('bcrypt');
 const saltRounds = 10;
 var nodemailer = require('nodemailer');
+var fs = require("fs");
 
 module.exports = {
     
@@ -160,7 +161,7 @@ module.exports = {
         //this is going to be a long one welp.
         //could they post from a non created board???
         //a new thread post should have an extra value so you know it's not just a someone posting inside a thread
-        //will also have to handle if it is anonymous how things will look vs if it's not anonymous and all the special board settings
+        //will also have to handle if it is anonymous how things will look vs if it's not anonymous and all the special board settings with ejs magic
         //for the images/wembs/gifs we should only allow some size and some formats? until i know what the fuck im doing?
         //should check in here if board exists first before saving it dummy
         //i'll need to do some ejs trickery to get everything working.
@@ -168,7 +169,19 @@ module.exports = {
         
         
         
-        if(body.textThread){ //your a thread harry!
+        if(body.fileThread){ //your a thread harry! edit: can i do this what if this is null when the user doesn't submit an image which is required?
+        //to start a thread you must have a file, dunno if you need text or subject just yet
+        //check if file is good exention and all that goooooood stuff
+    
+            var fileSize = fs.statSync(body.fileThread);//inb4 error (will this throw error if image doesn't exist? does body.fileThread == null when doesn't exist?)
+            var fileSizeInBytes = fileSize["size"];
+            var fileSizeInMegabytes = fileSizeInBytes / 1000000.0;
+            if(fileSizeInMegabytes > 4){
+                req.flash('message', 'File size is too large, must be under 4MBs');
+                res.redirect('back');
+                //or res.redirect(req.get('referer'));
+                
+            }
             
         }
         //you are a post :(
