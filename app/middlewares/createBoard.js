@@ -45,7 +45,9 @@ module.exports = function(body, app, res, req){  //need to export for app.js to 
         threads: 0,
         posts:  0,
         owner:  req.session.userName,
-        inactive:  false
+        inactive:  false,
+        invisible: body.invisible,
+        invite: body.invite
     });
     boardModel.findOne({ 'name': body.boardName }, 'name',  function (err, queredUser) {
         if(err){

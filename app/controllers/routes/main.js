@@ -22,6 +22,10 @@ module.exports = function(app){ //need to export for app.js to find it
         res.render('./pages/main/about.ejs', { flashObject: req.flash('message'), userName: req.flash('user') });
     });
     
+    app.get('/boards', function(req, res) {
+        res.render('./pages/main/about.ejs', { flashObject: req.flash('message'), userName: req.flash('user') });
+    });
+    
     
     app.get('/shop', function(req, res) {
         res.render('./pages/main/about.ejs', { flashObject: req.flash('message'), userName: req.flash('user') });

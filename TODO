@@ -53,6 +53,8 @@ before password change can take affect make users confirm it in email?
 use AJAX to submit forms instead
 figure out a way to send warning messages without having to refresh the page?
 
+make boards private or secret so they dont show up on the front page
+
 
 make middleware to check if i deleted their account and if so log them out?
 

@@ -17,7 +17,9 @@ var boardSchema = new Schema({
     mod:  String,
     janitor:  String,
     inactive:  Boolean,
-    postcontent: Schema.ObjectId //http://stackoverflow.com/questions/8737082/mongoose-schema-within-schema
+    postcontent: Schema.ObjectId, //http://stackoverflow.com/questions/8737082/mongoose-schema-within-schema
+    invisible: Boolean,
+    invite: Boolean
 });
 
 var board = mongoose.model('board', boardSchema);
