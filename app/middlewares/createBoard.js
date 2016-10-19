@@ -47,7 +47,7 @@ module.exports = function(body, app, res, req){  //need to export for app.js to 
         owner:  req.session.userName,
         inactive:  false,
         invisible: body.invisible,
-        invite: body.invite
+        invite: body.invite 
     });
     boardModel.findOne({ 'name': body.boardName }, 'name',  function (err, queredUser) {
         if(err){
