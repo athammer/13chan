@@ -15,9 +15,11 @@
     "express": "*",
     "express-session": "^1.0.5",
     "express-subdomain": "^1.0.5",
+    "file-type": "^3.9.0",
     "helmet": "^2.1.1",
     "mongoose": "^4.4.14",
     "nodemailer": "^2.5.0",
+    "read-chunk": "^2.0.0",
     "req-flash": "0.0.3",
     "serve-favicon": "^2.3.0",
     "vhost": "^3.0.2"

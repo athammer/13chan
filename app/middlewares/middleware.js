@@ -1,4 +1,5 @@
 var https = require('https');
+var path = require('path')
 var userModel = require('../../app/models/user.js');
 var emailTokens = require('../../app/models/emailTokens.js');
 var boardModel = require('../../app/models/board.js');
@@ -6,6 +7,9 @@ var bcrypt = require('bcrypt');
 const saltRounds = 10;
 var nodemailer = require('nodemailer');
 var fs = require("fs");
+const readChunk = require('read-chunk');
+const fileType = require('file-type');
+const buffer = readChunk.sync('unicorn.png', 0, 262);
 
 module.exports = {
     
@@ -167,10 +171,15 @@ module.exports = {
         //i'll need to do some ejs trickery to get everything working.
         //http://stackoverflow.com/questions/34437531/passing-data-from-mongo-to-ejs
         
+        //eventualy let users increase how large the files can be? by letting people pay for extra files size so i dont go broke
         
         
-        if(body.fileThread){ //your a thread harry! edit: can i do this what if this is null when the user doesn't submit an image which is required?
-        //to start a thread you must have a file, dunno if you need text or subject just yet
+        
+        fileType(body.file);
+        
+        
+        
+        if(body.subjectThread){ //your a thread harry! 
         //check if file is good exention and all that goooooood stuff
     
             var fileSize = fs.statSync(body.fileThread);//inb4 error (will this throw error if image doesn't exist? does body.fileThread == null when doesn't exist?)
@@ -182,9 +191,11 @@ module.exports = {
                 //or res.redirect(req.get('referer'));
                 
             }
+             
+        }else{ //you are a post :(
             
         }
-        //you are a post :(
+        
         
         return 1;
     },
