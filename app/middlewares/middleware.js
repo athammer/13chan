@@ -4,12 +4,12 @@ var userModel = require('../../app/models/user.js');
 var emailTokens = require('../../app/models/emailTokens.js');
 var boardModel = require('../../app/models/board.js');
 var bcrypt = require('bcrypt');
-const saltRounds = 10;
+var saltRounds = 10;
 var nodemailer = require('nodemailer');
 var fs = require("fs");
-const readChunk = require('read-chunk');
-const fileType = require('file-type');
-const buffer = readChunk.sync('unicorn.png', 0, 262);
+var readChunk = require('read-chunk');
+var fileType = require('file-type');
+
 
 module.exports = {
     
@@ -174,23 +174,23 @@ module.exports = {
         //eventualy let users increase how large the files can be? by letting people pay for extra files size so i dont go broke
         
         
-        
-        fileType(body.file);
+        const buffer = readChunk.sync(body.file, 0, 262);
+        console.log(fileType(buffer));
         
         
         
         if(body.subjectThread){ //your a thread harry! 
         //check if file is good exention and all that goooooood stuff
     
-            var fileSize = fs.statSync(body.fileThread);//inb4 error (will this throw error if image doesn't exist? does body.fileThread == null when doesn't exist?)
-            var fileSizeInBytes = fileSize["size"];
-            var fileSizeInMegabytes = fileSizeInBytes / 1000000.0;
-            if(fileSizeInMegabytes > 4){
-                req.flash('message', 'File size is too large, must be under 4MBs');
-                res.redirect('back');
-                //or res.redirect(req.get('referer'));
-                
-            }
+        var fileSize = fs.statSync(body.fileThread);//inb4 error (will this throw error if image doesn't exist? does body.fileThread == null when doesn't exist?)
+        var fileSizeInBytes = fileSize["size"];
+        var fileSizeInMegabytes = fileSizeInBytes / 1000000.0;
+        if(fileSizeInMegabytes > 4){
+            req.flash('message', 'File size is too large, must be under 4MBs');
+            res.redirect('back');
+            //or res.redirect(req.get('referer'));
+            
+        }
              
         }else{ //you are a post :(
             

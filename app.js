@@ -45,7 +45,7 @@ app.use(session({
     return require('crypto').randomBytes(48).toString('hex');
     },
     rolling: true,
-    secret: 'process.env.COOKIE_SESS_SECRET',
+    secret: process.env.COOKIE_SESS_SECRET,
     resave: false,
     saveUninitialized: false,
     cookie: { 
@@ -72,8 +72,8 @@ app.use(flash());
 app.use(controllerLogic.flashAll);
 app.use(vhost('mail.example.com', function (req, res) {
   // handle req + res belonging to mail.example.com
-  res.setHeader('Content-Type', 'text/plain')
-  res.end('hello from mail!')
+  res.setHeader('Content-Type', 'text/plain');
+  res.end('hello from mail!');
 }))
 app.use(subdomain('b', router));
 require('./app/controllers/router/routes.js')(router);
