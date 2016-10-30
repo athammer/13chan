@@ -198,6 +198,7 @@ module.exports = {
         
         
         return 1;
+
     },
     
     checkEmailToken: function(req, res, token) {
@@ -285,78 +286,82 @@ module.exports = {
                 }
                 if(bool){
                     console.log('good password');
-                    userModel.findOneAndUpdate({'username': req.session.userName}, { email: body.newEmail }, {upsert:false}, function(err, doc){
-                        if (err){
-                            console.log(err);
-                            req.flash('message', 'Error has occured trying to change your email, run for the hills or try again.');
-                            res.redirect('/user/' + req.session.userName + '/emailChange');
-                        }else{
-                            req.flash('message', 'Email successfully changed to ' + body.newEmail + '. Please reverifiy it!');
-                            userModel.findOneAndUpdate({'username': req.session.userName}, { emailverified: false }, {upsert:false}, function(err, doc){
-                                if(err){
-                                    throw err;
-                                }
-                                
-                            });
-                            
-                            //wow boy this copy pasta
-                            emailTokens.remove({ 'userName': req.session.userName }, function (err) {
-                                if(err){
-                                    req.flash('message', 'Error finding username for userModel when deleting old tokens.');
-                                    res.status('404');
-                                    throw err;
-                                }
-                            });
-                            require('crypto').randomBytes(48, function(err, buffer) {
-                                var token = buffer.toString('hex');
-                                if(err){
-                                    throw err;
-                                }
-                                var email = new emailTokens({
-                                    tokenID: token,
-                                    dateCreated: Date.now(),
-                                    userName: req.session.user,
-                                });
-                                email.save(function (err, user) {
+                    bcrypt.hash(body.newEmail, saltRounds, function(err, hash) {
+                        if(err){
+                            throw err;
+                        }
+                        var newEmail = hash;
+                        userModel.findOneAndUpdate({'username': req.session.userName}, { email: newEmail }, {upsert:false}, function(err, doc){
+                            if (err){
+                                console.log(err);
+                                req.flash('message', 'Error has occured trying to change your email, run for the hills or try again.');
+                                res.redirect('/user/' + req.session.userName + '/emailChange');
+                            }else{
+                                req.flash('message', 'Email successfully changed to ' + body.newEmail + '. Please reverifiy it!');
+                                userModel.findOneAndUpdate({'username': req.session.userName}, { emailverified: false }, {upsert:false}, function(err, doc){
                                     if(err){
-                                        throw(err);
+                                        throw err;
                                     }
-                                    var mailOptions = {
-                                        from: '"13chan- Do not respond" <DoNotRespond@13chan.co>', // sender address 
-                                        to: body.newEmail, // list of receivers 
-                                        subject: '13chan- Email Verification ', // Subject line 
-                                        //text: 'visit this url to verifiy your account. ' + 'https://13chan.co/emailVerification/' + token, // plaintext body 
-                                        html: 'visit this url to verifiy your account. you have 30 days till it expires. You were send this email becuase you(hopefully) requested you needed a new token. 🐴' + 'https://13chan.co/emailVerification/' + token
-                                    };
-                                     
-                                    // send mail with defined transport object 
                                     
-                                    var smtpConfig = {
-                                        host: 'smtp.zoho.com',
-                                        port: 465,
-                                        secure: true, // use SSL 
-                                        auth: {
-                                            user: 'DoNotRespond@13chan.co',
-                                            pass: process.env.DONOTRESPOND_EMAIL_PASS
+                                });
+                                
+                                //wow boy this copy pasta
+                                emailTokens.remove({ 'userName': req.session.userName }, function (err) {
+                                    if(err){
+                                        req.flash('message', 'Error finding username for userModel when deleting old tokens.');
+                                        res.status('404');
+                                        throw err;
+                                    }
+                                });
+                                require('crypto').randomBytes(48, function(err, buffer) {
+                                    var token = buffer.toString('hex');
+                                    if(err){
+                                        throw err;
+                                    }
+                                    var email = new emailTokens({
+                                        tokenID: token,
+                                        dateCreated: Date.now(),
+                                        userName: req.session.user,
+                                    });
+                                    email.save(function (err, user) {
+                                        if(err){
+                                            throw(err);
                                         }
-                                    };
-                                    var transporter = nodemailer.createTransport(smtpConfig);
-                                    transporter.sendMail(mailOptions, function(error, info){
-                                        if(error){
-                                            throw error;
-                                        }
-                                        console.log('Message sent: ' + info.response);
-                                        return true;
-                                        //we did it :DD
+                                        var mailOptions = {
+                                            from: '"13chan- Do not respond" <DoNotRespond@13chan.co>', // sender address 
+                                            to: body.newEmail, // list of receivers 
+                                            subject: '13chan- Email Verification ', // Subject line 
+                                            //text: 'visit this url to verifiy your account. ' + 'https://13chan.co/emailVerification/' + token, // plaintext body 
+                                            html: 'visit this url to verifiy your account. you have 30 days till it expires. You were send this email becuase you(hopefully) requested you needed a new token. 🐴' + 'https://13chan.co/emailVerification/' + token
+                                        };
+                                         
+                                        // send mail with defined transport object 
+                                        
+                                        var smtpConfig = {
+                                            host: 'smtp.zoho.com',
+                                            port: 465,
+                                            secure: true, // use SSL 
+                                            auth: {
+                                                user: 'DoNotRespond@13chan.co',
+                                                pass: process.env.DONOTRESPOND_EMAIL_PASS
+                                            }
+                                        };
+                                        var transporter = nodemailer.createTransport(smtpConfig);
+                                        transporter.sendMail(mailOptions, function(error, info){
+                                            if(error){
+                                                throw error;
+                                            }
+                                            console.log('Message sent: ' + info.response);
+                                            return true;
+                                            //we did it :DD
+                                        });
                                     });
                                 });
-                            });
-                            
-                            res.redirect('/user/' + req.session.userName);
-                            return true;
-                        }
+                                    res.redirect('/user/' + req.session.userName);
+                                    return true;
+                            }
                         });
-
+                    });
                 }else{
                     req.flash('message', 'Password is incorrect please try again!');
                     res.redirect('/user/' + req.session.userName + '/emailChange');

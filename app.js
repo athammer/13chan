@@ -33,22 +33,24 @@ db.once('open', function() {
 
 app.use(helmet());
 app.use(favicon('./public/img/favicon.png'));
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/public'));
-app.get('/test/ping', function (req, res) {
-  res.send('successfuly pinged(kinda)!');
+app.get('/test/ping', function(req, res) {
+    res.send('successfuly pinged(kinda)!');
 });
 app.use(session({
     name: '13chanAuth',
     genid: function(req) {
-    return require('crypto').randomBytes(48).toString('hex');
+        return require('crypto').randomBytes(48).toString('hex');
     },
     rolling: true,
     secret: process.env.COOKIE_SESS_SECRET,
     resave: false,
     saveUninitialized: false,
-    cookie: { 
+    cookie: {
         domain: '13chan.co',
         path: '/',
         test: 'help',
@@ -57,7 +59,9 @@ app.use(session({
         maxAge: null,
         httpOnly: true //http://expressjs.com/en/advanced/best-practice-security.html
     },
-    store: new MongoStore({ mongooseConnection: mongoose.connection })
+    store: new MongoStore({
+        mongooseConnection: mongoose.connection
+    })
 }));
 // app.use(cors({credentials: true, origin: true}));
 // app.use(function(req, res, next) {
@@ -70,10 +74,10 @@ app.use(session({
 app.use(middlewares.prettifyDomain);
 app.use(flash());
 app.use(controllerLogic.flashAll);
-app.use(vhost('mail.example.com', function (req, res) {
-  // handle req + res belonging to mail.example.com
-  res.setHeader('Content-Type', 'text/plain');
-  res.end('hello from mail!');
+app.use(vhost('mail.example.com', function(req, res) {
+    // handle req + res belonging to mail.example.com
+    res.setHeader('Content-Type', 'text/plain');
+    res.end('hello from mail!');
 }))
 app.use(subdomain('b', router));
 require('./app/controllers/router/routes.js')(router);

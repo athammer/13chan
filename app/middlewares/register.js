@@ -64,119 +64,111 @@ module.exports = function(body, app, res, req){ //need to export for app.js to f
             return console.error(err);
         }
         password = hash;
-        bcrypt.hash(body.questionRegister, saltRounds, function(err, hash) {
+        bcrypt.hash(body.emailRegister, saltRounds, function(err, hash) {
             if (err){
                 return console.error(err);
             }
-            var questionRegister = hash;
-            bcrypt.hash(body.answerRegister, saltRounds, function(err, hash) {
-                var answerRegister = hash;
-                if (err){
+            var emailRegister = hash;
+            var user = new userModel({
+                username: body.usernameRegister,
+                password: password,
+                email: emailRegister,
+                date: Date.now(),
+                forumposts: 0,
+                timespent: 0,
+                lastloggedin: Date.now(),
+                emailverified: false
+            });
+            userModel.findOne({ 'username': body.usernameRegister }, 'username email',  function (err, queredUser) {
+                if(err){
+                    req.flash('message', "Server error has occured run the hills.");
                     return console.error(err);
                 }
-                var user = new userModel({
-                    username: body.usernameRegister,
-                    password: password,
-                    email: body.emailRegister,
-                    question: questionRegister,
-                    answer: answerRegister,
-                    date: Date.now(),
-                    forumposts: 0,
-                    timespent: 0,
-                    lastloggedin: Date.now(),
-                    emailverified: false
-                });
-                userModel.findOne({ 'username': body.usernameRegister }, 'username email',  function (err, queredUser) {
-                    if(err){
-                        req.flash('message', "Server error has occured run the hills.");
-                        return console.error(err);
-                    }
-                    if(queredUser == null){
-                        user.save(function (err, user) {
-                            if (err){
-                                console.log("Error when saving to databse, sheeeeeeit.");
-                                req.flash('message', "Error: Cannot save user");
-                                res.redirect("/register");
-                                return console.error(err);
-                            }else{
-                                console.log("user saved to database.");
-                                req.flash('message', "Success! User created. Check your email for a verifcation email.");
-                                req.session.user = body.usernameRegister;
-                                req.session.userName = body.usernameRegister;
-                                req.session.cookie.name = body.usernameRegister;
-                                req.session.cookie.maxAge = 360000*2;
-                                req.session.expires = null;
-                                req.session.cookie.rolling = true;
-                                res.redirect("/user/" + req.session.userName);
-                                // setup e-mail data with unicode symbols 
-                                require('crypto').randomBytes(48, function(err, buffer) {
-                                    var token = buffer.toString('hex');
+                if(queredUser == null){
+                    user.save(function (err, user) {
+                        if (err){
+                            console.log("Error when saving to databse, sheeeeeeit.");
+                            req.flash('message', "Error: Cannot save user");
+                            res.redirect("/register");
+                            return console.error(err);
+                        }else{
+                            console.log("user saved to database.");
+                            req.flash('message', "Success! User created. Check your email for a verifcation email.");
+                            req.session.user = body.usernameRegister;
+                            req.session.userName = body.usernameRegister;
+                            req.session.cookie.name = body.usernameRegister;
+                            req.session.cookie.maxAge = 360000*2;
+                            req.session.expires = null;
+                            req.session.cookie.rolling = true;
+                            res.redirect("/user/" + req.session.userName);
+                            // setup e-mail data with unicode symbols 
+                            require('crypto').randomBytes(48, function(err, buffer) {
+                                var token = buffer.toString('hex');
+                                if(err){
+                                    throw err;
+                                }
+                                
+                                var email = new emailModel({
+                                    tokenID: token,
+                                    dateCreated: Date.now(),
+                                    userName: body.usernameRegister,
+                                });
+                                email.save(function (err, user) {
                                     if(err){
-                                        throw err;
+                                        throw(err);
                                     }
+                                    var mailOptions = {
+                                        from: '"13chan- Do not respond" <DoNotRespond@13chan.co>', // sender address 
+                                        to: body.emailRegister, // list of receivers 
+                                        subject: '13chan- Email Verification ', // Subject line 
+                                        //text: 'visit this url to verifiy your account. ' + 'https://13chan.co/emailVerification/' + token, // plaintext body 
+                                        html: 'visit this url to verifiy your account. you have 30 days till it expires. 🐴' + 'https://13chan.co/emailVerification/' + token
+                                    };
+                                     
+                                    // send mail with defined transport object 
                                     
-                                    var email = new emailModel({
-                                        tokenID: token,
-                                        dateCreated: Date.now(),
-                                        userName: body.usernameRegister,
-                                    });
-                                    email.save(function (err, user) {
-                                        if(err){
-                                            throw(err);
+                                    var smtpConfig = {
+                                        host: 'smtp.zoho.com',
+                                        port: 465,
+                                        secure: true, // use SSL 
+                                        auth: {
+                                            user: 'DoNotRespond@13chan.co',
+                                            pass: process.env.DONOTRESPOND_EMAIL_PASS
                                         }
-                                        var mailOptions = {
-                                            from: '"13chan- Do not respond" <DoNotRespond@13chan.co>', // sender address 
-                                            to: body.emailRegister, // list of receivers 
-                                            subject: '13chan- Email Verification ', // Subject line 
-                                            //text: 'visit this url to verifiy your account. ' + 'https://13chan.co/emailVerification/' + token, // plaintext body 
-                                            html: 'visit this url to verifiy your account. you have 30 days till it expires. 🐴' + 'https://13chan.co/emailVerification/' + token
-                                        };
-                                         
-                                        // send mail with defined transport object 
-                                        
-                                        var smtpConfig = {
-                                            host: 'smtp.zoho.com',
-                                            port: 465,
-                                            secure: true, // use SSL 
-                                            auth: {
-                                                user: 'DoNotRespond@13chan.co',
-                                                pass: process.env.DONOTRESPOND_EMAIL_PASS
-                                            }
-                                        };
-                                        var transporter = nodemailer.createTransport(smtpConfig);
-                                        transporter.sendMail(mailOptions, function(error, info){
-                                            if(error){
-                                                throw error;
-                                            }
-                                            console.log('Message sent: ' + info.response);
-                                            return true;
-                                            //we did it :DD
-                                        });
+                                    };
+                                    var transporter = nodemailer.createTransport(smtpConfig);
+                                    transporter.sendMail(mailOptions, function(error, info){
+                                        if(error){
+                                            throw error;
+                                        }
+                                        console.log('Message sent: ' + info.response);
+                                        return true;
+                                        //we did it :DD
                                     });
                                 });
-                            }
-                        });
-                    }else{
-                        if (queredUser.username != null){
-                            if(queredUser.email != null){
-                                req.flash('message', "Error: Email and username already exists please use another email and username.");
-                                res.redirect("/register"); 
-                                return false;
-                            }
-                            req.flash('message', "Error: User already exists please use another name.");
-                            res.redirect("/register");
+                            });
+                        }
+                    });
+                }else{
+                    if (queredUser.username != null){
+                        if(queredUser.email != null){
+                            req.flash('message', "Error: Email and username already exists please use another email and username.");
+                            res.redirect("/register"); 
                             return false;
                         }
-                        if (err || queredUser.email != null){
-                            req.flash('message', "Error: Email already exists please use another email.");
-                            res.redirect("/register");
-                            return false;
-                        }
+                        req.flash('message', "Error: User already exists please use another name.");
+                        res.redirect("/register");
+                        return false;
                     }
-                });
+                    if (err || queredUser.email != null){
+                        req.flash('message', "Error: Email already exists please use another email.");
+                        res.redirect("/register");
+                        return false;
+                    }
+                }
             });
-        });        
-    });
+        });
+    });        
 };
 
 
