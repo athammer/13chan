@@ -48,7 +48,7 @@ app.use(session({
     },
     rolling: true,
     secret: process.env.COOKIE_SESS_SECRET,
-    resave: false,
+    resave: true, //makes mongodb save and update sessions in db
     saveUninitialized: false,
     cookie: {
         domain: '13chan.co',
@@ -56,11 +56,12 @@ app.use(session({
         test: 'help',
         emailVerified: null,
         secure: true,
-        maxAge: 1800,
+        maxAge: 1000 * 60 * 1, //1 minutes
         httpOnly: true //http://expressjs.com/en/advanced/best-practice-security.html
     },
     store: new MongoStore({
-        mongooseConnection: mongoose.connection
+        mongooseConnection: mongoose.connection,
+        ttl: 60 * 1 * 1 * 1 // = 1 min
     })
 }));
 // app.use(cors({credentials: true, origin: true}));

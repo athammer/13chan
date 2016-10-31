@@ -364,6 +364,7 @@ module.exports = {
                                         tokenID: token,
                                         dateCreated: Date.now(),
                                         userName: req.session.user,
+                                        createdAt: Date.now()
                                     });
                                     email.save(function (err, user) {
                                         if(err){
