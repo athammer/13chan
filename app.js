@@ -56,7 +56,7 @@ app.use(session({
         test: 'help',
         emailVerified: null,
         secure: true,
-        maxAge: null,
+        maxAge: 1800,
         httpOnly: true //http://expressjs.com/en/advanced/best-practice-security.html
     },
     store: new MongoStore({
