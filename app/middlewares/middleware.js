@@ -173,25 +173,59 @@ module.exports = {
         
         //eventualy let users increase how large the files can be? by letting people pay for extra files size so i dont go broke
         
+        var mimeAccepted = { 
+            //names dont matter as for each loop will take care of it
+            
+            //JPEG + JPG
+            one: 'image/jpeg',
+            two: 'image/pjpeg',
+            three: 'image/jpeg',
+            four: 'image/jpeg',
+            five: 'image/pjpeg',
+            six: 'image/jpeg',
+            se7en: 'image/pjpeg',
+            eight: 'image/jpeg',
+            nine: 'image/pjpeg',
+            
+            //PNG
+            ten: 'image/png',
+            
+            //GIF
+            eleven: 'image/gif',
+            
+            //WebM
+            twelve: 'video/webm',
+            thirteen: 'audio/webm',
+            
+            //WebP
+            fourteen: 'image/webp',
+            
+            //Flif NOTE: can't find it on docs must not have one yet?
+            fifteen: 'image/flif',
+            
+            //Flash (might not use)
+            sixteen: 'application/x-shockwave-flash'
+            
+        }
         
         const buffer = readChunk.sync(body.file, 0, 262);
         console.log(fileType(buffer));
+        if(fileType(buffer.mime))
         
         
         
         if(body.subjectThread){ //your a thread harry! 
         //check if file is good exention and all that goooooood stuff
     
-        var fileSize = fs.statSync(body.fileThread);//inb4 error (will this throw error if image doesn't exist? does body.fileThread == null when doesn't exist?)
+        var fileSize = fs.statSync(body.file);//inb4 error (will this throw error if image doesn't exist? does body.fileThread == null when doesn't exist?)
         var fileSizeInBytes = fileSize["size"];
         var fileSizeInMegabytes = fileSizeInBytes / 1000000.0;
-        if(fileSizeInMegabytes > 4){
-            req.flash('message', 'File size is too large, must be under 4MBs');
-            res.redirect('back');
-            //or res.redirect(req.get('referer'));
-            
-        }
-             
+            if(fileSizeInMegabytes > 4){
+                req.flash('message', 'File size is too large, must be under 4MBs');
+                res.redirect('back');
+                //or res.redirect(req.get('referer'));
+                
+            }
         }else{ //you are a post :(
             
         }
