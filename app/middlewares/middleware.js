@@ -210,9 +210,16 @@ module.exports = {
         
         const buffer = readChunk.sync(body.file, 0, 262);
         console.log(fileType(buffer));
-        if(fileType(buffer.mime))
         
-        
+        for (var i = 0; i < mimeAccepted.length; i++) {
+            if (!(mimeAccepted[i] == fileType(buffer.mime))){
+                req.flash('message', 'Error finding username for userModel');
+                res.redirect('back'); //go back to where the request came from.
+                return 0;
+            }
+            
+        }
+
         
         if(body.subjectThread){ //your a thread harry! 
         //check if file is good exention and all that goooooood stuff
@@ -224,6 +231,7 @@ module.exports = {
                 req.flash('message', 'File size is too large, must be under 4MBs');
                 res.redirect('back');
                 //or res.redirect(req.get('referer'));
+                return 0;
                 
             }
         }else{ //you are a post :(

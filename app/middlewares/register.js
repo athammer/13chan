@@ -8,7 +8,7 @@ var crypto = require('crypto');
 module.exports = function(body, app, res, req){ //need to export for app.js to find it
     console.log("Registering in user.");
     var password = body.passwordRegister;
-    if(!(body.usernameRegister && body.passwordRegister && body.emailRegister && body.questionRegister && body.answerRegister)){
+    if(!(body.usernameRegister && body.passwordRegister && body.emailRegister)){
         req.flash('message', "Error: One of the inputs was not filled please retry and fill in all fields.");
         res.redirect("/register");
         return false;

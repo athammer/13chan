@@ -74,11 +74,11 @@ app.use(session({
 app.use(middlewares.prettifyDomain);
 app.use(flash());
 app.use(controllerLogic.flashAll);
-app.use(vhost('mail.example.com', function(req, res) {
-    // handle req + res belonging to mail.example.com
-    res.setHeader('Content-Type', 'text/plain');
-    res.end('hello from mail!');
-}))
+// app.use(vhost('mail.example.com', function(req, res) {
+//     // handle req + res belonging to mail.example.com
+//     res.setHeader('Content-Type', 'text/plain');
+//     res.end('hello from mail!');
+// }))
 app.use(subdomain('b', router));
 require('./app/controllers/router/routes.js')(router);
 
