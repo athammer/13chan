@@ -1,13 +1,11 @@
 //https://blog.risingstack.com/node-js-security-checklist/
 var express = require('express');
 var app = express();
-var vhost = require('vhost');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var subdomain = require('express-subdomain');
 var helmet = require('helmet');
 var flash = require('req-flash');
-var cors = require('cors');
 var session = require('express-session');
 var favicon = require('serve-favicon');
 var MongoStore = require('connect-mongo')(session);

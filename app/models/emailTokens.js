@@ -7,7 +7,7 @@ var emailTokensSchema = new Schema({
     tokenID: String,
     dateCreated: { type: Date, default: Date.now },
     userName: String,
-    createdAt: { type: Date, expires: 60*1}, //one minute will only activate when database is reset
+    createdAt: { type: Date, expires: 2592000 }, //one month will only activate when database is reset
 });
 
 var emailToken = mongoose.model('emailToken', emailTokensSchema);

@@ -216,25 +216,25 @@ module.exports = {
                 req.flash('message', 'Error finding username for userModel');
                 res.redirect('back'); //go back to where the request came from.
                 return 0;
+            }else{
+                //good mime found
+                var fileSize = fs.statSync(body.file);//inb4 error (will this throw error if image doesn't exist? does body.fileThread == null when doesn't exist?)
+                var fileSizeInBytes = fileSize["size"];
+                var fileSizeInMegabytes = fileSizeInBytes / 1000000.0;  //might get input from the db if the board needs extra file size such as  a wallpaper board
+                if(fileSizeInMegabytes > 4){
+                    req.flash('message', 'File size is too large, must be under 4MBs');
+                    res.redirect('back');
+                    //or res.redirect(req.get('referer'));
+                }else if(body.subjectThread){ //file is good size and is a thread
+                    
+                    
+                }else if(body.subjectPost){//file is a post
+                    
+                }else{
+                    req.flash('message', 'Bad Request, please resend.');
+                    res.redirect('back');
+                }
             }
-            
-        }
-
-        
-        if(body.subjectThread){ //your a thread harry! 
-        //check if file is good exention and all that goooooood stuff
-    
-        var fileSize = fs.statSync(body.file);//inb4 error (will this throw error if image doesn't exist? does body.fileThread == null when doesn't exist?)
-        var fileSizeInBytes = fileSize["size"];
-        var fileSizeInMegabytes = fileSizeInBytes / 1000000.0;
-            if(fileSizeInMegabytes > 4){
-                req.flash('message', 'File size is too large, must be under 4MBs');
-                res.redirect('back');
-                //or res.redirect(req.get('referer'));
-                return 0;
-                
-            }
-        }else{ //you are a post :(
             
         }
         
