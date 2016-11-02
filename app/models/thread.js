@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 
 //var userSchema = mongoose.Schema({
 
-var postSchema = new Schema({
+var threadSchema = new Schema({
     postID: String,
     postTime: Date,
     posterID: String, //if its not anon its his name if it is it is blank or null or trip
@@ -15,5 +15,5 @@ var postSchema = new Schema({
     postcontent: Schema.ObjectId
 });
 
-var post = mongoose.model('post', postSchema);
-module.exports = post;
+var thread = mongoose.model('post', threadSchema);
+module.exports = thread;

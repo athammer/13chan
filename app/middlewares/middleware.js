@@ -2,6 +2,8 @@ var https = require('https');
 var path = require('path')
 var userModel = require('../../app/models/user.js');
 var emailTokens = require('../../app/models/emailTokens.js');
+var thread = require('../../app/models/post.js');
+var post = require('../../app/models/thread.js');
 var boardModel = require('../../app/models/board.js');
 var bcrypt = require('bcrypt');
 var saltRounds = 10;
@@ -226,9 +228,14 @@ module.exports = {
                     res.redirect('back');
                     //or res.redirect(req.get('referer'));
                 }else if(body.subjectThread){ //file is good size and is a thread
-                    
+                    var thread = new thread({
+
+                    });
                     
                 }else if(body.subjectPost){//file is a post
+                    var post = new post({
+
+                    });
                     
                 }else{
                     req.flash('message', 'Bad Request, please resend.');

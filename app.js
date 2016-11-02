@@ -54,12 +54,12 @@ app.use(session({
         test: 'help',
         emailVerified: null,
         secure: true,
-        maxAge: 1000 * 60 * 1, //1 minutes
+        maxAge: 1000 * 60 * 10, //10 minutes
         httpOnly: true //http://expressjs.com/en/advanced/best-practice-security.html
     },
     store: new MongoStore({
         mongooseConnection: mongoose.connection,
-        ttl: 60 * 1 * 1 * 1 // = 1 min
+        ttl: 60 * 10 * 1 * 1 // = 10 min
     })
 }));
 // app.use(cors({credentials: true, origin: true}));
