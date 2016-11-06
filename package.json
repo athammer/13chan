@@ -1,0 +1,42 @@
+{
+  "name": "13chan",
+  "version": "0.0.0",
+  "description": "lucky 13chan",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "bcrypt": "^0.8.6",
+    "body-parser": "^1.15.0",
+    "connect-mongo": "^1.2.0",
+    "ejs": "^2.4.1",
+    "express": "*",
+    "express-session": "^1.0.5",
+    "express-subdomain": "^1.0.5",
+    "file-type": "^3.9.0",
+    "helmet": "^2.1.1",
+    "mongoose": "^4.4.14",
+    "nodemailer": "^2.5.0",
+    "read-chunk": "^2.0.0",
+    "req-flash": "0.0.3",
+    "serve-favicon": "^2.3.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/athammer/dynite.git"
+  },
+  "keywords": [
+    "13chan",
+    "image board"
+  ],
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-clean-css": "^2.0.8",
+    "gulp-htmlmin": "^2.0.0",
+    "gulp-sass": "^2.3.1",
+    "gulp-sourcemaps": "^1.6.0"
+  },
+  "private": true,
+  "license": "MIT"
+}

@@ -1,0 +1,180 @@
+html {
+  height: 100%;
+}
+body { 
+  @extend html; //cool sass
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#aaaaaa+0,cecece+26,e5e5e5+100 */
+  background: rgb(170,170,170); /* Old browsers */
+  background: -moz-linear-gradient(top,  rgba(170,170,170,1) 0%, rgba(206,206,206,1) 26%, rgba(229,229,229,1) 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top,  rgba(170,170,170,1) 0%,rgba(206,206,206,1) 26%,rgba(229,229,229,1) 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom,  rgba(170,170,170,1) 0%,rgba(206,206,206,1) 26%,rgba(229,229,229,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#aaaaaa', endColorstr='#e5e5e5',GradientType=0 ); /* IE6-9 */
+
+  margin: 0;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  font-family: Arial, Helvetica, sans-serif;
+}          
+#title, #subtitle { 
+  text-align: center;
+  padding: 0;
+  width: 35;
+  margin-left: auto;
+  margin-right: auto;
+}
+#footer {
+  text-align: center;
+}
+
+p,
+h1,
+h4,
+h3,
+h2 {
+  margin: 0;
+}
+.fixheight{
+  line-height: 160%;   //http://www.w3schools.com/cssref/pr_dim_line-height.asp pretty clever tbh ty stackoverflow
+}
+#no-margin{
+  margin: 0;
+}
+#header{
+  position: fixed;
+  top: 0px;
+  background-color: #a8a8a8;
+  display: block;
+  width: 100%;
+  height:auto;
+  min-height:20px;
+  height:auto !important;        /* for IE as it does not support min-height */
+  height:20px; 
+  box-shadow: 0px 6px 5px grey;
+  z-index: 2;
+}
+#settings-chevron{
+  font-size: 85%;
+}
+#sponsored-box,
+#normal-box,
+#hot-box,
+#subscriped-box{
+  margin: 0 auto;
+  width: 90%;
+  height: 200px;
+  padding: 0px;
+  border: 1px solid black;
+}
+#about-box{
+  height: 150px;
+  padding: 0px;
+  border: 1px solid black;
+}
+#inception-box{
+  margin: 0 auto;
+  width: 100%;
+  height: 30px;
+  padding: 0px;
+  border: 0px solid black;
+  background-color: gray;
+}
+#aboutinception-box{
+  @extend #inception-box;
+  background-color: #AFAFAF;
+}
+#search-box{
+  @extend #inception-box;
+  width: 90%;
+  background-color: #AFAFAF;
+}
+a:link{
+  text-decoration: none;
+  color: #2200CC; //google'scolor
+}
+a:visited{
+  @extend a:link;
+  color: black;
+}
+a:hover{
+  @extend a:link;
+  color: #b20000;
+}
+#center{
+  text-align: center;
+}
+.center{
+  margin: 0 auto;
+  text-align: center;
+}
+.center-text{
+  text-align: center;
+}
+.left{
+  float: left;
+  display:inline
+}
+.right{
+  float: right;
+  display:inline
+}
+@import url('//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css');
+ 
+.info_message, .success_message, .warning_message, .error_message {
+  padding: 12px;
+}
+.info_message {
+    color: #00529B;
+    background-color: #BDE5F8;
+}
+.success_message {
+    color: #4F8A10;
+    background-color: #DFF2BF;
+}
+.warning_message {
+    color: #9F6000;
+    background-color: #FEEFB3;
+}
+.error_message {
+    color: #D8000C;
+    background-color: #FFBABA;
+}
+.info_message, .success_message, .warning_message, .error_message {
+    vertical-align:middle;
+}
+.closebtn {
+    margin-left: 0px;
+    padding: 0px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.closebtn:hover {
+    color: black;
+}
+textarea {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.center1{
+  display: flex;
+  justify-content: center;
+}
+hr.belowName {
+	height: 7px;
+	border: 0;
+	box-shadow: 0 7px 7px -7px #8c8b8b inset;
+}
+.button {
+
+}
+.Post{
+   display: inline-block;
+   padding-left: 12px;
+   padding-right: 12px;
+   padding-bottom: 10px;
+   padding-top: 10px;
+}

@@ -1,0 +1,119 @@
+=================DONE=========================
+need to make usernames/emails unique to you cant register two of the same --done june 24th 2016
+why so many sessions? ---- //fixed july 15th
+make user page an acutal user page --done
+blog --- //done 7/17/2016
+get Regex to check if password and email and stuff is valid on server sidejust incase the dummy disables javascript --done 7/26/2016
+encrypt question and answer --done 7/25/16
+create frontend js to stop them registering an incomplete form //7/26/2016
+let users change email --done
+create backend js to stop them registering an incomplete form for all parts on the website --done
+make passwordchange.ejs check if the two passwords are the same in backend --done
+learn socket.io --done
+create a last logged in thingy --done
+dont let users complete unfilled form backend --done
+when logged out dont let users change pass/email and stuff if they have another tab open on that page --done
+create a medium page instead of a blog? --done
+figure out how to make a subdomain for forums --done
+create boards like b.13chan.co/[name] --done
+
+=============WHEN I GET TO IT=======================
+
+
+
+
+why is my blog coming up as my first result :(
+
+if you log in old cookies with the same username deleted(?) -- or maybe delete them if they change pass?
+repopulated forms after failed login/register/ or anything like that
+
+create front page
+clean up scss
+think of a good system of password recovery and changing passwords/email/secret question so its not fucking dumb
+make the worst website in the world that loses a lot of money
+finish the website and start a new more cancerous one
+make a user+ cookie that expires when they run out of user+ membership its like 3.999999 a month
+send a email to the user when password/email/registered and stuff
+get regex to check on front end and stop them from putting bad passwords/emails in when registering or changing passwords and stuff
+make a page where they can resend the verifcation email
+verifaction email  
+create a lost password system
+figure out if i should encrypt emails? prob tbh
+when you change email make them re confirm that email
+
+make users verfiy email when creating boards? make a bool key in user model? //https://www.npmjs.com/package/email-templates
+make passwordchange.ejs check if the two passwords are the same in frontend
+figure out what password reqs i want then add it to change pw, and register
+learn nodemailer //https://www.npmjs.com/package/nodemailer
+
+dont do the frontend regex and checks yet, learn websockets first dummy
+let boards be created but not ones that are already in use such as /user/ and /login/ 
+
+before password change can take affect make users confirm it in email?
+use AJAX to submit forms instead
+figure out a way to send warning messages without having to refresh the page?
+
+make boards private or secret so they dont show up on the front page
+
+
+make middleware to check if i deleted their account and if so log them out?
+
+
+
+https://devcenter.heroku.com/articles/ssl-beta
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+idea bucket-------------------------------------
+threads are 'maxed' by taking the average activity on a post and divideit by the average activity on all posts on that forum and multiple the denomiter by .05 then the numerator by 2
+then add 950(kinda of a loose post limit), for every post subtract one, every image post 1.3.
+
+activity is caculated by, posts(not including op's) divided by time thread is alive in minutes
+
+(((non op posts/time thread is alive)*2)/(acitivity on all posts in forum * .05)) + 950 - 1(# of posts) - 1.3(# of image posts)
+once this hits zero the thread is 404ed
+
+
+when posts are sorted by 'popular' it sorts by activity
+sorting by replies sorts by how many replies there are
+new by new
+old by thread age
+
+
+
+
+search bar on home page to search thread titles in all public(non private) forums
+
+locked forums that are locked by password 
+nsf boards cant be found by using search unless specifically asked by a button or something
+
+
+make an account to keep track of forums you are subsribed to and get a 'hot catagory' from all the forums you are subsribed too 
+
+homepage lists admin created forums and most popular user forums
+users can create their own forum and edit it's css
+each forum has tags so people can search for forums that fit their needs
+forums can be locked with a password or private(no one without a direct link can enter, so it cant be found on search)
+forum admins can choose to be completely anon, ids for ips and shit, or have registerable ids or a combination of the 3
+registerable ids will expire if not logged in for 6 months
+have users favourite forums in the top header so they can switch easily 
+
+
+create an account to manage and create boards
+change settings like header and subbed forums in profile and on a board clicking the top right
+let forum admins make money buy selling stars that goes next to people's names
+let them sponor their forum and put it in the sponor box
+will fit as many subscriptions on the top header as possible before running out of room
+everything needs to work without js

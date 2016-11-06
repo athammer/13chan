@@ -1,0 +1,48 @@
+<div id="header">
+    <a href="/donate"><p class="left">&nbsp;&nbsp;&nbsp;Support Us</p></a>
+    <% if(typeof userName != 'undefined' && userName != null){ %>
+        <a href="/user"><p class="right"><a href="/logout"><p class="right">Log out&nbsp;&nbsp;&nbsp;</p></a></p></a>
+    <% }else{ %>
+        <% var Register = 'Register'; %>
+        <a href="https://13chan.co/register"><p class="right"><%= Register %></p></a>
+    <% } %>
+    <p class="right">&nbsp;|&nbsp;</p>
+    <% if(typeof userName != 'undefined' && userName != null){ %>
+        <div class="right">
+            <a href="https://13chan.co/user/<%= userName %>"><%= userName %></a>
+            <a href="/messages"><i class="fa fa-sort-desc" style="font-size: 85%" aria-hidden="true"></i>&nbsp;[0]</a>
+        </div>
+    <% }else{ %>
+        <% var LogIn = 'Log in'; %>
+        <a href="https://13chan.co/login"><p class="right"><%= LogIn %></p></a>
+    <% } %>
+    
+    
+    <br>
+    <p class="center-text">subbed boards</p>
+</div>
+<br>
+<br>
+<br>
+<br>
+<div id="title"> 
+    <a href="/"><p class="right"><h1>13chan</h1></a>
+    <h1>Under construction, use at your own risk.</h1>
+</div>
+<div id="subtitle">
+    <h2>lucky 13chan</h2>
+    <noscript><h3 class="center-text">Disabling javascript can have unintended consequences to user experience and cause the website not to work.</h3></noscript>
+</div>
+<br>
+
+<% if(typeof flashObject != 'undefined' && flashObject != null){ %>
+    <div class="error_message col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
+        <p class="center-text"><%= flashObject %><span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span></p>
+    </div>
+<% } %>
+
+<!--
+
+
+https://gist.github.com/brianmacarthur/a4e3e0093d368aa8e423-->
+
