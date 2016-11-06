@@ -36,7 +36,7 @@ make a user+ cookie that expires when they run out of user+ membership its like 
 send a email to the user when password/email/registered and stuff
 get regex to check on front end and stop them from putting bad passwords/emails in when registering or changing passwords and stuff
 make a page where they can resend the verifcation email
-verifaction email  
+verifaction email
 create a lost password system
 figure out if i should encrypt emails? prob tbh
 when you change email make them re confirm that email
@@ -47,7 +47,7 @@ figure out what password reqs i want then add it to change pw, and register
 learn nodemailer //https://www.npmjs.com/package/nodemailer
 
 dont do the frontend regex and checks yet, learn websockets first dummy
-let boards be created but not ones that are already in use such as /user/ and /login/ 
+let boards be created but not ones that are already in use such as /user/ and /login/
 
 before password change can take affect make users confirm it in email?
 use AJAX to submit forms instead
@@ -96,11 +96,11 @@ old by thread age
 
 search bar on home page to search thread titles in all public(non private) forums
 
-locked forums that are locked by password 
+locked forums that are locked by password
 nsf boards cant be found by using search unless specifically asked by a button or something
 
 
-make an account to keep track of forums you are subsribed to and get a 'hot catagory' from all the forums you are subsribed too 
+make an account to keep track of forums you are subsribed to and get a 'hot catagory' from all the forums you are subsribed too
 
 homepage lists admin created forums and most popular user forums
 users can create their own forum and edit it's css
@@ -108,7 +108,7 @@ each forum has tags so people can search for forums that fit their needs
 forums can be locked with a password or private(no one without a direct link can enter, so it cant be found on search)
 forum admins can choose to be completely anon, ids for ips and shit, or have registerable ids or a combination of the 3
 registerable ids will expire if not logged in for 6 months
-have users favourite forums in the top header so they can switch easily 
+have users favourite forums in the top header so they can switch easily
 
 
 create an account to manage and create boards
@@ -117,3 +117,32 @@ let forum admins make money buy selling stars that goes next to people's names
 let them sponor their forum and put it in the sponor box
 will fit as many subscriptions on the top header as possible before running out of room
 everything needs to work without js
+
+
+====================General Design Goals====================
+-Check all forms on the front end and backend to make sure they follow protocol.
+
+
+=====================Front and Back End=====================
+-Create activity index for threads and let users sort by it.
+-Let users have subscriped "sub chans (name to be determined)" that appear at the top at the header
+-Inactive users will relinquish a board after (so much time) and let others claim it by contacting admins(?)
+-Let "sub chan's" admins determine if the board is anonymous, IDs(with and without trips), or uses their account name.
+
+
+==========================Back End==========================
+
+
+
+==========================Front End==========================
+
+
+============================Other============================
+-Figure out what to call user created forums
+
+
+============================Ideas============================
+
+
+
+==========================Resources==========================
