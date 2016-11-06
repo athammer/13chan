@@ -13,5 +13,5 @@ var postSchema = new Schema({
     posterCountry: String,
 });
 
-var post = mongoose.model('post', postSchema);
+var post = mongoose.model('posts', postSchema);
 module.exports = post;

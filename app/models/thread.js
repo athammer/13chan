@@ -15,5 +15,5 @@ var threadSchema = new Schema({
     postcontent: Schema.ObjectId
 });
 
-var thread = mongoose.model('post', threadSchema);
+var thread = mongoose.model('threads', threadSchema);
 module.exports = thread;
