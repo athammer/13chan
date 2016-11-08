@@ -1,18 +1,17 @@
 
 module.exports = {
-    
+
     flashAll: function(req, res, next) {
         console.log('flash ' + req.headers.host + '  ' + req.session.userName + '   ' + req.method  + ' vs ' + req.session.user + '   ' + req.sessionID + '   ' + req.session.cookie.test);
-        if (req.method === 'GET') { 
+        if (req.method === 'GET') {
             if(typeof req.session.userName != 'undefined'){
                 req.flash('user', req.session.userName);
             }
-            //req.flash('message', 'test');
         }
         next();
     },
     clearFlash: function(req, res, next) {
-        if (req.method === 'GET') { 
+        if (req.method === 'GET') {
             req.flash('message', null);
         }
         next();

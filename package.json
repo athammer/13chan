@@ -16,6 +16,7 @@
     "express-subdomain": "^1.0.5",
     "file-type": "^3.9.0",
     "helmet": "^2.1.1",
+    "jsdoc": "^3.4.2",
     "mongoose": "^4.4.14",
     "nodemailer": "^2.5.0",
     "read-chunk": "^2.0.0",
@@ -34,6 +35,7 @@
     "gulp": "^3.9.1",
     "gulp-clean-css": "^2.0.8",
     "gulp-htmlmin": "^2.0.0",
+    "gulp-jsdoc3": "^1.0.1",
     "gulp-sass": "^2.3.1",
     "gulp-sourcemaps": "^1.6.0"
   },

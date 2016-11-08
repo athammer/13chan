@@ -14,7 +14,54 @@ var fileType = require('file-type');
 
 
 module.exports = {
-    
+
+  //should be here
+  /** FLASH MIDDLEWARE */
+
+  /**
+ * Represents a book.
+ * @constructor
+ * @param {string} title - The title of the book.
+ * @param {string} author - The author of the book.
+ */
+  flashAll: function(req, res, next) {
+    console.log('flash ' + req.headers.host + '  ' + req.session.userName + '   ' + req.method  + ' vs ' + req.session.user + '   ' + req.sessionID + '   ' + req.session.cookie.test);
+    if (req.method === 'GET') {
+      if(typeof req.session.userName != 'undefined'){
+        req.flash('user', req.session.userName);
+      }
+    }
+    next();
+  },
+  clearFlash: function(req, res, next) {
+      if (req.method === 'GET') {
+          req.flash('message', null);
+      }
+      next();
+  },
+  /** FLASH MIDDLEWARE */
+
+  restrict: function(req, res, next) {
+      if (req.session.user){
+          //you have access
+          console.log("good");
+          next();
+      }else{
+          //no access 4 u kid
+          console.log("good");
+          req.flash('message', 'You do not have permission to view this page, try logging in.');
+          res.redirect('/login');
+      }
+  }
+
+
+
+
+
+
+
+
+
     prettifyDomain: function(req, res, next) {
         //console.log(req.get('host') + ' host');
         //console.log(req.hostname + ' host');
@@ -41,7 +88,7 @@ module.exports = {
         }
         next();
     },
-    
+
     boardNameCheck: function(req, res, boardName){
         boardModel.findOne({ 'abbreviation': boardName }, 'name abbreviation nsfw slogan',  function (err, queredBoard) {
             if (err || queredBoard == null){
@@ -74,13 +121,13 @@ module.exports = {
                     return 1;
                 }
                 // if swf then load normal theme, if nsfw then load red, if adult then load something
-                
+
                 //render board here
             }
         });
         return 1;
     },
-    
+
     notABoard: function(req, res, next) {
         var domain = req.headers.host;
         var subDomain = domain.split('.');
@@ -95,7 +142,7 @@ module.exports = {
         }
         next();
     },
-    
+
     sendEmailVerification: function(req, res) {
         if(req.session.userName){
             emailTokens.remove({ 'userName': req.session.userName }, function (err) {
@@ -124,19 +171,19 @@ module.exports = {
                             throw(err);
                         }
                         var mailOptions = {
-                            from: '"13chan- Do not respond" <DoNotRespond@13chan.co>', // sender address 
-                            to: queredUser.email, // list of receivers 
-                            subject: '13chan- Email Verification ', // Subject line 
-                            //text: 'visit this url to verifiy your account. ' + 'https://13chan.co/emailVerification/' + token, // plaintext body 
+                            from: '"13chan- Do not respond" <DoNotRespond@13chan.co>', // sender address
+                            to: queredUser.email, // list of receivers
+                            subject: '13chan- Email Verification ', // Subject line
+                            //text: 'visit this url to verifiy your account. ' + 'https://13chan.co/emailVerification/' + token, // plaintext body
                             html: 'visit this url to verifiy your account. you have 30 days till it expires. You were send this email becuase you(hopefully) requested you needed a new token. 🐴' + 'https://13chan.co/emailVerification/' + token
                         };
-                         
-                        // send mail with defined transport object 
-                        
+
+                        // send mail with defined transport object
+
                         var smtpConfig = {
                             host: 'smtp.zoho.com',
                             port: 465,
-                            secure: true, // use SSL 
+                            secure: true, // use SSL
                             auth: {
                                 user: 'DoNotRespond@13chan.co',
                                 pass: process.env.DONOTRESPOND_EMAIL_PASS
@@ -161,7 +208,7 @@ module.exports = {
         }
         return 1;
     },
-    
+
     boardPost: function(req, res, body) {
         //do stuff here dummy
         //this is going to be a long one welp.
@@ -172,12 +219,12 @@ module.exports = {
         //should check in here if board exists first before saving it dummy
         //i'll need to do some ejs trickery to get everything working.
         //http://stackoverflow.com/questions/34437531/passing-data-from-mongo-to-ejs
-        
+
         //eventualy let users increase how large the files can be? by letting people pay for extra files size so i dont go broke
-        
-        var mimeAccepted = { 
+
+        var mimeAccepted = {
             //names dont matter as for each loop will take care of it
-            
+
             //JPEG + JPG
             one: 'image/jpeg',
             two: 'image/pjpeg',
@@ -188,31 +235,31 @@ module.exports = {
             se7en: 'image/pjpeg',
             eight: 'image/jpeg',
             nine: 'image/pjpeg',
-            
+
             //PNG
             ten: 'image/png',
-            
+
             //GIF
             eleven: 'image/gif',
-            
+
             //WebM
             twelve: 'video/webm',
             thirteen: 'audio/webm',
-            
+
             //WebP
             fourteen: 'image/webp',
-            
+
             //Flif NOTE: can't find it on docs must not have one yet?
             fifteen: 'image/flif',
-            
+
             //Flash (might not use)
             sixteen: 'application/x-shockwave-flash'
-            
+
         }
-        
+
         const buffer = readChunk.sync(body.file, 0, 262);
         console.log(fileType(buffer));
-        
+
         for (var i = 0; i < mimeAccepted.length; i++) {
             if (!(mimeAccepted[i] == fileType(buffer.mime))){
                 req.flash('message', 'Error finding username for userModel');
@@ -232,26 +279,26 @@ module.exports = {
                     // var thread = new thread({
 
                     // });
-                    
+
                 }else if(body.subjectPost){//file is a post
                     console.log("test THIS IS A POST YEEEEEAHAHAHAH");
                     // var post = new post({
 
                     // });
-                    
+
                 }else{
                     req.flash('message', 'Bad Request, please resend.');
                     res.redirect('back');
                 }
             }
-            
+
         }
-        
-        
+
+
         return 1;
 
     },
-    
+
     checkEmailToken: function(req, res, token) {
         emailTokens.findOne({ 'tokenID': token }, 'tokenID dateCreated userName',  function (err, queredUser) {
             var userNameTest = queredUser.userName;
@@ -285,8 +332,8 @@ module.exports = {
         res.redirect('/');
         return 1;
     },
-    
-    userNameCheck: function(req, res, possibleUser) { 
+
+    userNameCheck: function(req, res, possibleUser) {
         userModel.findOne({ 'username': possibleUser }, 'username emailverified',  function (err, queredUser) {
             if (err || queredUser == null){
                 req.flash('message', 'No such user exists, try again.');
@@ -295,14 +342,14 @@ module.exports = {
             }else{
                 if(queredUser.emailverified){
                     req.session.cookie.emailVerified = true;
-                    
+
                 }
                 console.log("user exists");
                 console.log(req.session.userName + " " + queredUser);
                 if(req.session.userName == queredUser.username){
                     if(!req.session.cookie.emailVerified){
                         req.flash('emailVerified', 'Your email has not been verified.');
-                        
+
                     }
                     res.render('./pages/user/user.ejs', { flashObject: req.flash('message'), userName: req.flash('user'), emailVerified: req.flash('emailVerified')});
                 }else{
@@ -311,12 +358,12 @@ module.exports = {
             }
         });
     },
-    
+
     changeEmail: function(req, res, body){
         if(!(req.session.user)){
             req.flash('message', 'Error: Not logged in, please login and try again.');
             res.redirect('/');
-            return 0;    
+            return 0;
         }
         if(!(body.newEmail && body.password)){
             req.flash('message', 'Error: All fields were not filled please try again.');
@@ -353,9 +400,9 @@ module.exports = {
                                     if(err){
                                         throw err;
                                     }
-                                    
+
                                 });
-                                
+
                                 //wow boy this copy pasta
                                 emailTokens.remove({ 'userName': req.session.userName }, function (err) {
                                     if(err){
@@ -380,19 +427,19 @@ module.exports = {
                                             throw(err);
                                         }
                                         var mailOptions = {
-                                            from: '"13chan- Do not respond" <DoNotRespond@13chan.co>', // sender address 
-                                            to: body.newEmail, // list of receivers 
-                                            subject: '13chan- Email Verification ', // Subject line 
-                                            //text: 'visit this url to verifiy your account. ' + 'https://13chan.co/emailVerification/' + token, // plaintext body 
+                                            from: '"13chan- Do not respond" <DoNotRespond@13chan.co>', // sender address
+                                            to: body.newEmail, // list of receivers
+                                            subject: '13chan- Email Verification ', // Subject line
+                                            //text: 'visit this url to verifiy your account. ' + 'https://13chan.co/emailVerification/' + token, // plaintext body
                                             html: 'visit this url to verifiy your account. you have 30 days till it expires. You were send this email becuase you(hopefully) requested you needed a new token. 🐴' + 'https://13chan.co/emailVerification/' + token
                                         };
-                                         
-                                        // send mail with defined transport object 
-                                        
+
+                                        // send mail with defined transport object
+
                                         var smtpConfig = {
                                             host: 'smtp.zoho.com',
                                             port: 465,
-                                            secure: true, // use SSL 
+                                            secure: true, // use SSL
                                             auth: {
                                                 user: 'DoNotRespond@13chan.co',
                                                 pass: process.env.DONOTRESPOND_EMAIL_PASS
@@ -422,17 +469,17 @@ module.exports = {
             });
         });
     },
-    
+
     changePassword: function(req, res, body){
         if(!(req.session.user)){
             req.flash('message', 'Error: Not logged in, please login and try again.');
             res.redirect('/');
-            return 0;    
+            return 0;
         }
         if(!(body.newPassword && body.newPassword1 && body.password)){
             req.flash('message', 'Error: All fields were not filled please try again.');
             res.redirect('/user/' + req.session.userName + '/passwordChange');
-            return 0;   
+            return 0;
         }
         if(!(body.newPassword == body.newPassword1)){
                 req.flash('message', 'Error: Your two new passwords did not match.');

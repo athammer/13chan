@@ -131,7 +131,8 @@ everything needs to work without js
 
 
 ==========================Back End==========================
-
+-Organize the folders and move around the functions/middleware/controllers to their appropriate location.
+-Clean up code
 
 
 ==========================Front End==========================

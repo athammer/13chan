@@ -3,7 +3,7 @@ var gulp = require('gulp');
 var sass = require('gulp-sass');
 var sourcemaps = require('gulp-sourcemaps');
 var cleanCSS = require('gulp-clean-css');
-var htmlmin = require('gulp-htmlmin');
+var jsdoc = require('gulp-jsdoc3');
 
 gulp.task('sass', function () {
     return gulp.src('./public/scss/*.scss')
@@ -13,16 +13,15 @@ gulp.task('sass', function () {
     .pipe(sourcemaps.write('../maps'))
     .pipe(gulp.dest('./public/scss/css'));
 });
- 
 gulp.task('sass:watch', function () {
     gulp.watch('./public/scss/*.scss', ['sass']);
 });
 
-// gulp.task('minify', function() {
-//   return gulp.src('src/*.ejs')
-//     .pipe(htmlmin({collapseWhitespace: true}))
-//     .pipe(gulp.dest('dist'))
-// }); we use ejs not html
 
-gulp.task('default', ['sass', 'sass:watch']);
+gulp.task('doc', function (cb) {
+    gulp.src(['README.md', './src/**/*.js'], {read: false})
+        .pipe(jsdoc(cb));
+});
 
+
+gulp.task('default', ['sass', 'sass:watch', 'doc']);

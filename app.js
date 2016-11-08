@@ -18,7 +18,6 @@ var controllerLogic = require('./app/controllers/logic/controllerLogic.js');
 //app.set('views', express.static(__dirname + '/views'));
 app.set('view engine', 'ejs');
 app.set('trust proxy', 1);
-//
 
 mongoose.connect(process.env.MONGOOSE_CONNECT);
 var db = mongoose.connection;
@@ -61,27 +60,12 @@ app.use(session({
         ttl: 60 * 10 * 1 * 1 // = 10 min
     })
 }));
-// app.use(cors({credentials: true, origin: true}));
-// app.use(function(req, res, next) {
-//     res.header('Access-Control-Allow-Credentials', true);
-//     res.header('Access-Control-Allow-Origin', req.headers.origin);
-//     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-//     res.header('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept');
-//     next();
-// });
 app.use(middlewares.prettifyDomain);
 app.use(flash());
-app.use(controllerLogic.flashAll);
-// app.use(vhost('mail.example.com', function(req, res) {
-//     // handle req + res belonging to mail.example.com
-//     res.setHeader('Content-Type', 'text/plain');
-//     res.end('hello from mail!');
-// }))
+app.use(./../middlewares/middleware.js);
 app.use(subdomain('b', router));
 require('./app/controllers/router/routes.js')(router);
 
-//require('./libs/vhost/b.app.js').app;
-//app.use(vhost('b.13chan.co', require('./libs/vhost/b.app.js').app));
 
 
 require('./app/controllers/routes/boards.js')(app);
