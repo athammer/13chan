@@ -10,7 +10,6 @@ var session = require('express-session');
 var favicon = require('serve-favicon');
 var MongoStore = require('connect-mongo')(session);
 var router = express.Router();
-var vhost = require('vhost');
 
 
 var middlewares = require("./app/middlewares/middleware.js");
@@ -19,7 +18,7 @@ var controllerLogic = require('./app/controllers/logic/controllerLogic.js');
 //app.set('views', express.static(__dirname + '/views'));
 app.set('view engine', 'ejs');
 app.set('trust proxy', 1);
-
+//
 
 mongoose.connect(process.env.MONGOOSE_CONNECT);
 var db = mongoose.connection;
