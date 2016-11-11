@@ -15,15 +15,7 @@ var fileType = require('file-type');
 
 module.exports = {
 
-  //should be here
-  /** FLASH MIDDLEWARE */
-
-  /**
- * Represents a book.
- * @constructor
- * @param {string} title - The title of the book.
- * @param {string} author - The author of the book.
- */
+  /** =============================FLASH MIDDLEWARE============================= */
   flashAll: function(req, res, next) {
     console.log('flash ' + req.headers.host + '  ' + req.session.userName + '   ' + req.method  + ' vs ' + req.session.user + '   ' + req.sessionID + '   ' + req.session.cookie.test);
     if (req.method === 'GET') {
@@ -39,7 +31,48 @@ module.exports = {
       }
       next();
   },
-  /** FLASH MIDDLEWARE */
+
+
+  /** =============================DOMAIN MIDDLEWARE============================= */
+  prettifyDomain: function(req, res, next) {
+      //console.log(req.get('host') + ' host');
+      //console.log(req.hostname + ' host');
+      //console.log(req.protocol);  cant use this on amazon use req.get('x-forwarded-proto') stead
+      if(req.headers && (req.get('Host').slice(0, 4) === 'www.') && req.get('x-forwarded-proto') != null){   //must have elastic ip for this to workin aws and have to do last part bc health check pings it and doesnt use sslor anything
+          //console.log("bad www.");
+          var newHost = req.get('Host').slice(4);
+          //console.log("new host" + newHost);
+          var secureUrlNoWWW = "https://" + newHost + req.url;
+          //console.log(secureUrlNoWWW);
+          res.writeHead(301, { "Location":  secureUrlNoWWW });
+          res.end();
+          return 1;
+      }
+      //console.log(req.get('x-forwarded-proto'));
+      //console.log(req.headers['x-forwarded-for']);
+      if((req.get('x-forwarded-proto') != 'https') && (req.get('x-forwarded-proto') != null)){
+          //console.log("to ssl");
+          var secureURL = "https://" + req.headers.host + req.url;
+          //console.log(secureURL);
+          res.writeHead(301, { "Location":  secureURL });
+          res.end();
+          return 1;
+      }
+      next();
+  },
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   restrict: function(req, res, next) {
       if (req.session.user){
@@ -62,32 +95,7 @@ module.exports = {
 
 
 
-    prettifyDomain: function(req, res, next) {
-        //console.log(req.get('host') + ' host');
-        //console.log(req.hostname + ' host');
-        //console.log(req.protocol);  cant use this on amazon use req.get('x-forwarded-proto') stead
-        if(req.headers && (req.get('Host').slice(0, 4) === 'www.') && req.get('x-forwarded-proto') != null){   //must have elastic ip for this to workin aws and have to do last part bc health check pings it and doesnt use sslor anything
-            //console.log("bad www.");
-            var newHost = req.get('Host').slice(4);
-            //console.log("new host" + newHost);
-            var secureUrlNoWWW = "https://" + newHost + req.url;
-            //console.log(secureUrlNoWWW);
-            res.writeHead(301, { "Location":  secureUrlNoWWW });
-            res.end();
-            return 1;
-        }
-        //console.log(req.get('x-forwarded-proto'));
-        //console.log(req.headers['x-forwarded-for']);
-        if((req.get('x-forwarded-proto') != 'https') && (req.get('x-forwarded-proto') != null)){
-            //console.log("to ssl");
-            var secureURL = "https://" + req.headers.host + req.url;
-            //console.log(secureURL);
-            res.writeHead(301, { "Location":  secureURL });
-            res.end();
-            return 1;
-        }
-        next();
-    },
+
 
     boardNameCheck: function(req, res, boardName){
         boardModel.findOne({ 'abbreviation': boardName }, 'name abbreviation nsfw slogan',  function (err, queredBoard) {

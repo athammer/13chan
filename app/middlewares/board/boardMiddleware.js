@@ -1,0 +1,161 @@
+
+module.exports = {
+  /*
+
+
+   */
+  boardNameCheck: function(req, res, boardName){
+      boardModel.findOne({ 'abbreviation': boardName }, 'name abbreviation nsfw slogan',  function (err, queredBoard) {
+          if (err || queredBoard == null){
+              req.flash('message', 'No such user board, try again.');
+              res.status('404').render('./pages/main/404.ejs', { flashObject: req.flash('message'), userName: req.flash('user') });
+              //res.status('404').render('./pages/main/404.ejs', { flashObject: req.flash('message'), userName: req.flash('user') });
+              return console.error(err);
+          }else{
+              console.log("board exists");
+              console.log("Board name: " + queredBoard);
+              req.flash('boardNameF', queredBoard.name);
+              req.flash('abbreviationF', queredBoard.abbreviation);
+              req.flash('slogan', queredBoard.slogan);
+              console.log(queredBoard.nsfw);
+              if(queredBoard.nsfw == 'nsfw'){
+                  res.render('./pages/boards/nsfwLegoBoard.ejs', { flashObject: req.flash('message'), userName: req.flash('user'), boardName: req.flash('boardNameF'), abbreviation: req.flash('abbreviationF'), slogan: req.flash('slogan') });
+                  return 1;
+              }
+              if(queredBoard.nsfw == 'swf'){
+                  res.render('./pages/boards/legoBoard.ejs', { flashObject: req.flash('message'), userName: req.flash('user'), boardName: req.flash('boardNameF'), abbreviation: req.flash('abbreviationF'), slogan: req.flash('slogan') });
+                  return 1;
+              }
+              if(queredBoard.nsfw == 'adult'){ //unique one for adult?
+                  res.render('./pages/boards/nsfwLegoBoard.ejs', { flashObject: req.flash('message'), userName: req.flash('user'), boardName: req.flash('boardNameF'), abbreviation: req.flash('abbreviationF'), slogan: req.flash('slogan') });
+                  return 1;
+              }else{
+                  console.log("error has occured on selecting nsfw board")
+                  req.flash('message', 'Error has occured on board settings.');
+                  res.redirect('/');
+                  return 1;
+              }
+              // if swf then load normal theme, if nsfw then load red, if adult then load something
+
+              //render board here
+          }
+      });
+      return 1;
+  },
+
+
+  /*
+
+
+   */
+  notABoard: function(req, res, next) {
+      var domain = req.headers.host;
+      var subDomain = domain.split('.');
+      console.log(subDomain);
+      console.log('host: 1' + subDomain[0]);
+      console.log('host: 1' + subDomain);
+      if(subDomain[0] == 'b'){
+          var URL = "https://" + '13chan.co' + req.url;
+          res.writeHead(301, { "Location":  URL });
+          res.end();
+          return 1;
+      }
+      next();
+  },
+
+
+  /*
+
+
+
+   */
+   boardPost: function(req, res, body) {
+       //do stuff here dummy
+       //this is going to be a long one welp.
+       //could they post from a non created board???
+       //a new thread post should have an extra value so you know it's not just a someone posting inside a thread
+       //will also have to handle if it is anonymous how things will look vs if it's not anonymous and all the special board settings with ejs magic
+       //for the images/wembs/gifs we should only allow some size and some formats? until i know what the fuck im doing?
+       //should check in here if board exists first before saving it dummy
+       //i'll need to do some ejs trickery to get everything working.
+       //http://stackoverflow.com/questions/34437531/passing-data-from-mongo-to-ejs
+
+       //eventualy let users increase how large the files can be? by letting people pay for extra files size so i dont go broke
+
+       var mimeAccepted = {
+           //names dont matter as for each loop will take care of it
+
+           //JPEG + JPG
+           one: 'image/jpeg',
+           two: 'image/pjpeg',
+           three: 'image/jpeg',
+           four: 'image/jpeg',
+           five: 'image/pjpeg',
+           six: 'image/jpeg',
+           se7en: 'image/pjpeg',
+           eight: 'image/jpeg',
+           nine: 'image/pjpeg',
+
+           //PNG
+           ten: 'image/png',
+
+           //GIF
+           eleven: 'image/gif',
+
+           //WebM
+           twelve: 'video/webm',
+           thirteen: 'audio/webm',
+
+           //WebP
+           fourteen: 'image/webp',
+
+           //Flif NOTE: can't find it on docs must not have one yet?
+           fifteen: 'image/flif',
+
+           //Flash (might not use)
+           sixteen: 'application/x-shockwave-flash'
+
+       }
+
+       const buffer = readChunk.sync(body.file, 0, 262);
+       console.log(fileType(buffer));
+
+       for (var i = 0; i < mimeAccepted.length; i++) {
+           if (!(mimeAccepted[i] == fileType(buffer.mime))){
+               req.flash('message', 'Error finding username for userModel');
+               res.redirect('back'); //go back to where the request came from.
+               return 0;
+           }else{
+               //good mime found
+               var fileSize = fs.statSync(body.file);//inb4 error (will this throw error if image doesn't exist? does body.fileThread == null when doesn't exist?)
+               var fileSizeInBytes = fileSize["size"];
+               var fileSizeInMegabytes = fileSizeInBytes / 1000000.0;  //might get input from the db if the board needs extra file size such as  a wallpaper board
+               if(fileSizeInMegabytes > 4){
+                   req.flash('message', 'File size is too large, must be under 4MBs');
+                   res.redirect('back');
+                   //or res.redirect(req.get('referer'));
+               }else if(body.subjectThread){ //file is good size and is a thread
+                   console.log("test THIS IS A THREAD YEEEEEAHAHAHAH");
+                   // var thread = new thread({
+
+                   // });
+
+               }else if(body.subjectPost){//file is a post
+                   console.log("test THIS IS A POST YEEEEEAHAHAHAH");
+                   // var post = new post({
+
+                   // });
+
+               }else{
+                   req.flash('message', 'Bad Request, please resend.');
+                   res.redirect('back');
+               }
+           }
+
+       }
+
+
+       return 1;
+
+   },
+}
