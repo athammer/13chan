@@ -1,3 +1,19 @@
+var https = require('https');
+var path = require('path');
+var userModel = require('../../app/models/user.js');
+var emailTokens = require('../../app/models/emailTokens.js');
+var threadModel = require('../../app/models/thread.js');
+var postModel = require('../../app/models/post.js');
+var boardModel = require('../../app/models/board.js');
+var bcrypt = require('bcrypt');
+var nodemailer = require('nodemailer');
+var fs = require("fs");
+var readChunk = require('read-chunk');
+var fileType = require('file-type');
+
+
+
+
 module.exports = {
 
 
@@ -75,4 +91,4 @@ module.exports = {
        });
    }
 
-}
+};

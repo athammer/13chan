@@ -15,8 +15,8 @@ module.exports = function(body, app, res, req){  //need to export for app.js to 
     var nameReg = regex.email.test(body.boardName); //pretty nifty
     var abbreviationReg = regex.email.test(body.boardAbb); //pretty nifty :)))
     console.log('creating board: ' + body.boardName);
-    
-    
+
+
     if(!nameReg){
         console.log('name is messed up :(');
         req.flash('message', "Error: Name is in an incorrect format.");
@@ -47,7 +47,7 @@ module.exports = function(body, app, res, req){  //need to export for app.js to 
         owner:  req.session.userName,
         inactive:  false,
         invisible: body.invisible,
-        invite: body.invite 
+        invite: body.invite
     });
     boardModel.findOne({ 'name': body.boardName }, 'name',  function (err, queredUser) {
         if(err){
@@ -55,7 +55,7 @@ module.exports = function(body, app, res, req){  //need to export for app.js to 
             res.redirect("/create");
             throw(err);
         }
-        
+
         if(queredUser == null){
             board.save(function (err, user) {
                 if (err){
@@ -71,7 +71,7 @@ module.exports = function(body, app, res, req){  //need to export for app.js to 
                 return 1;
                 }
             });
-        }else{  
+        }else{
             console.log('board exists');
             req.flash('message', "Error: Board name already exists");
             res.redirect("/create");
@@ -79,4 +79,3 @@ module.exports = function(body, app, res, req){  //need to export for app.js to 
     });
 
 };
-

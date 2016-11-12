@@ -20,9 +20,4 @@ module.exports = function(app){ //need to export for app.js to find it
         res.render('./pages/boards/search.ejs', { userName: req.flash('user') });
     });
 
-
-    app.get('/test', function(req, res) {
-        res.render('./pages/boards/legoBoard.ejs', { userName: req.flash('user') });
-        middleware.boardSubDom(req, res);
-    });
 };
