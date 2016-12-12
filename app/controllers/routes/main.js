@@ -21,7 +21,9 @@ module.exports = function(app){ //need to export for app.js to find it
         res.render('./pages/main/social.ejs', { flashObject: req.flash('message'), userName: req.flash('user') });
     });
 
-
+    app.get('/privatePolicy', function(req, res) {
+      res.render('./pages/main/privatePolicy.ejs', { flashObject: req.flash('message'), userName: req.flash('user') });
+    });
     app.get('/about', function(req, res) {
         res.render('./pages/main/about.ejs', { flashObject: req.flash('message'), userName: req.flash('user') });
     });
