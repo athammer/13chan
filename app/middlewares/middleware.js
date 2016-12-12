@@ -3,8 +3,7 @@ var path = require('path')
 var userModel = require('../../app/models/user.js');
 var emailTokens = require('../../app/models/emailTokens.js');
 var threadModel = require('../../app/models/thread.js');
-var postModel = require('../../app/models/post.js');
-var boardModel = require('../../app/models/board.js');
+var postContent = require('../../app/models/postcontent.js');
 var bcrypt = require('bcrypt');
 var saltRounds = 10;
 var nodemailer = require('nodemailer');
@@ -284,15 +283,14 @@ module.exports = {
                     //or res.redirect(req.get('referer'));
                 }else if(body.subjectThread){ //file is good size and is a thread
                     console.log("test THIS IS A THREAD YEEEEEAHAHAHAH");
-                    // var thread = new thread({
-
-                    // });
+                    //will need to increase board's thread count +=1; and prob other stuff to do with board
+                    var postContent = new postContent({
+                      postID: String,
+                    });
 
                 }else if(body.subjectPost){//file is a post
                     console.log("test THIS IS A POST YEEEEEAHAHAHAH");
-                    // var post = new post({
-
-                    // });
+                    //http://mongoosejs.com/docs/populate.html
 
                 }else{
                     req.flash('message', 'Bad Request, please resend.');

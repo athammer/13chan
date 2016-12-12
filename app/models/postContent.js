@@ -12,7 +12,7 @@ var postContent = new Schema({
     boardName: String,
     totalPostID: String,
     posterCountry: String,
-    subject: String,
+    text: String,
     img: { data: Buffer, contentType: String } //required
     posts: [{
         text: String,
@@ -26,6 +26,10 @@ var postContent = new Schema({
         //     ref: 'User' //name of schema model
         // }
     }]
+    parentBoard: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'board' //name of schema model
+    }
 });
 
 var postContent = mongoose.model('postContents', postContent);
@@ -35,9 +39,10 @@ module.exports = thread;
 
 
 /*
+https://alexanderzeitler.com/articles/mongoose-referencing-schema-in-properties-and-arrays/
 http://mongoosejs.com/docs/populate.html
 
-post.save(function(error) {
+postContent.save(function(error) {
     if (!error) {
         Post.find({})
             .populate('postedBy')
