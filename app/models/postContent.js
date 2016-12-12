@@ -3,22 +3,7 @@ var Schema = mongoose.Schema;
 
 //var userSchema = mongoose.Schema({
 
-var threadSchema = new Schema({
-    postID: String,
-    postTime: Date,
-    posterID: String, //if its not anon its his name if it is it is blank or null or trip
-    posterNumber: String, //random number generate from cookie and ip address given, should i even do this why not put it in posterID???
-    boardName: String,
-    totalPostID: String,
-    posterCountry: String,
-    subject: String, //only difference from post.js for now
-    //postcontent: Schema.ObjectId
-});
-
-var thread = mongoose.model('threads', threadSchema);
-module.exports = thread;
-
-var threadSchema = new Schema({
+var postContent = new Schema({
     postID: String,
     title: String,
     postTime: Date,
@@ -27,7 +12,7 @@ var threadSchema = new Schema({
     boardName: String,
     totalPostID: String,
     posterCountry: String,
-    subject: String, 
+    subject: String,
     img: { data: Buffer, contentType: String } //required
     posts: [{
         text: String,
@@ -35,13 +20,18 @@ var threadSchema = new Schema({
         posterID: String,
         posterNumber: String, //random number generate from cookie and ip address given, should i even do this why not put it in posterID???
         posterCountry: String,
-        img: { data: Buffer, contentType: String }
+        img: { data: Buffer, contentType: String } //https://gist.github.com/aheckmann/2408370
         // postedBy: {
         //     type: mongoose.Schema.Types.ObjectId,
         //     ref: 'User' //name of schema model
         // }
     }]
 });
+
+var postContent = mongoose.model('postContents', postContent);
+module.exports = thread;
+
+
 
 
 /*
