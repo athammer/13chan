@@ -12,8 +12,8 @@ module.exports = function(body, app, res, req){  //need to export for app.js to 
         name: /^[A-Za-z0-9_]{3,24}$/, //we should let boards have !@#$^&*() in it prob
         abbreviation: /.{1,7}/,
     };
-    var nameReg = regex.email.test(body.boardName); //pretty nifty
-    var abbreviationReg = regex.email.test(body.boardAbb); //pretty nifty :)))
+    var nameReg = regex.name.test(body.boardName); //pretty nifty
+    var abbreviationReg = regex.abbreviation.test(body.boardAbb); //pretty nifty :)))
     console.log('creating board: ' + body.boardName);
 
 

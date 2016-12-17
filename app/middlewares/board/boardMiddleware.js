@@ -128,13 +128,18 @@ module.exports = {
            sixteen: 'application/x-shockwave-flash'
 
        }
+       if(body.file != null){ //checks if there is a photo, front end should not let them submit without a photo...
+         const buffer = readChunk.sync(body.file, 0, 262);
+         console.log(fileType(buffer));
+       }else{
+         req.flash('message', 'When creating threads there must be an accepted image/video type.');
+         res.redirect('back'); //go back to where the request came from.
+       }
 
-       const buffer = readChunk.sync(body.file, 0, 262);
-       console.log(fileType(buffer));
 
        for (var i = 0; i < mimeAccepted.length; i++) {
            if (!(mimeAccepted[i] == fileType(buffer.mime))){
-               req.flash('message', 'Error finding username for userModel');
+               req.flash('message', 'File type is not accepted');
                res.redirect('back'); //go back to where the request came from.
                return 0;
            }else{
@@ -142,21 +147,70 @@ module.exports = {
                var fileSize = fs.statSync(body.file);//inb4 error (will this throw error if image doesn't exist? does body.fileThread == null when doesn't exist?)
                var fileSizeInBytes = fileSize["size"];
                var fileSizeInMegabytes = fileSizeInBytes / 1000000.0;  //might get input from the db if the board needs extra file size such as  a wallpaper board
-               if(fileSizeInMegabytes > 4){
-                   req.flash('message', 'File size is too large, must be under 4MBs');
+               if(fileSizeInMegabytes > 8){
+                   req.flash('message', 'File size is too large, must be under 8MBs');
                    res.redirect('back');
                    //or res.redirect(req.get('referer'));
                }else if(body.subjectThread){ //file is good size and is a thread
                    console.log("test THIS IS A THREAD YEEEEEAHAHAHAH");
-                   // var thread = new thread({
-
-                   // });
+                   boardModel.findOne({ 'name': body.boardName }, 'name',  function (err, queredUser) {
+                      if(err){
+                           req.flash('message', "Error: Error quering for board duplicates.");
+                           res.redirect("/create");
+                           throw(err);
+                       }
+                   )}
+                   var thread = new thread({
+                     postID: String, //get
+                   });
+                   /*
+                   postID: String,
+                   title: String,
+                   postTime: Date,
+                   posterID: String, //if its not anon its his name if it is it is blank or null or trip
+                   posterNumber: String, //random number generate from cookie and ip address given, should i even do this why not put it in posterID???
+                   boardName: String,
+                   totalPostID: String,
+                   posterCountry: String,
+                   text: String,
+                   img: { data: Buffer, contentType: String } //required
+                   posts: [{ //posts in the thread
+                       text: String,
+                       postTime: Date,
+                       posterID: String,
+                       posterNumber: String, //random number generate from cookie and ip address given, should i even do this why not put it in posterID???
+                       posterCountry: String,
+                       img: { data: Buffer, contentType: String } //https://gist.github.com/aheckmann/2408370
+                       // postedBy: {  //used for eample
+                       //     type: mongoose.Schema.Types.ObjectId,
+                       //     ref: 'User' //name of schema model
+                       // }
+                   }]
+                   parentBoard: {
+                       type: mongoose.Schema.Types.ObjectId,
+                       ref: 'board' //name of schema model
+                   }
+                    */
 
                }else if(body.subjectPost){//file is a post
                    console.log("test THIS IS A POST YEEEEEAHAHAHAH");
-                   // var post = new post({
+                   var post = new post({
 
-                   // });
+                   });
+                   /*
+                   posts: [{ //posts in the thread
+                       text: String,
+                       postTime: Date,
+                       posterID: String,
+                       posterNumber: String, //random number generate from cookie and ip address given, should i even do this why not put it in posterID???
+                       posterCountry: String,
+                       img: { data: Buffer, contentType: String } //https://gist.github.com/aheckmann/2408370
+                       // postedBy: {  //used for eample
+                       //     type: mongoose.Schema.Types.ObjectId,
+                       //     ref: 'User' //name of schema model
+                       // }
+                   }]
+                    */
 
                }else{
                    req.flash('message', 'Bad Request, please resend.');

@@ -14,14 +14,14 @@ var postContent = new Schema({
     posterCountry: String,
     text: String,
     img: { data: Buffer, contentType: String } //required
-    posts: [{
+    posts: [{ //posts in the thread
         text: String,
         postTime: Date,
         posterID: String,
         posterNumber: String, //random number generate from cookie and ip address given, should i even do this why not put it in posterID???
         posterCountry: String,
         img: { data: Buffer, contentType: String } //https://gist.github.com/aheckmann/2408370
-        // postedBy: {
+        // postedBy: {  //used for eample
         //     type: mongoose.Schema.Types.ObjectId,
         //     ref: 'User' //name of schema model
         // }

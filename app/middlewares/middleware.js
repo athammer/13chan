@@ -285,6 +285,7 @@ module.exports = {
                     console.log("test THIS IS A THREAD YEEEEEAHAHAHAH");
                     //will need to increase board's thread count +=1; and prob other stuff to do with board
                     var postContent = new postContent({
+                      parentBoard: board._id,
                       postID: String,
                     });
 
