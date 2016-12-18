@@ -23,7 +23,7 @@
 </head>
 
 <body id="main">
-    
+
     <% include ../../partials/header %>
     <br>
     <br>
@@ -34,7 +34,7 @@
         <h1 class="center-text"> dork </h1>
         <h2 class="center-text"> something went wrong :( </h2>
     <% } %>
-    Create Post | Sort by 
+    Create Post | Sort by
     <select>
         <option value="Bumped">Bumped</option>
         <option value="Date">Date</option>
@@ -47,19 +47,20 @@
         <h2>Create thread</h2>
         <br>
         <h4><p>Options: doesn't do shit right now</p></h4>
-        <input type="text" name="option" placeholder="costum options(no worky)"> 
+        <input type="text" name="option" placeholder="costum options(no worky)">
         <h4><p>Name: (if boards are anon use flash to remove name.)</p></h4>
-        <input type="text" name="name" placeholder="if board is anon, not used."> 
+        <input type="text" name="name" placeholder="if board is anon, not used.">
         <br>
         <h4><p>Subject: </p></h4>
-        <input type="text" name="subjectThread" placeholder="Subject of Post"> 
+        <input type="text" name="subjectThread" placeholder="Subject of Post">
         <br>
         <h4><p>Image file</p></h4>
-        <input type="file" name="file" size="chars"> 
+        <input type="file" name="file" size="chars">
         <br>
         <h4><p>Text</p></h4>
         <input type="text" name="text" placeholder="Comment on post">
         <br>
+        <input type="hidden" name="boardName" value="<%= boardName %>" />
         <button type="Submit" id="Submit">Submit</button>
     </form>
 
@@ -70,4 +71,3 @@
 </body>
 
 </html>
-

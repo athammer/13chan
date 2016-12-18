@@ -13,7 +13,7 @@ var postContent = new Schema({
     totalPostID: String,
     posterCountry: String,
     text: String,
-    img: { data: Buffer, contentType: String } //required
+    img: { data: Buffer, contentType: String }, //required
     posts: [{ //posts in the thread
         text: String,
         postTime: Date,
@@ -25,7 +25,7 @@ var postContent = new Schema({
         //     type: mongoose.Schema.Types.ObjectId,
         //     ref: 'User' //name of schema model
         // }
-    }]
+    }],
     parentBoard: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'board' //name of schema model
@@ -33,7 +33,7 @@ var postContent = new Schema({
 });
 
 var postContent = mongoose.model('postContents', postContent);
-module.exports = thread;
+module.exports = postContent;
 
 
 

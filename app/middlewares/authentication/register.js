@@ -1,5 +1,5 @@
-var userModel = require('../../app/models/user.js');
-var emailModel = require('../../app/models/emailTokens.js');
+var userModel = require('../../models/user.js');
+var emailModel = require('../../models/emailTokens.js');
 var bcrypt = require('bcrypt');
 var nodemailer = require('nodemailer');
 var crypto = require('crypto');

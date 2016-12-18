@@ -1,4 +1,4 @@
-var userModel = require('../../app/models/user.js');
+var userModel = require('../../models/user.js');
 var bcrypt = require('bcrypt');
 
 
@@ -58,4 +58,3 @@ module.exports = function(body, app, res, req){ //need to export for app.js to f
         });
     });
 };
-

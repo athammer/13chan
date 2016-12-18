@@ -62,7 +62,6 @@ app.use(session({
 }));
 app.use(middlewares.prettifyDomain);
 app.use(flash());
-app.use(./../middlewares/middleware.js);
 app.use(subdomain('b', router));
 require('./app/controllers/router/routes.js')(router);
 

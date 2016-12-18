@@ -1,4 +1,4 @@
-var boardModel = require('../../app/models/board.js');
+var boardModel = require('../../models/board.js');
 var bcrypt = require('bcrypt');
 
 
@@ -10,7 +10,7 @@ module.exports = function(body, app, res, req){  //need to export for app.js to 
     }
     var regex = {
         name: /^[A-Za-z0-9_]{3,24}$/, //we should let boards have !@#$^&*() in it prob
-        abbreviation: /.{1,7}/,
+        abbreviation: /.{1,7}/
     };
     var nameReg = regex.name.test(body.boardName); //pretty nifty
     var abbreviationReg = regex.abbreviation.test(body.boardAbb); //pretty nifty :)))

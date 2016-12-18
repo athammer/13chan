@@ -2,8 +2,8 @@ var https = require('https');
 var path = require('path')
 var userModel = require('../../app/models/user.js');
 var emailTokens = require('../../app/models/emailTokens.js');
-var threadModel = require('../../app/models/thread.js');
-var postContent = require('../../app/models/postcontent.js');
+var board = require('../../app/models/board.js');
+var postContent = require('../../app/models/postContent.js');
 var bcrypt = require('bcrypt');
 var saltRounds = 10;
 var nodemailer = require('nodemailer');
@@ -84,7 +84,7 @@ module.exports = {
           req.flash('message', 'You do not have permission to view this page, try logging in.');
           res.redirect('/login');
       }
-  }
+  },
 
 
 
