@@ -127,14 +127,6 @@ module.exports = {
            sixteen: 'application/x-shockwave-flash'
 
        }
-       if(body.file != null){ //checks if there is a photo, front end should not let them submit without a photo...
-         const buffer = readChunk.sync(body.file, 0, 262);
-         console.log(fileType(buffer));
-       }else{
-         req.flash('message', 'When creating threads there must be an accepted image/video type.');
-         res.redirect('back'); //go back to where the request came from.
-       }
-
 
        for (var i = 0; i < mimeAccepted.length; i++) {
            if (!(mimeAccepted[i] == fileType(buffer.mime))){
@@ -152,6 +144,10 @@ module.exports = {
                    //or res.redirect(req.get('referer'));
                }else if(body.subjectThread){ //file is good size and is a thread
                    console.log("test THIS IS A THREAD YEEEEEAHAHAHAH");
+                   if(body.file == null){ //checks if there is a photo, front end should not let them submit without a photo...
+                     req.flash('message', 'When creating threads there must be an accepted image/video type.');
+                     res.redirect('back'); //GO BACK FROM ONCE YOU CAME
+                   }
                    boardModel.findOne({ 'name': body.boardName }, 'name',  function (err, queredUser) {
                       if(err){
                            req.flash('message', "Error: Error quering for board duplicates.");
