@@ -47,4 +47,7 @@ var boardSchema = new Schema({
 
 var board = mongoose.model('board', boardSchema);
 module.exports = board;
+
+//https://alexanderzeitler.com/articles/mongoose-referencing-schema-in-properties-and-arrays/
+//http://mongoosejs.com/docs/populate.html
 //http://stackoverflow.com/questions/8737082/mongoose-schema-within-schema

@@ -121,7 +121,7 @@ module.exports = {
            fourteen: 'image/webp',
 
            //Flif NOTE: can't find it on docs must not have one yet?
-           fifteen: 'image/flif',
+           fifteen: 'image/flif', //https://github.com/FLIF-hub/FLIF
 
            //Flash (might not use)
            sixteen: 'application/x-shockwave-flash'
@@ -130,9 +130,7 @@ module.exports = {
 
        for (var i = 0; i < mimeAccepted.length; i++) {
            if (!(mimeAccepted[i] == fileType(buffer.mime))){
-               req.flash('message', 'File type is not accepted');
-               res.redirect('back'); //go back to where the request came from.
-               return 0;
+             //do nothing
            }else{
                //good mime found
                var fileSize = fs.statSync(body.file);//inb4 error (will this throw error if image doesn't exist? does body.fileThread == null when doesn't exist?)
@@ -212,6 +210,12 @@ module.exports = {
                    res.redirect('back');
                }
            }
+
+
+           //if none was found
+           req.flash('message', 'File type is not accepted');
+           res.redirect('back'); //go back to where the request came from.
+           return 0;
 
        }
 
