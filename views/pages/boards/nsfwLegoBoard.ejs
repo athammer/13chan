@@ -61,6 +61,10 @@
         <input type="text" name="text" placeholder="Comment on post">
         <br>
         <input type="hidden" name="boardName" value="<%= boardName %>" />
+        <input type="hidden" name="author" value=
+            "<% if(typeof userName != 'undefined' && userName != null){ %>
+                <%= userName %>
+            <% } %>"
         <button type="Submit" id="Submit">Submit</button>
     </form>
 

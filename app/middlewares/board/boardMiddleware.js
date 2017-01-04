@@ -153,8 +153,15 @@ module.exports = {
                            throw(err);
                        }
                    )}
+                   if(body.author == null){
+                     console.log("user is anon")
+                   }
                    var thread = new thread({
                      postID: String, //get
+                     title: body.subjectThread,
+                     postTime: Date.now(),
+                     posterID: body.author, //if its not anon its his name if it is it is blank or null or trip
+                     posterNumber: String, get
                    });
                    /*
                    postID: String,
@@ -188,6 +195,8 @@ module.exports = {
                }else if(body.subjectPost){//file is a post
                    console.log("test THIS IS A POST YEEEEEAHAHAHAH");
                    var post = new post({
+
+                     //work on post first
 
                    });
                    /*
