@@ -4,33 +4,28 @@ var Schema = mongoose.Schema;
 //var userSchema = mongoose.Schema({
 
 var postContent = new Schema({
-  //empty for now so the i dont have to delete paths(aka lazy rn)
-
-
-
-
-    // postID: String,
-    // title: String,
-    // postTime: Date,
-    // posterID: String, //if its not anon its his name if it is it is blank or null or trip
-    // posterNumber: String, //random number generate from cookie and ip address given, should i even do this why not put it in posterID???
-    // boardName: String,
-    // totalPostID: String,
-    // posterCountry: String,
-    // text: String,
-    // img: { data: Buffer, contentType: String }, //required
-    // posts: [{ //posts in the thread
-    //     text: String,
-    //     postTime: Date,
-    //     posterID: String,
-    //     posterNumber: String, //random number generate from cookie and ip address given, should i even do this why not put it in posterID???
-    //     posterCountry: String,
-    //     img: { data: Buffer, contentType: String } //https://gist.github.com/aheckmann/2408370
-    // }],
-    // // parentBoard: { //don't need
-    // //     type: mongoose.Schema.Types.ObjectId,
-    // //     ref: 'board' //name of schema model
-    // // }
+  // threads: [{ //threads
+  //   postID: String,
+  //   title: String,
+  //   postTime: Date,
+  //   posterID: String, //if its not anon its his name if it is it is blank or null or trip
+  //   posterNumber: String, //random number generate from cookie and ip address given, should i even do this why not put it in posterID???
+  //   boardName: String,
+  //   totalPostID: String,
+  //   posterCountry: String,
+  //   text: String,
+  //   img: { data: Buffer, contentType: String }, //required
+  //
+  //   //ouch, well see if this is even possible...
+  //   posts: [{ //posts in the thread
+  //     text: String,
+  //     postTime: Date,
+  //     posterID: String,
+  //     posterNumber: String, //random number generate from cookie and ip address given, should i even do this why not put it in posterID???
+  //     posterCountry: String,
+  //     img: { data: Buffer, contentType: String } //https://gist.github.com/aheckmann/2408370
+  //   }],
+  // }],
 });
 
 var postContent = mongoose.model('postContents', postContent);

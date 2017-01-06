@@ -11,8 +11,9 @@ var boardSchema = new Schema({
     nsfw: String,
     tags: String,
     date: { type: Date, default: Date.now },
-    threads: Number,
-    posts:  Number,
+    threadCount: Number,
+    postCount:  Number,
+    totalCount: Number,
     owner:  String,
     mod:  String,
     janitor:  String,
@@ -20,7 +21,6 @@ var boardSchema = new Schema({
     invisible: Boolean,
     invite: Boolean,
 
-    //ouch...
     threads: [{ //threads
       postID: String,
       title: String,
@@ -33,7 +33,7 @@ var boardSchema = new Schema({
       text: String,
       img: { data: Buffer, contentType: String }, //required
 
-      //double ouch, well see if this is even possible...
+      //ouch, well see if this is even possible...
       posts: [{ //posts in the thread
         text: String,
         postTime: Date,

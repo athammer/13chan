@@ -146,51 +146,41 @@ module.exports = {
                      req.flash('message', 'When creating threads there must be an accepted image/video type.');
                      res.redirect('back'); //GO BACK FROM ONCE YOU CAME
                    }
-                   boardModel.findOne({ 'name': body.boardName }, 'name',  function (err, queredUser) {
+                   boardModel.findOne({ 'name': body.boardName }, 'name totalCount',  function (err, queredUser) {
                       if(err){
                            req.flash('message', "Error: Error quering for board duplicates.");
                            res.redirect("/create");
                            throw(err);
                        }
+                       if(body.author == null){
+                         console.log("user is anon")
+                       }
+                       // updated docs http://mongoosejs.com/docs/documents.html
+
+
+                       update = { $inc : {
+                         numShown : 1,
+                         'secondField.subField' : 1
+
+                        }
+                       };
+                       options = {};
+                       boardModel.findByIdAndUpdate('name', body.boardName, options, function(err){
+                         if(err){ return console.error(err);}
+                       }
+
+
+
+
+                       var thread = new thread({
+                         postID: totalCount + 1,
+                         title: body.subjectThread,
+                         postTime: Date.now(),
+                         posterID: body.author, //if its not anon its his name if it is it is blank or null or trip
+                         posterNumber: String, get
+                       });
                    )}
-                   if(body.author == null){
-                     console.log("user is anon")
-                   }
-                   var thread = new thread({
-                     postID: String, //get
-                     title: body.subjectThread,
-                     postTime: Date.now(),
-                     posterID: body.author, //if its not anon its his name if it is it is blank or null or trip
-                     posterNumber: String, get
-                   });
-                   /*
-                   postID: String,
-                   title: String,
-                   postTime: Date,
-                   posterID: String, //if its not anon its his name if it is it is blank or null or trip
-                   posterNumber: String, //random number generate from cookie and ip address given, should i even do this why not put it in posterID???
-                   boardName: String,
-                   totalPostID: String,
-                   posterCountry: String,
-                   text: String,
-                   img: { data: Buffer, contentType: String } //required
-                   posts: [{ //posts in the thread
-                       text: String,
-                       postTime: Date,
-                       posterID: String,
-                       posterNumber: String, //random number generate from cookie and ip address given, should i even do this why not put it in posterID???
-                       posterCountry: String,
-                       img: { data: Buffer, contentType: String } //https://gist.github.com/aheckmann/2408370
-                       // postedBy: {  //used for eample
-                       //     type: mongoose.Schema.Types.ObjectId,
-                       //     ref: 'User' //name of schema model
-                       // }
-                   }]
-                   parentBoard: {
-                       type: mongoose.Schema.Types.ObjectId,
-                       ref: 'board' //name of schema model
-                   }
-                    */
+
 
                }else if(body.subjectPost){//file is a post
                    console.log("test THIS IS A POST YEEEEEAHAHAHAH");
@@ -199,20 +189,6 @@ module.exports = {
                      //work on post first
 
                    });
-                   /*
-                   posts: [{ //posts in the thread
-                       text: String,
-                       postTime: Date,
-                       posterID: String,
-                       posterNumber: String, //random number generate from cookie and ip address given, should i even do this why not put it in posterID???
-                       posterCountry: String,
-                       img: { data: Buffer, contentType: String } //https://gist.github.com/aheckmann/2408370
-                       // postedBy: {  //used for eample
-                       //     type: mongoose.Schema.Types.ObjectId,
-                       //     ref: 'User' //name of schema model
-                       // }
-                   }]
-                    */
 
                }else{
                    req.flash('message', 'Bad Request, please resend.');
