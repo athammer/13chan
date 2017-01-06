@@ -159,9 +159,11 @@ module.exports = {
 
 
                        update = { $inc : {
-                         numShown : 1,
-                         'secondField.subField' : 1
-
+                         threads.postID : totalCount + 1,
+                         threads.title : body.subjectThread,
+                         postTime: Date.now(),
+                         posterID: body.author, //if its not anon its his name if it is it is blank or null or trip
+                         //posterNumber: store a unique cookie session id with a unique identify 
                         }
                        };
                        options = {};
@@ -172,13 +174,6 @@ module.exports = {
 
 
 
-                       var thread = new thread({
-                         postID: totalCount + 1,
-                         title: body.subjectThread,
-                         postTime: Date.now(),
-                         posterID: body.author, //if its not anon its his name if it is it is blank or null or trip
-                         posterNumber: String, get
-                       });
                    )}
 
 
