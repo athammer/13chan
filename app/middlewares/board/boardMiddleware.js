@@ -176,20 +176,26 @@ module.exports = {
                        boardModel.findByIdAndUpdate('name', body.boardName, options, function(err){
                          if(err){ return console.error(err);}
                        }
-
-
-
-
+                       res.redirect('back');
+                       //DONE do more checking here?
                    )}
 
 
                }else if(body.subjectPost){//file is a post
-                   console.log("test THIS IS A POST YEEEEEAHAHAHAH");
+                   console.log("test THIS IS A POST");
                    var post = new post({
 
-                     //work on post first
+                     //work on post first and finish it
 
                    });
+                   /*
+                   text: String,
+                   postTime: Date,
+                   posterID: String,
+                   posterNumber: String, //random number generate from cookie and ip address given, should i even do this why not put it in posterID???
+                   posterCountry: String,
+                   img: { data: Buffer, contentType: String } //https://gist.github.com/aheckmann/2408370
+                    */
 
                }else{
                    req.flash('message', 'Bad Request, please resend.');
