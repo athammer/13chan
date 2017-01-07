@@ -13,6 +13,7 @@ var router = express.Router();
 
 
 var middlewares = require("./app/middlewares/middleware.js");
+var auth = require("./app/middlewares/authentication/authenticationMiddleware.js"); //need to shorten this....
 var controllerLogic = require('./app/controllers/logic/controllerLogic.js');
 
 //app.set('views', express.static(__dirname + '/views'));
@@ -60,11 +61,11 @@ app.use(session({
         ttl: 60 * 10 * 1 * 1 // = 10 min
     })
 }));
+app.use(flash()); //neds to before any middleware using flash
 app.use(middlewares.prettifyDomain);
-app.use(flash());
+app.use(auth.flashUserName);
 app.use(subdomain('b', router));
 require('./app/controllers/router/routes.js')(router);
-
 
 
 require('./app/controllers/routes/boards.js')(app);

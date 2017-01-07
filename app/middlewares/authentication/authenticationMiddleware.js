@@ -15,10 +15,12 @@ var fileType = require('file-type');
 module.exports = {
 
 
-
-  flashUserName: function(req, res, next) {
-      req.flash('userName', req.session.userName);
+  flashUserName: function(req, res, next) { //not used
+    console.log(req.session.userName);
+    req.flash('user', req.session.userName);
+    next();
   },
+
 
   restrict: function(req, res, next) {
       if (req.session.user){

@@ -351,8 +351,7 @@ module.exports = {
                     req.session.cookie.emailVerified = true;
 
                 }
-                console.log("user exists");
-                console.log(req.session.userName + " " + queredUser);
+                //console.log(req.session.userName + " " + queredUser);
                 if(req.session.userName == queredUser.username){
                     if(!req.session.cookie.emailVerified){
                         req.flash('emailVerified', 'Your email has not been verified.');
