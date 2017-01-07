@@ -15,6 +15,11 @@ var fileType = require('file-type');
 module.exports = {
 
 
+
+  flashUserName: function(req, res, next) {
+      req.flash('userName', req.session.userName);
+  },
+
   restrict: function(req, res, next) {
       if (req.session.user){
           //you have access
@@ -28,11 +33,6 @@ module.exports = {
       }
   },
 
-
-  /*
-
-
-   */
    changePassword: function(req, res, body){
        if(!(req.session.user)){
            req.flash('message', 'Error: Not logged in, please login and try again.');

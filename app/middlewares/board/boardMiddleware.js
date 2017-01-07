@@ -161,11 +161,17 @@ module.exports = {
                        update = { $inc : {
                          threads.postID : totalCount + 1,
                          threads.title : body.subjectThread,
-                         postTime: Date.now(),
-                         posterID: body.author, //if its not anon its his name if it is it is blank or null or trip
-                         //posterNumber: store a unique cookie session id with a unique identify 
+                         threads.postTime: Date.now(),
+                         threads.posterID: body.author, //if its not anon its his name if it is it is blank or null or trip
+                         //threads.posterNumber: store a unique cookie session id with a unique identify
+                         threads.boardName: body.boardName,
+                         //threads.posterCountry get user country
+                         threads.totalPosts: 0,
+                         threads.text: body.text,
+                         threads.img: body.file
                         }
                        };
+
                        options = {};
                        boardModel.findByIdAndUpdate('name', body.boardName, options, function(err){
                          if(err){ return console.error(err);}

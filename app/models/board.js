@@ -21,14 +21,14 @@ var boardSchema = new Schema({
     invisible: Boolean,
     invite: Boolean,
 
-    threads: [{ //threads
+    threads: [{ //threads  http://blog.mlab.com/2013/04/thinking-about-arrays-in-mongodb/
       postID: String,
       title: String,
       postTime: Date,
       posterID: String, //if its not anon its his name if it is it is blank or null or trip
       posterNumber: String, //random number generate from cookie and ip address given, should i even do this why not put it in posterID???
       boardName: String,
-      totalPostID: String,
+      totalPosts: Number,
       posterCountry: String,
       text: String,
       img: { data: Buffer, contentType: String }, //required
