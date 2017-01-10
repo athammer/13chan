@@ -65,7 +65,7 @@ module.exports = function(body, app, res, req){  //need to export for app.js to 
                 }else{
                     console.log('board created');
                     req.flash('message', "Success! Board created.");
-                    var URL = 'https://b.13chan.co/' + body.boardName;
+                    var URL = 'https://b.13chan.co/' + body.boardAbb;
                     res.writeHead(301, { "Location":  URL });
                     res.end();
                 return 1;

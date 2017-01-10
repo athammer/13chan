@@ -28,7 +28,7 @@
     <br>
     <br>
     <% if(typeof boardName != 'undefined' && boardName != null){ %>
-        <h1 class="center-text"> </h1>
+        <h1 class="center-text"> <%= boardName %> </h1>
         <h2 class="center-text"> <%= abbreviation %> </h2>
     <% }else{ %>
         <h1 class="center-text"> dork </h1>
@@ -65,7 +65,7 @@
             "<% if(typeof userName != 'undefined' && userName != null){ %>
                 <%= userName %>
             <% } %>"
-        <button type="Submit" id="Submit">Submit</button>
+        <button type="button" id="Submit">Submit</button>
     </form>
 
 

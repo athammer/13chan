@@ -11,10 +11,11 @@ var readChunk = require('read-chunk');
 var fileType = require('file-type');
 
 module.exports = {
-  /*
 
 
-   */
+  flashBoardObject: function(req, res, next){
+
+  }
   boardNameCheck: function(req, res, boardName){
       boardModel.findOne({ 'abbreviation': boardName }, 'name abbreviation nsfw slogan',  function (err, queredBoard) {
           if (err || queredBoard == null){
