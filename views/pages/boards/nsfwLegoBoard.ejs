@@ -22,7 +22,12 @@
   </style>
   <script>
   function showCreateThread() {
-    document.getElementById('createThread').style.display = "block";
+    if(document.getElementById('createThread').style.cssText == "display: none;"){
+      document.getElementById('createThread').style.display = "block";
+    }else{
+      document.getElementById('createThread').style.display = "none";
+    }
+
   }
   </script>
 </head>
@@ -49,7 +54,7 @@
       nsfw
       <hr class="belowName">
       <button class="center-text textButton" onclick="showCreateThread()"><h2 class="center-text">Create Thread</h2></button>
-      <div id="createThread" style="display:none;">
+      <div id="createThread" style="display: none">
         <form class="center-text" method="post">
           <br>
           <h4><p>Options: doesn't do shit right now</p></h4>
