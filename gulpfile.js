@@ -18,10 +18,10 @@ gulp.task('sass:watch', function () {
 });
 
 
-gulp.task('doc', function (cb) {
+gulp.task('doc', function (cb) {  //java docs do not need
     gulp.src(['README.md', './src/**/*.js'], {read: false})
         .pipe(jsdoc(cb));
 });
 
 
-gulp.task('default', ['sass', 'sass:watch', 'doc']);
+gulp.task('default', ['sass', 'sass:watch']);

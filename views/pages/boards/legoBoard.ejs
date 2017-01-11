@@ -2,76 +2,83 @@
 <html lang="en-US">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <% include ../../partials/scripts %>
-    <% include ../../partials/style %>
-    <% if(typeof boardName != 'undefined' && boardName != null){ %>
-        <title>13chan | <%= boardName %> </title>
-    <% }else{ %>
-        <title>13chan | Defualt Forum Title</title>
-    <% } %>
-    <style>
-        /* doesntwork */
-        /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#9e3c3c+0,7a4040+27,7c6363+100 */
-        background: #9e3c3c; /* Old browsers */
-        background: -moz-linear-gradient(top,  #9e3c3c 0%, #7a4040 27%, #7c6363 100%); /* FF3.6-15 */
-        background: -webkit-linear-gradient(top,  #9e3c3c 0%,#7a4040 27%,#7c6363 100%); /* Chrome10-25,Safari5.1-6 */
-        background: linear-gradient(to bottom,  #9e3c3c 0%,#7a4040 27%,#7c6363 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#9e3c3c', endColorstr='#7c6363',GradientType=0 ); /* IE6-9 */
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <% include ../../partials/scripts %>
+  <% include ../../partials/style %>
+  <% if(typeof boardName != 'undefined' && boardName != null){ %>
+    <title>13chan | <%= boardName %> </title>
+  <% }else{ %>
+      <title>13chan | Defualt Forum Title</title>
+  <% } %>
+  <style>
+  /* doesntwork */
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#9e3c3c+0,7a4040+27,7c6363+100 */
+  background: #9e3c3c; /* Old browsers */
+  background: -moz-linear-gradient(top,  #9e3c3c 0%, #7a4040 27%, #7c6363 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top,  #9e3c3c 0%,#7a4040 27%,#7c6363 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom,  #9e3c3c 0%,#7a4040 27%,#7c6363 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#9e3c3c', endColorstr='#7c6363',GradientType=0 ); /* IE6-9 */
+  </style>
+  <script>
+  function showCreateThread() {
+    document.getElementById('createThread').style.display = "block";
+  }
+  </script>
 </head>
 
 <body id="main">
 
-    <% include ../../partials/header %>
-    <br>
-    <br>
-    <% if(typeof boardName != 'undefined' && boardName != null){ %>
-        <h1 class="center-text"> <%= boardName %> </h1>
-        <h2 class="center-text"> <%= abbreviation %> </h2>
+  <% include ../../partials/header %>
+  <br>
+  <br>
+  <% if(typeof boardName != 'undefined' && boardName != null){ %>
+    <h1 class="center-text"> <%= boardName %> </h1>
+    <h2 class="center-text"> <%= abbreviation %> </h2>
     <% }else{ %>
-        <h1 class="center-text"> dork </h1>
-        <h2 class="center-text"> something went wrong :( </h2>
-    <% } %>
-    Create Post | Sort by
-    <select>
+      <h1 class="center-text"> dork </h1>
+      <h2 class="center-text"> something went wrong :( </h2>
+      <% } %>
+      Create Post | Sort by
+      <select>
         <option value="Bumped">Bumped</option>
         <option value="Date">Date</option>
         <option value="Posts">Posts</option>
         <option value="Activity">Activity</option>
-    </select>
-    nsfw
-    <hr class="belowName">
-    <form class="center-text" method="post">
-        <h2>Create thread</h2>
-        <br>
-        <h4><p>Options: doesn't do shit right now</p></h4>
-        <input type="text" name="option" placeholder="costum options(no worky)">
-        <h4><p>Name: (if boards are anon use flash to remove name.)</p></h4>
-        <input type="text" name="name" placeholder="if board is anon, not used.">
-        <br>
-        <h4><p>Subject: </p></h4>
-        <input type="text" name="subjectThread" placeholder="Subject of Post">
-        <br>
-        <h4><p>Image file</p></h4>
-        <input type="file" name="file" size="chars">
-        <br>
-        <h4><p>Text</p></h4>
-        <input type="text" name="text" placeholder="Comment on post">
-        <br>
-        <input type="hidden" name="boardName" value="<%= boardName %>" />
-        <input type="hidden" name="author" value=
-            "<% if(typeof userName != 'undefined' && userName != null){ %>
-                <%= userName %>
-            <% } %>"
-        <button type="button" id="Submit">Submit</button>
-    </form>
+      </select>
+      nsfw
+      <hr class="belowName">
+      <button class="center-text textButton" onclick="showCreateThread()"><h2 class="center-text">Create Thread</h2></button>
+      <div id="createThread" style="display:none;">
+        <form class="center-text" method="post">
+          <br>
+          <h4><p>Options: doesn't do shit right now</p></h4>
+          <input type="text" name="option" placeholder="costum options(no worky)">
+          <h4><p>Name: (if boards are anon use flash to remove name.)</p></h4>
+          <input type="text" name="name" placeholder="if board is anon, not used.">
+          <br>
+          <h4><p>Subject: </p></h4>
+          <input type="text" name="subjectThread" placeholder="Subject of Post">
+          <br>
+          <h4><p>Image file</p></h4>
+          <input type="file" name="file" size="chars">
+          <br>
+          <h4><p>Text</p></h4>
+          <input type="text" name="text" placeholder="Comment on post">
+          <br>
+          <input type="hidden" name="boardName" value="<%= boardName %>" />
+          <input type="hidden" name="author" value=
+          <% if(typeof userName != 'undefined' && userName != null){ %>
+            <%= userName %>
+            <% } %>
+            <button type="button" id="Submit">Submit</button>
+          </form>
+        </div>
 
 
 
-    <% include ../../partials/footer %>
+        <% include ../../partials/footer %>
 
-</body>
+      </body>
 
-</html>
+      </html>

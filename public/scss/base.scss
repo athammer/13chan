@@ -1,7 +1,7 @@
 html {
   height: 100%;
 }
-body { 
+body {
   @extend html; //cool sass
   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#aaaaaa+0,cecece+26,e5e5e5+100 */
   background: rgb(170,170,170); /* Old browsers */
@@ -14,8 +14,8 @@ body {
   background-repeat: no-repeat;
   background-attachment: fixed;
   font-family: Arial, Helvetica, sans-serif;
-}          
-#title, #subtitle { 
+}
+#title, #subtitle {
   text-align: center;
   padding: 0;
   width: 35;
@@ -48,7 +48,7 @@ h2 {
   height:auto;
   min-height:20px;
   height:auto !important;        /* for IE as it does not support min-height */
-  height:20px; 
+  height:20px;
   box-shadow: 0px 6px 5px grey;
   z-index: 2;
 }
@@ -118,7 +118,7 @@ a:hover{
   display:inline
 }
 @import url('//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css');
- 
+
 .info_message, .success_message, .warning_message, .error_message {
   padding: 12px;
 }
@@ -177,4 +177,10 @@ hr.belowName {
    padding-right: 12px;
    padding-bottom: 10px;
    padding-top: 10px;
+}
+.textButton {
+    background:none;
+    border:none;
+    margin:0;
+    padding:0;
 }
