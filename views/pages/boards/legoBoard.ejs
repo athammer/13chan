@@ -75,8 +75,11 @@
           <input type="hidden" name="author" value=
           <% if(typeof userName != 'undefined' && userName != null){ %>
             <%= userName %>
-            <% } %>
-            <button type="button" id="Submit">Submit</button>
+          <% }else{ %>
+            "null"
+          <% } %>
+          >
+          <button type="button" id="Submit">Submit</button>
           </form>
         </div>
 
