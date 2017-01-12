@@ -23,6 +23,7 @@ module.exports = function(router){ //need to export for app.js to find it
     router.get('/:board', function(req, res) {
         var board = req.params.board;
         middleware.boardNameCheck(req, res, board);
+        middleware.flashBoardObject(req, res, board);
     });
     router.post('/:board', jsonParser, function(req, res) {
         //could they post from a non created board???
@@ -39,6 +40,7 @@ module.exports = function(router){ //need to export for app.js to find it
     router.get('/:board/:thread', function(req, res) {
         var board = req.params.board;
         middleware.boardNameCheck(req, res, board);
+        middleware.flashThreadObject(req, res, board);
     });
     router.post('/:board/:thread', jsonParser, function(req, res) {
         //could they post from a non created board???
