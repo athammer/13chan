@@ -14,12 +14,6 @@ module.exports = function(router){ //need to export for app.js to find it
         res.render('./pages/boards/mainB.ejs', { flashObject: req.flash('message'), userName: req.flash('user') });
     });
 
-
-    router.get('/test', function(req, res) {
-        res.send('Welcome to test');
-    });
-
-
     router.get('/:board', function(req, res) {
         var board = req.params.board;
         middleware.boardNameCheck(req, res, board);
