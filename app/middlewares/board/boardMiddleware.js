@@ -13,9 +13,16 @@ var fileType = require('file-type');
 module.exports = {
 
 
-  flashBoardObject: function(req, res, next){
+  flashBoardObject: function(req, res, board){
+    boardModel.findOne({ 'name': board }, 'threads',  function (err, queredBoard) {
 
-  }
+    });
+  },
+  flashThreadObject: function(req, res, board, thread){
+    boardModel.findOne({ 'name': board }, 'threads',  function (err, queredBoard) {
+
+    });
+  },
   boardNameCheck: function(req, res, boardName){
       boardModel.findOne({ 'abbreviation': boardName }, 'name abbreviation nsfw slogan',  function (err, queredBoard) {
           if (err || queredBoard == null){
